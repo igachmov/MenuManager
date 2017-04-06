@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MenuManager</string>
+    <string name="choose_button">Choose Fridge</string>
+    <string name="magic_button">Magic Button</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

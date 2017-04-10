@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">MenuManager</string>
-    <string name="choose_button">Choose Fridge</string>
-    <string name="magic_button">Magic Button</string>
+    <string name="choose_button">Recipe\nof the day</string>
+    <string name="magic_button">Choose a\nhousehold</string>
+    <string name="in_fridge">Products availability</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="to_fridge">go to fridge</string>
 </resources>

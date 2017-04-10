@@ -1,26 +1,32 @@
 package com.example.ivan.menumanager;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button chooseFridgeButton;
-    private Button magicButton;
+    private TextView chooseFridgeView;
+    private TextView magicView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        chooseFridgeButton = (Button) findViewById(R.id.choose_fridge);
-        chooseFridgeButton.setOnClickListener(new View.OnClickListener() {
+        chooseFridgeView = (TextView) findViewById(R.id.choose_fridge);
+        chooseFridgeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,ViewPageActivity.class);
-                startActivity(i);
+                ChooseHouseholdFragment chooseDialog = new ChooseHouseholdFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                chooseDialog.show(fm, "chooseDialog");
+
             }
         });
 

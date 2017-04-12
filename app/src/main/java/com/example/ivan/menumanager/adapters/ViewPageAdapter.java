@@ -15,22 +15,32 @@ import com.example.ivan.menumanager.fragments.Fragment3;
 
 public class ViewPageAdapter extends FragmentPagerAdapter {
     private Context context;
-    private String fragments[] = {"Fragment1","Fragment2","Fragment3"};
+    private Fragment1 fragment1;
+    private Fragment2 fragment2;
+    private Fragment3 fragment3;
+    private RecycleViewFragment recycleViewFragment;
+    private String fragments[] = {"Fridge","Shopping List","Recipe"};
 
     public ViewPageAdapter(FragmentManager fm,Context context) {
         super(fm);
         this.context = context;
+        fragment1 = new Fragment1();
+        fragment2 = new Fragment2();
+        fragment3 = new Fragment3();
+        recycleViewFragment =  new RecycleViewFragment();
     }
+
+
 
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new Fragment1();
+                return fragment1;
             case 1:
-                return new Fragment2();
+                return fragment2;
             case 2:
-                return new Fragment3();
+                return fragment3;
             default:
                 return null;
         }
@@ -44,5 +54,9 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return fragments[position];
+    }
+
+    public RecycleViewFragment getRecycleViewFragment() {
+        return recycleViewFragment;
     }
 }

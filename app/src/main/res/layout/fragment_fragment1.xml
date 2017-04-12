@@ -3,11 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/fragment_fragment1_id"
     android:background="@color/colorWhite"
     tools:context="com.example.ivan.menumanager.fragments.Fragment1">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <LinearLayout
+        android:id="@+id/product_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,8 +93,6 @@
                 android:layout_height="90dp"
                 android:background="@drawable/beans"
                 android:clickable="true" />
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -97,6 +101,7 @@
             android:layout_gravity="center">
 
             <ImageView
+                android:id="@+id/fridge_image"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:background="@drawable/fridge"
@@ -184,10 +189,20 @@
         android:layout_height="0dp"
         android:layout_weight="0.5">
     </LinearLayout>
+  </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/recycle_listview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_listview"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="match_parent" />
 
-
-
+    </LinearLayout>
 
 
 </LinearLayout>

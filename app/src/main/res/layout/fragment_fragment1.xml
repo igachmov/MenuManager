@@ -1,190 +1,216 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment1_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/categories_background"
     android:orientation="vertical"
-    android:paddingTop="40dp"
-    android:paddingBottom="40dp"
     tools:context="com.example.ivan.menumanager.fragments.Fragment1">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
+        android:id="@+id/category_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.1"
-        android:padding="3dp"
-        android:gravity="center">
-
-        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/dairy_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="1dp"
-            android:src="@drawable/dairy"
-            app:riv_border_color="@color/colorLightBlue"
-            app:riv_border_width="@dimen/riv_border_width"
-            app:riv_corner_radius="15dip"
-            app:riv_mutate_background="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="3dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/categories_background"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingTop="40dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/bread_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:padding="1dp"
-                android:src="@drawable/bread"
-                app:riv_border_color="@color/colorLightBlue"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="15dip"
-                app:riv_mutate_background="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/spice_oil_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:padding="1dp"
-                android:src="@drawable/spice_oil"
-                app:riv_border_color="@color/colorLightBlue"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="15dip"
-                app:riv_mutate_background="true" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:padding="3dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/veggies_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:padding="1dp"
-                android:src="@drawable/veggies"
-                app:riv_border_color="@color/colorLightBlue"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="15dip"
-                app:riv_mutate_background="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-        android:gravity="center"
-            android:layout_weight="2">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/fridge_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:padding="1dp"
-                android:src="@drawable/fridge"
-                app:riv_border_color="@color/colorLightBlue"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="50dip"
-                app:riv_mutate_background="true"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/sauce_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:padding="1dp"
-                android:src="@drawable/sauce"
-                app:riv_border_color="@color/colorLightBlue"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="15dip"
-                app:riv_mutate_background="true" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="3dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/fruits_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:padding="1dp"
-                android:src="@drawable/fruits"
-                app:riv_border_color="@color/colorLightBlue"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="15dip"
-                app:riv_mutate_background="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.1"
+            android:gravity="center"
+            android:padding="3dp">
 
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/meat_image"
+                android:id="@+id/dairy_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:padding="1dp"
-                android:src="@drawable/meat"
+                android:src="@drawable/dairy"
+                app:riv_border_color="@color/colorLightBlue"
+                app:riv_border_width="@dimen/riv_border_width"
+                app:riv_corner_radius="15dip"
+                app:riv_mutate_background="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="3dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/bread_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="1dp"
+                    android:src="@drawable/bread"
+                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/spice_oil_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="1dp"
+                    android:src="@drawable/spice_oil"
+                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:padding="3dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/veggies_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:padding="1dp"
+                    android:src="@drawable/veggies"
+                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/fridge_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:padding="1dp"
+                    android:src="@drawable/fridge"
+                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="50dip"
+                    app:riv_mutate_background="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/sauce_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="1dp"
+                    android:src="@drawable/sauce"
+                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="3dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/fruits_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="1dp"
+                    android:src="@drawable/fruits"
+                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/meat_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="1dp"
+                    android:src="@drawable/meat"
+                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.1"
+            android:gravity="center"
+            android:padding="3dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/beans_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="1dp"
+                android:src="@drawable/beans"
                 app:riv_border_color="@color/colorLightBlue"
                 app:riv_border_width="@dimen/riv_border_width"
                 app:riv_corner_radius="15dip"
@@ -192,24 +218,19 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.1"
-        android:padding="3dp"
-        android:gravity="center">
 
-        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/beans_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="1dp"
-            android:src="@drawable/beans"
-            app:riv_border_color="@color/colorLightBlue"
-            app:riv_border_width="@dimen/riv_border_width"
-            app:riv_corner_radius="15dip"
-            app:riv_mutate_background="true" />
+    <LinearLayout
+        android:id="@+id/recycler_listview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
     </LinearLayout>
 
 </LinearLayout>

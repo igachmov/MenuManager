@@ -5,7 +5,7 @@ package com.example.ivan.menumanager.model;
  */
 
 public class Product {
-    private enum Measure{KG,GRAM,LITЕR,MILLILITER,PIECES};
+    public enum Measure{KG,GRAM,LITЕR,MILLILITER,PIECES};
 
 
     private String name;

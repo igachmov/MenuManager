@@ -31,6 +31,7 @@ public class ChooseHouseholdFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View dialog = inflater.inflate(R.layout.fragment_choose_household, container, false);
+
         TextView text = (TextView) dialog.findViewById(R.id.dialog_text);
         text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +41,6 @@ public class ChooseHouseholdFragment extends DialogFragment {
                 context.startActivity(intent);
             }
         });
-
         return dialog;
     }
 

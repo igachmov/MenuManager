@@ -5,6 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBeige">#937a64</color>
+    <color name="colorBeige2">#e7e0d0</color>
     <color name="colorBordo">#662526</color>
+    <color name="colorBordoDarker">#410103</color>
+    <color name="colorLightBlue">#d9dde1</color>
 
 </resources>

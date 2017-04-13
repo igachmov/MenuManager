@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">MenuManager</string>
-    <string name="choose_button">Recipe\nof the day</string>
+    <string name="app_name">Menu Manager</string>
+    <string name="choose_button">Get your\nrecipe</string>
     <string name="magic_button">Choose a\nhousehold</string>
-    <string name="in_fridge">Products availability</string>
+    <string name="in_fridge">Check\nall here</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="to_fridge">go to fridge</string>

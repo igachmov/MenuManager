@@ -5,51 +5,55 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/main_activity_background"
+    android:background="@drawable/main_background"
     tools:context="com.example.ivan.menumanager.MainActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.1">
+        android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/choose_fridge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingLeft="20dp"
-        android:paddingBottom="60dp"
-        android:lines="2"
-        android:text="@string/choose_button"
-        android:textSize="25sp"
-        android:textColor="@color/colorWhite"
-        android:textStyle="italic|bold"
-        android:clickable="true"
-        />
+        <TextView
+            android:id="@+id/choose_fridge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="150dp"
+
+            android:lines="2"
+            android:text="@string/choose_button"
+            android:textSize="30sp"
+            android:textColor="@color/colorBordo"
+            android:textStyle="italic"
+            android:clickable="true" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9">
+        android:layout_weight="1"
+        android:paddingTop="30dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/magic_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:clickable="true"
             android:gravity="right"
-            android:paddingRight="20dp"
-            android:paddingTop="30dp"
             android:lines="2"
+            android:paddingLeft="40dp"
+            android:paddingTop="100dp"
             android:text="@string/magic_button"
-            android:textSize="25sp"
-            android:textColor="@color/colorBeige"
-            android:textStyle="italic|bold"
-            android:clickable="true"/>
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="italic" />
 
     </LinearLayout>
+
 
 </LinearLayout>

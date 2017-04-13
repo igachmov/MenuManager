@@ -18,7 +18,6 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     private Fragment1 fragment1;
     private Fragment2 fragment2;
     private Fragment3 fragment3;
-    private RecycleViewFragment recycleViewFragment;
     private String fragments[] = {"Fridge","Shopping List","Recipe"};
 
     public ViewPageAdapter(FragmentManager fm,Context context) {
@@ -27,7 +26,6 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
-        recycleViewFragment =  new RecycleViewFragment();
     }
 
 
@@ -56,7 +54,4 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
         return fragments[position];
     }
 
-    public RecycleViewFragment getRecycleViewFragment() {
-        return recycleViewFragment;
-    }
 }

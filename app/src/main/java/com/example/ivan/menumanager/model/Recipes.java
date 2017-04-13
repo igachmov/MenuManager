@@ -12,10 +12,25 @@ public class Recipes {
     private String picURL;
     private ArrayList<Product> necessaryProduct;
 
-    public Recipes(String name, String description, String picURL, ArrayList<Product> necessaryProduct) {
+    public Recipes(String name, String description, String picURL) {
         this.name = name;
         this.description = description;
         this.picURL = picURL;
-        this.necessaryProduct = necessaryProduct;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPicURL() {
+        return picURL;
+    }
+
+    public ArrayList<Product> getNecessaryProduct() {
+        return necessaryProduct;
     }
 }

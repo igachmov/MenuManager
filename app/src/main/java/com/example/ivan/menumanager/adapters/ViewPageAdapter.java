@@ -26,6 +26,7 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
         this.context = context;
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
+
         fragment3 = new Fragment3();
     }
 

@@ -1,21 +1,24 @@
 package com.example.ivan.menumanager.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Ivan on 4/4/2017.
  */
 
-public class Recipes {
+public class Recipe {
     private String name;
     private String description;
     private String picURL;
-    private ArrayList<Product> necessaryProduct;
+    private ArrayList<Product> ingridients;
 
-    public Recipes(String name, String description, String picURL) {
+    public Recipe(String name, String description, String picURL) {
         this.name = name;
         this.description = description;
         this.picURL = picURL;
+        this.ingridients = new ArrayList<>();
     }
 
     public String getName() {
@@ -30,7 +33,7 @@ public class Recipes {
         return picURL;
     }
 
-    public ArrayList<Product> getNecessaryProduct() {
-        return necessaryProduct;
+    public List<Product> getIngridients() {
+        return Collections.unmodifiableList(this.ingridients);
     }
 }

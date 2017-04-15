@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ivan.menumanager.fragments.Fragment1">
+    tools:context="com.example.ivan.menumanager.fragments.ProductsFragment">
 
     <LinearLayout
         android:id="@+id/category_layout"
@@ -220,13 +220,13 @@
 
 
     <LinearLayout
-        android:id="@+id/recycler_listview_layout"
+        android:id="@+id/household_products_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle_listview"
+            android:id="@+id/household_products_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible" />

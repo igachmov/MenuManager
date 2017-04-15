@@ -12,7 +12,7 @@ import com.example.ivan.menumanager.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment2 extends Fragment {
+public class ShoppingFragment extends Fragment {
 
 
     @Override

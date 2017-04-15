@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.model.Recipes;
+import com.example.ivan.menumanager.model.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +34,7 @@ import java.util.Scanner;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment3 extends Fragment {
+public class RecipesFragment extends Fragment {
 
     private Button searchButton;
     private TextView recipeName;
@@ -56,22 +56,78 @@ public class Fragment3 extends Fragment {
             @Override
             public void onClick(View v) {
                 EditText searchName = (EditText) root.findViewById(R.id.search_recipe);
-                String name =searchName.getText().toString();
+                String name = searchName.getText().toString();
                 new DownloadRecipeTask().execute(name);
-                Toast.makeText(getActivity(),name , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
             }
         });
         return root;
     }
 
 
-    class DownloadRecipeTask extends AsyncTask<String, Void, Recipes>{
+    class DownloadRecipeTask extends AsyncTask<String, Void, Recipe> {
 
-        private class DownloadImageTask extends AsyncTask<String, Void, Bitmap>{
+        JSONObject json = null;
+        JSONArray jsonArr = null;
+        Recipe recipe = null;
+
+        @Override
+        protected Recipe doInBackground(String... params) {
+
+            String recipeTitle = params[0];
+
+            try {
+
+                Log.e("Ivan", "connection");
+                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=" + recipeTitle);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");
+                con.setRequestProperty("Accept", "application/json");
+                Scanner sc = new Scanner(con.getInputStream());
+                StringBuilder jsonResponse = new StringBuilder();
+                while (sc.hasNextLine()) {
+                    jsonResponse.append(sc.nextLine());
+                }
+                json = new JSONObject(jsonResponse.toString());
+                jsonArr = json.getJSONArray("results");
+                JSONObject jsonObj = jsonArr.getJSONObject(0);
+                String name = jsonObj.getString("title");
+
+
+                String description = jsonObj.getString("readyInMinutes");
+                String image = jsonObj.getString("image");
+                String imageURL = ("https://spoonacular.com/recipeImages/" + image);
+                recipe = new Recipe(name, description, imageURL);
+                Log.e("ivan", imageURL);
+
+            } catch (MalformedURLException e) {
+                Log.e("Ivan", "Malformed");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                Log.e("Ivan", "ProtocolException");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return recipe;
+        }
+
+        @Override
+        protected void onPostExecute(Recipe recipe) {
+            if (recipe != null) {
+                recipeName.setText(recipe.getName());
+                recipeDescription.setText(recipe.getDescription());
+                new DownloadImageTask().execute(recipe.getPicURL());
+            }
+        }
+
+        private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
             @Override
             protected Bitmap doInBackground(String... params) {
-                String urldisplay = params [0];
+                String urldisplay = params[0];
                 Bitmap mIcon11 = null;
                 InputStream in = null;
                 try {
@@ -80,9 +136,7 @@ public class Fragment3 extends Fragment {
                     e.printStackTrace();
                 }
                 mIcon11 = BitmapFactory.decodeStream(in);
-                return  mIcon11;
-
-
+                return mIcon11;
 
 
             }
@@ -90,67 +144,6 @@ public class Fragment3 extends Fragment {
             @Override
             protected void onPostExecute(Bitmap bitmap) {
                 imageView.setImageBitmap(bitmap);
-            }
-        }
-
-
-
-
-        JSONObject obj = null ;
-        JSONArray arj = null;
-        Recipes recipe = null;
-
-        @Override
-        protected Recipes doInBackground(String... params) {
-
-            String recipeTitle = params[0];
-
-            try {
-
-                Log.e("Ivan","connection");
-                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query="+recipeTitle);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");
-                con.setRequestProperty("Accept", "application/json");
-                Scanner sc = new Scanner(con.getInputStream());
-                StringBuilder jsonResponse = new StringBuilder();
-                while(sc.hasNextLine()){
-                    jsonResponse.append(sc.nextLine());
-                }
-                obj = new JSONObject(jsonResponse.toString());
-                arj = obj.getJSONArray("results");
-                JSONObject objArj = arj.getJSONObject(0);
-                    String name = objArj.getString("title");
-
-
-               String description = objArj.getString("readyInMinutes");
-               String image = objArj.getString("image");
-                String imageURL = ("https://spoonacular.com/recipeImages/"+image);
-                recipe = new Recipes(name,description,imageURL);
-                Log.e("ivan",imageURL);
-
-            } catch (MalformedURLException e) {
-                Log.e("Ivan","Malformed");;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                Log.e("Ivan","ProtocolException");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            return recipe;
-        }
-
-
-        @Override
-        protected void onPostExecute(Recipes recipes) {
-            if(recipe !=null) {
-                recipeName.setText(recipes.getName());
-                recipeDescription.setText(recipes.getDescription());
-                new DownloadImageTask().execute(recipe.getPicURL());
             }
         }
     }

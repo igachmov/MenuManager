@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.ivan.menumanager.fragments.Fragment1;
-import com.example.ivan.menumanager.fragments.Fragment2;
-import com.example.ivan.menumanager.fragments.Fragment3;
+import com.example.ivan.menumanager.fragments.ProductsFragment;
+import com.example.ivan.menumanager.fragments.ShoppingFragment;
+import com.example.ivan.menumanager.fragments.RecipesFragment;
 
 /**
  * Created by Ivan on 4/6/2017.
@@ -15,19 +15,19 @@ import com.example.ivan.menumanager.fragments.Fragment3;
 
 public class ViewPageAdapter extends FragmentPagerAdapter {
     private Context context;
-    private Fragment1 fragment1;
-    private Fragment2 fragment2;
-    private Fragment3 fragment3;
+    private ProductsFragment fragment1;
+    private ShoppingFragment fragment2;
+    private RecipesFragment fragment3;
 
-    private String fragments[] = {"Products","Shopping","Recipes"};
+    private String fragments[] = {"Products","Shopping","Recipe"};
 
     public ViewPageAdapter(FragmentManager fm,Context context) {
         super(fm);
         this.context = context;
-        fragment1 = new Fragment1();
-        fragment2 = new Fragment2();
+        fragment1 = new ProductsFragment();
+        fragment2 = new ShoppingFragment();
 
-        fragment3 = new Fragment3();
+        fragment3 = new RecipesFragment();
     }
 
 

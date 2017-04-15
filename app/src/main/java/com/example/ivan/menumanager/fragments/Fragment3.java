@@ -81,10 +81,6 @@ public class Fragment3 extends Fragment {
                 }
                 mIcon11 = BitmapFactory.decodeStream(in);
                 return  mIcon11;
-
-
-
-
             }
 
             @Override
@@ -97,6 +93,7 @@ public class Fragment3 extends Fragment {
 
 
         JSONObject obj = null ;
+        JSONObject obj2 = null ;
         JSONArray arj = null;
         Recipes recipe = null;
 
@@ -118,17 +115,31 @@ public class Fragment3 extends Fragment {
                 while(sc.hasNextLine()){
                     jsonResponse.append(sc.nextLine());
                 }
-                obj = new JSONObject(jsonResponse.toString());
-                arj = obj.getJSONArray("results");
-                JSONObject objArj = arj.getJSONObject(0);
-                    String name = objArj.getString("title");
+               obj = new JSONObject(jsonResponse.toString());
+               arj = obj.getJSONArray("results");
+               JSONObject objArj = arj.getJSONObject(0);
+               String name = objArj.getString("title");
 
 
-               String description = objArj.getString("readyInMinutes");
+               String description = objArj.getString("id");
+
+              /*  URL url2 = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+id+"/information?includeNutrition=false");
+                HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
+                con2.setRequestMethod("GET");
+                con2.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");
+                con2.setRequestProperty("Accept", "application/json");
+                Scanner sc1 = new Scanner(con2.getInputStream());
+                StringBuilder jsonResponse2 = new StringBuilder();
+                while(sc1.hasNextLine()){
+                    jsonResponse.append(sc1.nextLine());
+                }
+                obj2 = new JSONObject(jsonResponse2.toString());
+                String description = obj2.getString("instructions");
+            */
                String image = objArj.getString("image");
-                String imageURL = ("https://spoonacular.com/recipeImages/"+image);
-                recipe = new Recipes(name,description,imageURL);
-                Log.e("ivan",imageURL);
+               String imageURL = ("https://spoonacular.com/recipeImages/"+image);
+               recipe = new Recipes(name,description,imageURL);
+               Log.e("ivan",imageURL);
 
             } catch (MalformedURLException e) {
                 Log.e("Ivan","Malformed");;
@@ -139,11 +150,8 @@ public class Fragment3 extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             return recipe;
         }
-
 
         @Override
         protected void onPostExecute(Recipes recipes) {

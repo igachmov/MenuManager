@@ -48,7 +48,7 @@
             android:text="15"
             android:gravity="center"/>
         <TextView
-            android:id="@+id/amount_tv"
+            android:id="@+id/measure_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -10,12 +10,12 @@ public class Product {
 
     private String name;
     private int pic;
-    private int quantity;
+    private double quantity;
     private String date;
     private Measure measure;
 
 
-    public Product(String name, int pic, int quantity, String date, Measure measure) {
+    public Product(String name, int pic, double quantity, String date, Measure measure) {
         this.name = name;
         this.pic = pic;
         this.quantity = quantity;
@@ -32,9 +32,11 @@ public class Product {
         return pic;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
+
+    public void setQuantity(double quantity){ this.quantity += quantity; }
 
     public String getDate() {
         return date;
@@ -43,4 +45,6 @@ public class Product {
     public Measure getMeasure() {
         return measure;
     }
+
+
 }

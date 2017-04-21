@@ -18,31 +18,31 @@ import java.util.List;
  * Created by Ivan on 4/12/2017.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewViewHolder>{
+public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecyclerAdapter.NewViewHolder>{
 
     private List<Product> products;
     private Context context;
 
-    public RecyclerAdapter( Context context,List<Product> products) {
+    public ProductsRecyclerAdapter(Context context, List<Product> products) {
         this.products = products;
         this.context = context;
     }
 
     @Override
-    public RecyclerAdapter.NewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductsRecyclerAdapter.NewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = LayoutInflater.from(context);
-        View row = li.inflate(R.layout.activity_product, parent,false);
+        View row = li.inflate(R.layout.layout_products, parent,false);
         NewViewHolder vh = new NewViewHolder(row);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAdapter.NewViewHolder holder, int position) {
+    public void onBindViewHolder(ProductsRecyclerAdapter.NewViewHolder holder, int position) {
         Product product = products.get(position);
         holder.productName.setText(product.getName());
         holder.productDate.setText(product.getDate());
         holder.productImage.setImageResource(product.getPic());
-        holder.productAmount.setText(product.getMeasure().toString());
+        holder.productMeasure.setText(product.getMeasure().toString());
         holder.productQuantity.setText(product.getQuantity()+"");
     }
 
@@ -57,7 +57,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewVie
         TextView productName;
         TextView productDate;
         TextView productQuantity;
-        TextView productAmount;
+        TextView productMeasure;
         Button removeButton;
 
         public NewViewHolder(View row) {
@@ -66,7 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.NewVie
             productName = (TextView) row.findViewById(R.id.product_name_tv);
             productDate = (TextView) row.findViewById(R.id.date_tv);
             productQuantity = (TextView) row.findViewById(R.id.qunatity_tv);
-            productAmount = (TextView) row.findViewById(R.id.amount_tv);
+            productMeasure = (TextView) row.findViewById(R.id.measure_tv);
             removeButton = (Button) row.findViewById(R.id.remove_button);
         }
 

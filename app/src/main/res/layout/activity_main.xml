@@ -20,14 +20,13 @@
             android:id="@+id/choose_fridge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="150dp"
-
+            android:clickable="true"
             android:lines="2"
+            android:paddingLeft="120dp"
             android:text="@string/choose_button"
-            android:textSize="30sp"
             android:textColor="@color/colorBordo"
-            android:textStyle="italic"
-            android:clickable="true" />
+            android:textSize="40sp"
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -46,11 +45,11 @@
             android:clickable="true"
             android:gravity="right"
             android:lines="2"
-            android:paddingLeft="40dp"
+            android:paddingLeft="30dp"
             android:paddingTop="100dp"
             android:text="@string/magic_button"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp"
+            android:textSize="35sp"
             android:textStyle="italic" />
 
     </LinearLayout>

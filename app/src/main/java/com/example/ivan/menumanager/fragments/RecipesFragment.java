@@ -1,6 +1,7 @@
 package com.example.ivan.menumanager.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -17,12 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
+import com.example.ivan.menumanager.RecipeActivity;
 import com.example.ivan.menumanager.model.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -40,15 +43,28 @@ public class RecipesFragment extends Fragment {
     private TextView recipeName;
     private TextView recipeDescription;
     private ImageView imageView;
+    private Bitmap imageBitmap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_fragment3, container, false);
+        final View root = inflater.inflate(R.layout.fragment_recipes, container, false);
 
         recipeName = (TextView) root.findViewById(R.id.recipe_name_tv);
         recipeDescription = (TextView) root.findViewById(R.id.descripion_tv);
         imageView = (ImageView) root.findViewById(R.id.recipe_image);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RecipeActivity.class);
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                byte[] byteArray = stream.toByteArray();
+//                intent.putExtra("imageBitmap", byteArray);
+                intent.
+                getActivity().startActivity(intent);
+            }
+        });
 
 
         searchButton = (Button) root.findViewById(R.id.search_button);
@@ -143,7 +159,8 @@ public class RecipesFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
+                imageBitmap = bitmap;
+                imageView.setImageBitmap(imageBitmap);
             }
         }
     }

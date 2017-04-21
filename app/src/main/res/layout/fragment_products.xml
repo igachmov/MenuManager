@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment1_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,10 +10,10 @@
         android:id="@+id/category_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:background="@drawable/categories_background"
-        android:orientation="vertical"
-        android:paddingBottom="40dp"
-        android:paddingTop="40dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,10 +26,8 @@
                 android:id="@+id/dairy_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:padding="1dp"
                 android:src="@drawable/dairy"
-                app:riv_border_color="@color/colorLightBlue"
+                app:riv_border_color="@color/colorWhite"
                 app:riv_border_width="@dimen/riv_border_width"
                 app:riv_corner_radius="15dip"
                 app:riv_mutate_background="true" />
@@ -52,10 +49,8 @@
                     android:id="@+id/bread_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:padding="1dp"
                     android:src="@drawable/bread"
-                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_color="@color/colorWhite"
                     app:riv_border_width="@dimen/riv_border_width"
                     app:riv_corner_radius="15dip"
                     app:riv_mutate_background="true" />
@@ -71,10 +66,8 @@
                     android:id="@+id/spice_oil_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:padding="1dp"
                     android:src="@drawable/spice_oil"
-                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_color="@color/colorWhite"
                     app:riv_border_width="@dimen/riv_border_width"
                     app:riv_corner_radius="15dip"
                     app:riv_mutate_background="true" />
@@ -90,7 +83,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.1"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:padding="2dp">
@@ -99,10 +92,8 @@
                     android:id="@+id/veggies_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:padding="1dp"
                     android:src="@drawable/veggies"
-                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_color="@color/colorWhite"
                     app:riv_border_width="@dimen/riv_border_width"
                     app:riv_corner_radius="15dip"
                     app:riv_mutate_background="true" />
@@ -112,7 +103,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1.8"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -120,10 +111,8 @@
                     android:id="@+id/fridge_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:padding="1dp"
                     android:src="@drawable/fridge"
-                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_color="@color/colorWhite"
                     app:riv_border_width="@dimen/riv_border_width"
                     app:riv_corner_radius="50dip"
                     app:riv_mutate_background="true" />
@@ -133,7 +122,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.1"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:padding="2dp">
@@ -142,10 +131,8 @@
                     android:id="@+id/sauce_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:padding="1dp"
                     android:src="@drawable/sauce"
-                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_color="@color/colorWhite"
                     app:riv_border_width="@dimen/riv_border_width"
                     app:riv_corner_radius="15dip"
                     app:riv_mutate_background="true" />
@@ -168,10 +155,8 @@
                     android:id="@+id/fruits_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:padding="1dp"
                     android:src="@drawable/fruits"
-                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_color="@color/colorWhite"
                     app:riv_border_width="@dimen/riv_border_width"
                     app:riv_corner_radius="15dip"
                     app:riv_mutate_background="true" />
@@ -187,10 +172,8 @@
                     android:id="@+id/meat_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:padding="1dp"
                     android:src="@drawable/meat"
-                    app:riv_border_color="@color/colorLightBlue"
+                    app:riv_border_color="@color/colorWhite"
                     app:riv_border_width="@dimen/riv_border_width"
                     app:riv_corner_radius="15dip"
                     app:riv_mutate_background="true" />
@@ -204,20 +187,18 @@
             android:gravity="center"
             android:padding="3dp">
 
+
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/beans_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:padding="1dp"
                 android:src="@drawable/beans"
-                app:riv_border_color="@color/colorLightBlue"
+                app:riv_border_color="@color/colorWhite"
                 app:riv_border_width="@dimen/riv_border_width"
                 app:riv_corner_radius="15dip"
                 app:riv_mutate_background="true" />
         </LinearLayout>
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/household_products_layout"
@@ -228,8 +209,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/household_products_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

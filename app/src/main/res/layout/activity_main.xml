@@ -8,51 +8,74 @@
     android:background="@drawable/main_background"
     tools:context="com.example.ivan.menumanager.MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingLeft="30dp"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/choose_fridge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:lines="2"
-            android:paddingLeft="120dp"
-            android:text="@string/choose_button"
-            android:textColor="@color/colorBordo"
-            android:textSize="40sp"
-            android:textStyle="italic" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/magic_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/recipe"
+                android:textColor="@color/colorAppleRed"
+                android:textSize="30sp"
+                android:textStyle="italic"
+                android:background="@drawable/round_corner_shape_white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/choose_household"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/households"
+                android:textColor="@color/colorWhite"
+                android:textSize="28sp"
+                android:textStyle="italic"
+                android:background="@drawable/round_corner_shape_applered"/>
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="30dp"
-        android:gravity="center_vertical">
+        android:layout_weight="1.5"></LinearLayout>
 
-        <TextView
-            android:id="@+id/magic_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:gravity="right"
-            android:lines="2"
-            android:paddingLeft="30dp"
-            android:paddingTop="100dp"
-            android:text="@string/magic_button"
-            android:textColor="@color/colorWhite"
-            android:textSize="35sp"
-            android:textStyle="italic" />
 
-    </LinearLayout>
 
 
 </LinearLayout>

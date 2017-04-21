@@ -52,11 +52,11 @@ public class RecipesFragment extends Fragment {
     private RecyclerView recyclerView;
     private EditText searchName;
     private ImageView imageView;
-    protected ArrayList<Recipe> recipeData ;
+    protected ArrayList<Recipe> recipeData;
     private LinearLayout fridgeLayout;
     private Bitmap bitmapImage;
     private int counter = 0;
-    private static int  counter2 = 0;
+    private static int counter2 = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,19 +77,13 @@ public class RecipesFragment extends Fragment {
                 recipeData = new ArrayList<>();
                 String name = searchName.getText().toString();
                 new DownloadRecipeTask().execute(name);
-
-                Log.e("Ivan",Integer.toString(recipeData.size()));
-
-
+                Log.e("Ivan", Integer.toString(recipeData.size()));
                 dismissKeyboard(getActivity());
             }
         });
-
-
-
-
         return root;
     }
+
     public void dismissKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (null != activity.getCurrentFocus())
@@ -98,7 +92,7 @@ public class RecipesFragment extends Fragment {
     }
 
 
-    public class DownloadRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe> >{
+    public class DownloadRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
 
 
         JSONObject json = null;
@@ -127,8 +121,8 @@ public class RecipesFragment extends Fragment {
                 json = new JSONObject(jsonResponse.toString());
                 jsonArr = json.getJSONArray("results");
 
-                if(jsonArr!=null){
-                    for (int i=0;i<jsonArr.length();i++){
+                if (jsonArr != null) {
+                    for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
                         String name = jsonObj.getString("title");
                         String description = jsonObj.getString("readyInMinutes");
@@ -152,21 +146,19 @@ public class RecipesFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Recipe> recipes) {
-            for (int i = 0; i <recipeData.size(); i++) {
+            for (int i = 0; i < recipeData.size(); i++) {
                 String recipeImg = recipeData.get(i).getPicURL();
                 new DownloadImageTask().execute(recipeImg);
-                Log.e("Ivan","Counter in DownloadTask counter  " + counter +"");
+                Log.e("Ivan", "Counter in DownloadTask counter  " + counter + "");
                 counter++;
             }
-
-
-
         }
     }
+
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... params) {
-            Log.e("Ivan","Counter in DownloadTask " + counter2+"");
+            Log.e("Ivan", "Counter in DownloadTask " + counter2 + "");
             String urldisplay = params[0];
             Bitmap mIcon11 = null;
             InputStream in = null;
@@ -177,16 +169,18 @@ public class RecipesFragment extends Fragment {
             }
             mIcon11 = BitmapFactory.decodeStream(in);
 
-                recipeData.get(counter2).setPicBitmap(mIcon11);
+            recipeData.get(counter2).setPicBitmap(mIcon11);
             return mIcon11;
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             counter2++;
-            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(),recipeData);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            if(counter2==counter) {
+                RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            }
         }
     }
 

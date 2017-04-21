@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/ic_search_black_24dp"/>
+            android:background="@drawable/ic_search_black_24dp" />
 
     </LinearLayout>
 
@@ -32,23 +32,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6">
-
-        <ImageView
-            android:id="@+id/recipe_image"
+        android:layout_weight="6"
+        android:id="@+id/recipe_search_layout">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recipe_search_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <TextView
-            android:id="@+id/recipe_name_tv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <TextView
-            android:id="@+id/descripion_tv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
     </LinearLayout>
 </LinearLayout>

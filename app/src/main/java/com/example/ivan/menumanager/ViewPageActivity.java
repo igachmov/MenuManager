@@ -45,18 +45,15 @@ public class ViewPageActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
                 viewPager.setCurrentItem(tab.getPosition());
             }
         });
@@ -101,6 +98,4 @@ public class ViewPageActivity extends AppCompatActivity {
     }
 
 
-
-    }
 }

@@ -1,5 +1,7 @@
 package com.example.ivan.menumanager.model;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +14,7 @@ public class Recipe {
     private String name;
     private String description;
     private String picURL;
+    private Bitmap picBitmap;
     private ArrayList<Product> ingridients;
 
     public Recipe(String name, String description, String picURL) {
@@ -35,5 +38,13 @@ public class Recipe {
 
     public List<Product> getIngridients() {
         return Collections.unmodifiableList(this.ingridients);
+    }
+
+    public void setPicBitmap(Bitmap picBitmap) {
+        this.picBitmap = picBitmap;
+    }
+
+    public Bitmap getPicBitmap() {
+        return picBitmap;
     }
 }

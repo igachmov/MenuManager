@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
 import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.fragments.RecipeViewFragment;
@@ -79,6 +80,7 @@ public class RecipeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         toolbar.setSubtitle(DBManager.currentHousehold);
 
 
@@ -92,19 +94,19 @@ public class RecipeActivity extends AppCompatActivity {
 
         PRODUCT_KEY_ID = "ID";
         PRODUCT_KEY_NAME = "name";
-        PRODUCT_KEY_BITMAP = "bitmap";
+        PRODUCT_KEY_BITMAP = "position";
         Intent i = getIntent();
         id = (String) i.getSerializableExtra(PRODUCT_KEY_ID);
         name = (String) i.getSerializableExtra(PRODUCT_KEY_NAME);
-        bitmap = i.getParcelableExtra(PRODUCT_KEY_BITMAP);
+        int pos = i.getIntExtra("position",1);
+        bitmap = RecipeSearchAdapter.recipes.get(pos).getPicBitmap();
+
         FragmentManager fm = getSupportFragmentManager();
         if(fm.getFragments() == null || fm.getFragments().isEmpty()) {
             fm.beginTransaction()
                     .add(R.id.activity_recipe, new RecipeViewFragment(id,name,bitmap), "Frag0")
                     .commit();
-
         }
-
 
     }
 

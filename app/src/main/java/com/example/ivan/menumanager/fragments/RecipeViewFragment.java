@@ -1,18 +1,23 @@
 package com.example.ivan.menumanager.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.adapters.IngredientAdapter;
@@ -46,6 +51,8 @@ public class RecipeViewFragment extends Fragment {
     private String name;
     private Bitmap bitmap;
     private String instructions;
+    private Button checkUrlButton;
+    private String sourceUrl;
 
     public RecipeViewFragment() {
 
@@ -65,15 +72,17 @@ public class RecipeViewFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_recipe_view, container, false);
         recipeImage = (ImageView) root.findViewById(R.id.recipe_ingr_image);
         recipeText = (TextView) root.findViewById(R.id.recipe_ingr_text);
+        recipeText.setMovementMethod(new ScrollingMovementMethod());
         recipeName = (TextView) root.findViewById(R.id.recipe_ingr_name);
+        checkUrlButton = (Button) root.findViewById(R.id.url_button);
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_view_recyclerview);
         new DownloadRecipeInstruction().execute(id);
 
+
+
+
         return root;
     }
-
-
-
 
     public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Product>> {
         JSONObject json = null;
@@ -98,6 +107,9 @@ public class RecipeViewFragment extends Fragment {
                 json = new JSONObject(jsonResponse.toString());
                 jsonArr = json.getJSONArray("extendedIngredients");
                 instructions = json.getString("instructions");
+                sourceUrl = json.getString("sourceUrl");
+
+                Log.e("Ivan",sourceUrl);
                 if (jsonArr != null) {
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
@@ -110,6 +122,7 @@ public class RecipeViewFragment extends Fragment {
                         product.setQuantity(Double.parseDouble(dx));
                         product.setUnit(unit);
                         productData.add(product);
+
                     }
                 }
             } catch (MalformedURLException e) {
@@ -126,11 +139,24 @@ public class RecipeViewFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Product> productData) {
-            if(instructions!=null) {
-                recipeText.setText(instructions);
-                recipeName.setText(name);
-                recipeImage.setImageBitmap(bitmap);
+            if(instructions.equals("null") || instructions == null){
+                recipeText.setText("Sorry there is no instructions.\n Would you like to check the link.");
+                checkUrlButton.setVisibility(View.VISIBLE);
+                checkUrlButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse(sourceUrl);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
             }
+            else if(instructions!=null && !instructions.isEmpty()) {
+                recipeText.setText(instructions);
+            }
+
+            recipeName.setText(name);
+            recipeImage.setImageBitmap(bitmap);
             IngredientAdapter adapter = new IngredientAdapter(getActivity(), productData);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

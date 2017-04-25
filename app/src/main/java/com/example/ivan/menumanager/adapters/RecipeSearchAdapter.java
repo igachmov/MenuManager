@@ -31,7 +31,7 @@ import java.util.List;
 
 public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapter.NewViewHolder>{
 
-    private ArrayList<Recipe> recipes;
+    public static ArrayList<Recipe> recipes;
     private Context context;
 
     public RecipeSearchAdapter(Context context,  ArrayList<Recipe> recipes) {
@@ -81,7 +81,8 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
             Intent intent = new Intent(context, RecipeActivity.class);
             intent.putExtra("ID", recipes.get(getLayoutPosition()).getId());
             intent.putExtra("name", recipes.get(getLayoutPosition()).getName());
-            intent.putExtra("bitmap", recipes.get(getLayoutPosition()).getPicBitmap());
+            intent.putExtra("position", getAdapterPosition());
+         //   intent.putExtra("bitmap", recipes.get(getLayoutPosition()).getPicBitmap());
             context.startActivity(intent);
         }
 

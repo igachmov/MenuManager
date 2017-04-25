@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@drawable/round_corner_shape_white"
+    android:background="@color/colorWhite"
     tools:context="com.example.ivan.menumanager.fragments.ChooseHouseholdFragment"
     android:orientation="vertical">
 
@@ -36,7 +36,7 @@
                 android:id="@+id/add_household_edit"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:hint="household name"
                 android:inputType="textCapSentences"
@@ -51,13 +51,13 @@
              >
 
                 <Button
-                    android:id="@+id/ok_button"
+                    android:id="@+id/add_button"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/round_corner_shape_bone"
-                    android:text="@string/ok_button"
+                    android:text="@string/add_button"
                     android:textColor="@color/colorBlue_grey_dark"/>
 
                 <Button
@@ -76,6 +76,7 @@
             android:id="@+id/choose_household_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             ></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 

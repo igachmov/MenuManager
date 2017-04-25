@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     android:background="@drawable/main_background"
@@ -20,17 +21,31 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <TextView
+            <com.andexert.library.RippleView
                 android:id="@+id/magic_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/recipe"
-                android:textColor="@color/colorAppleRed"
-                android:textSize="30sp"
-                android:textStyle="italic"
-                android:background="@drawable/round_corner_shape_white"/>
+                app:rv_type="doubleRipple"
+                rv_centered="true"
+                app:rv_zoom="true"
+                app:rv_rippleDuration="150"
+                app:rv_color="@color/colorBone"
+                app:rv_zoomScale="1.1">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="@string/recipe"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="28sp"
+                    android:textStyle="italic"
+                    android:background="@drawable/round_corner_shape_blue_grey_transparent"/>
+
+            </com.andexert.library.RippleView>
+
 
         </LinearLayout>
 
@@ -54,17 +69,27 @@
                 android:gravity="center">
 
 
+                <com.andexert.library.RippleView
+                    android:id="@+id/choose_household"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:rv_type="doubleRipple"
+                    rv_centered="true"
+                    app:rv_zoom="true"
+                    app:rv_rippleDuration="150"
+                    app:rv_color="@color/colorBlueLight"
+                    app:rv_zoomScale="1.1">
             <TextView
-                android:id="@+id/choose_household"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="3dp"
                 android:text="@string/households"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlueLightDarker"
                 android:textSize="28sp"
                 android:textStyle="italic"
-                android:background="@drawable/round_corner_shape_applered"/>
+                android:background="@drawable/round_corner_shape_white"/>
+                </com.andexert.library.RippleView>
             </LinearLayout>
         </LinearLayout>
 

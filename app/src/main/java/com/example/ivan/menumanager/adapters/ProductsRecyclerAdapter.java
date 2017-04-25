@@ -2,6 +2,7 @@ package com.example.ivan.menumanager.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
+import com.example.ivan.menumanager.model.Category;
+import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
 import java.util.List;
@@ -39,8 +42,14 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
     @Override
     public void onBindViewHolder(ProductsRecyclerAdapter.NewViewHolder holder, int position) {
         Product product = products.get(position);
+        String measure = DBManager.predefinedMeasures.get(product.getMeasureID() - 1);
+        Category category = DBManager.predefinedCategories.get(product.getFoodCategoryID() - 1);
+        int image = category.getImage();
+        holder.productImage.setImageResource(image);
         holder.productName.setText(product.getName());
         holder.productQuantity.setText(product.getQuantity()+"");
+        holder.productMeasure.setText(measure);
+
     }
 
     @Override
@@ -52,7 +61,7 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
     class NewViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName;
-        TextView productDate;
+        TextView productExpiryTerm;
         TextView productQuantity;
         TextView productMeasure;
         Button removeButton;
@@ -61,10 +70,10 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
             super(row);
             productImage = (ImageView) row.findViewById(R.id.product_image);
             productName = (TextView) row.findViewById(R.id.product_name_tv);
-            productDate = (TextView) row.findViewById(R.id.date_tv);
+           // productExpiryTerm = (TextView) row.findViewById(R.id.date_tv);
             productQuantity = (TextView) row.findViewById(R.id.qunatity_tv);
             productMeasure = (TextView) row.findViewById(R.id.measure_tv);
-            removeButton = (Button) row.findViewById(R.id.remove_button);
+           // removeButton = (Button) row.findViewById(R.id.remove_button);
         }
 
 

@@ -10,32 +10,45 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
-
-       <ImageView
-           android:id="@+id/recipe_ingr_image"
-           android:layout_width="match_parent"
-           android:layout_height="0dp"
-           android:layout_weight="1"
-           android:gravity="center"/>
         <TextView
             android:id="@+id/recipe_ingr_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3"
+            android:layout_weight="0.1"
+            android:textSize="25sp"
             android:gravity="center"/>
-        <TextView
-            android:id="@+id/recipe_ingr_text"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:maxLines = "10"
-            android:scrollbars = "vertical"/>
-        <Button
-            android:id="@+id/url_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5">
+                <ImageView
+                    android:id="@+id/recipe_ingr_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/recipe_ingr_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:maxLines = "20"
+                android:scrollbars = "vertical"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/url_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:visibility="gone"
             android:text="OK"/>
@@ -46,7 +59,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_weight="0.5"
         android:id="@+id/recipe_search_layout">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recipe_view_recyclerview"

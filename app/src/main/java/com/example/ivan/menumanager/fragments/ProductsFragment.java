@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.adapters.ProductsRecyclerAdapter;
+import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
 import java.util.ArrayList;
@@ -44,11 +46,23 @@ public class ProductsFragment extends Fragment {
 
         fridge = new ArrayList<>();
 
+        int counter = 0;
+       for(Product product: DBManager.predefinedProducts.values()){
+           counter++;
+           fridge.add(product);
+         // Log.e("Van", String.valueOf(counter));
+       }
 
+
+
+        //inflating recyclerView only if visible
         recyclerView = (RecyclerView) root.findViewById(R.id.household_products_recyclerview);
-        ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(getActivity(), fridge);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(recyclerView.getVisibility() == View.VISIBLE){
+            ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(getActivity(), fridge);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
+
 
         fridgeImage = (ImageView) root.findViewById(R.id.fridge_image);
         fridgeImage.setOnClickListener(new View.OnClickListener() {
@@ -61,10 +75,10 @@ public class ProductsFragment extends Fragment {
         return root;
     }
 
+
     public LinearLayout getProductLayout() {
         return productLayout;
     }
-
     public LinearLayout getFridgeLayout() {
         return fridgeLayout;
     }

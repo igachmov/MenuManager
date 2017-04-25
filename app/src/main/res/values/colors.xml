@@ -10,6 +10,10 @@
     <color name="colorBone">#E8DBC5</color>
 
     <color name="colorBlue_grey">#8D99AE</color>
+    <color name="colorBlue">#8d7cf7</color>
+    <color name="colorBlueLight">#7e9fe6</color>
+    <color name="colorBlueLightDarker">#5b87a4</color>
+
     <color name="colorBlue_grey_dark">#6e788b</color>
 
     <color name="colorAppleRed">#A10702</color>

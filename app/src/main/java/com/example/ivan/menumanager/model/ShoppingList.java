@@ -10,13 +10,14 @@ import java.util.List;
 
 public class ShoppingList {
 
+    private int id;
     private String name;
-    private boolean isConsumed;
+
+    //frequent product adding
     private ArrayList<Product> productsToBuy;
 
     public ShoppingList(String name, ArrayList<Product> productsToBuy){
         this.name = name;
-        this.isConsumed = false;
         this.productsToBuy = productsToBuy;
     }
 
@@ -25,13 +26,39 @@ public class ShoppingList {
         return  this.name;
     }
 
-    public boolean isConsumed() {
-        return isConsumed;
+    public  int getId(){
+        return this.id;
     }
 
-    public void changeStatus(){
-        this.isConsumed = true;
+    public void setId(int id) {
+        this.id = id;
     }
+
+    //update product values regardles some of them have changed
+    public void updateProduct(Product product) {
+        for (int i = 0; i < productsToBuy.size(); i++) {
+            if (productsToBuy.get(i).getName() == product.getName()) {
+                productsToBuy.get(i).setQuantity(product.getQuantity());
+                productsToBuy.get(i).setMeasure(product.getMeasureID());
+                productsToBuy.get(i).setFoodCategory(product.getFoodCategoryID());
+            }
+        }
+    }
+
+
+    public void addProduct(Product product){
+            productsToBuy.add(product);
+    }
+
+
+    public void removeProduct(Product product){
+        for (int i = 0; i < productsToBuy.size(); i++) {
+            if (productsToBuy.get(i).getName() == product.getName()) {
+                productsToBuy.remove(productsToBuy.get(i));
+            }
+        }
+    }
+
 
     public List<Product> getProductsToBuy() {
         return Collections.unmodifiableList(this.productsToBuy);

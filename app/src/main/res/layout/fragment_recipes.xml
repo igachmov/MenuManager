@@ -33,12 +33,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        android:id="@+id/recipe_search_layout">
+        android:id="@+id/recipe_search_layout"
+        android:weightSum="1">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recipe_search_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_weight="0.90" />
 
     </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.ivan.menumanager.fragments;
 
-import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.ivan.menumanager.R;
 
@@ -105,7 +104,7 @@ public class RecipesFragment extends Fragment {
             String recipeTitle = params[0];
             try {
                 Log.e("Ivan", "connection");
-                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=" + recipeTitle.replace(" ", "+").trim());
+                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?number=20&query=" + recipeTitle.replace(" ", "+").trim());
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
                 con.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");

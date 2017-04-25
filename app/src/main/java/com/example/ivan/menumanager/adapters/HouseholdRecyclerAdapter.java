@@ -1,8 +1,12 @@
 package com.example.ivan.menumanager.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +15,10 @@ import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
-import com.example.ivan.menumanager.fragments.ProductsFragment;
-import com.example.ivan.menumanager.model.Household;
+import com.example.ivan.menumanager.model.DBManager;
 
-import static com.example.ivan.menumanager.MainActivity.households;
+import java.util.Date;
+
 
 /**
  * Created by Vanya on 14.4.2017 г..
@@ -38,9 +42,9 @@ public class HouseholdRecyclerAdapter extends RecyclerView.Adapter<HouseholdRecy
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
-        if(households.size() != 0){
-            householdNames = households.keySet().toArray(new String[households.size()]);
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        if(DBManager.households.size() != 0){
+            householdNames = DBManager.households.keySet().toArray(new String[DBManager.households.size()]);
         }
         if(householdNames != null){
             holder.textView.setText(householdNames[position]);
@@ -48,7 +52,7 @@ public class HouseholdRecyclerAdapter extends RecyclerView.Adapter<HouseholdRecy
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, ViewPageActivity.class);
-                    intent.putExtra("Household name", householdNames[position]);
+                    DBManager.currentHousehold = householdNames[position];
                     activity.startActivity(intent);
                     activity.finish();
 
@@ -59,7 +63,7 @@ public class HouseholdRecyclerAdapter extends RecyclerView.Adapter<HouseholdRecy
 
     @Override
     public int getItemCount() {
-        return households.size();
+        return DBManager.households.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{

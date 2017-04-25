@@ -1,14 +1,10 @@
 package com.example.ivan.menumanager;
 
-import android.content.Intent;
-import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +14,7 @@ import android.widget.TextView;
 import com.example.ivan.menumanager.adapters.ViewPageAdapter;
 import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
 import com.example.ivan.menumanager.fragments.ProductsFragment;
+import com.example.ivan.menumanager.model.DBManager;
 
 public class ViewPageActivity extends AppCompatActivity {
 
@@ -29,16 +26,15 @@ public class ViewPageActivity extends AppCompatActivity {
     ViewPageAdapter adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_page);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
-        adapter = new ViewPageAdapter(getSupportFragmentManager(),getApplicationContext());
+        adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
         viewPager.setAdapter(adapter);
-        
+
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -60,25 +56,21 @@ public class ViewPageActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        String householdName = getIntent().getStringExtra("Household name");
-        if(householdName != null && !householdName.isEmpty()){
-            toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
-            toolbarTitle.setText(householdName);
-        }
-
+        toolbar.setSubtitle(DBManager.currentHousehold);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = new MenuInflater(this);
-        menuInflater.inflate(R.menu.menu, menu);
+        menuInflater.inflate(R.menu.menu_viewpager_activity, menu);
         return true;
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_main_course:
                 //TODO
                 return true;
@@ -91,6 +83,9 @@ public class ViewPageActivity extends AppCompatActivity {
                 ProductsFragment productsFragment = (ProductsFragment) adapter.getItem(tabLayout.getSelectedTabPosition());
                 productsFragment.getProductLayout().setVisibility(View.VISIBLE);
                 productsFragment.getFridgeLayout().setVisibility(View.GONE);
+                return true;
+            case R.id.menu_favourite_recipes:
+                //TODO
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

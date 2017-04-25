@@ -16,4 +16,9 @@
         android:title="@string/explore_fridge"
         />
 
+    <item
+        android:id="@+id/menu_favourite_recipes"
+        android:title="@string/favourite_recipes"
+        />
+
 </menu>

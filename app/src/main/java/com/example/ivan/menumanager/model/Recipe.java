@@ -11,17 +11,28 @@ import java.util.List;
  */
 
 public class Recipe {
+    private int id;
     private String name;
     private String description;
     private String picURL;
     private Bitmap picBitmap;
-    private ArrayList<Product> ingridients;
+
+    //frequent product add and get
+    private ArrayList<Product> ingredients;
 
     public Recipe(String name, String description, String picURL) {
         this.name = name;
         this.description = description;
         this.picURL = picURL;
-        this.ingridients = new ArrayList<>();
+        this.ingredients = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -36,10 +47,6 @@ public class Recipe {
         return picURL;
     }
 
-    public List<Product> getIngridients() {
-        return Collections.unmodifiableList(this.ingridients);
-    }
-
     public void setPicBitmap(Bitmap picBitmap) {
         this.picBitmap = picBitmap;
     }
@@ -47,4 +54,14 @@ public class Recipe {
     public Bitmap getPicBitmap() {
         return picBitmap;
     }
+
+    public void addIngredient(Product ingredient){
+        this.ingredients.add(ingredient);
+    }
+
+    public List<Product> getIngredients() {
+        return Collections.unmodifiableList(this.ingredients);
+    }
+
+
 }

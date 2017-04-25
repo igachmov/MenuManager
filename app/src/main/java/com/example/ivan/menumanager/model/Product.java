@@ -5,31 +5,51 @@ package com.example.ivan.menumanager.model;
  */
 
 public class Product {
-    public enum Measure{KG,GRAM,LITЕR,MILLILITER,PIECES};
 
-
+    private int id;
     private String name;
-    private int pic;
+    private int measureID;
+    private int foodCategoryID;
+    private String expiryTerm;
+    private String unit;
+    private int purchaseDateMinutes;
+    boolean expired;
     private double quantity;
-    private String date;
-    private Measure measure;
 
 
-    public Product(String name, int pic, double quantity, String date, Measure measure) {
+    public Product(String name, int measureID, int foodCategoryID) {
         this.name = name;
-        this.pic = pic;
-        this.quantity = quantity;
-        this.date = date;
-        this.measure = measure;
-
+        this.measureID = measureID;
+        this.foodCategoryID = foodCategoryID;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getPic() {
-        return pic;
+
+    public int getId() {
+        return id;
+    }
+
+    public int getMeasureID() {
+        return measureID;
+    }
+
+    public int getFoodCategoryID() {
+        return foodCategoryID;
+    }
+
+    public String getExpiryTerm() {
+        return expiryTerm;
+    }
+
+    public int getPurchaseDateMinutes() {
+        return purchaseDateMinutes;
+    }
+
+    public boolean isExpired() {
+        return expired;
     }
 
     public double getQuantity() {
@@ -38,13 +58,15 @@ public class Product {
 
     public void setQuantity(double quantity){ this.quantity += quantity; }
 
-    public String getDate() {
-        return date;
+    public void setId(int id) {
+        this.id = id;
+    }
+    //for visualize
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public Measure getMeasure() {
-        return measure;
+    public String getUnit() {
+        return unit;
     }
-
-
 }

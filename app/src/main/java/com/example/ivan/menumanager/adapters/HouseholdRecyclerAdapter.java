@@ -1,5 +1,6 @@
 package com.example.ivan.menumanager.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -21,16 +22,16 @@ import static com.example.ivan.menumanager.MainActivity.households;
 
 public class HouseholdRecyclerAdapter extends RecyclerView.Adapter<HouseholdRecyclerAdapter.MyViewHolder> {
 
-    Context context;
-    String[] householdNames;
+    private Activity activity;
+    private String[] householdNames;
 
-    public HouseholdRecyclerAdapter(Context context){
-        this.context = context;
+    public HouseholdRecyclerAdapter(Activity activity){
+        this.activity = activity;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(activity);
         View row = inflater.inflate(R.layout.layout_households, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(row);
         return viewHolder;
@@ -46,9 +47,11 @@ public class HouseholdRecyclerAdapter extends RecyclerView.Adapter<HouseholdRecy
             holder.textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ViewPageActivity.class);
+                    Intent intent = new Intent(activity, ViewPageActivity.class);
                     intent.putExtra("Household name", householdNames[position]);
-                    context.startActivity(intent);
+                    activity.startActivity(intent);
+                    activity.finish();
+
                 }
             });
         }

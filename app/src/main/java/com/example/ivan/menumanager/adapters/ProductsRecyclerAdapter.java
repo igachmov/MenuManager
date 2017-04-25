@@ -40,9 +40,6 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
     public void onBindViewHolder(ProductsRecyclerAdapter.NewViewHolder holder, int position) {
         Product product = products.get(position);
         holder.productName.setText(product.getName());
-        holder.productDate.setText(product.getDate());
-        holder.productImage.setImageResource(product.getPic());
-        holder.productMeasure.setText(product.getMeasure().toString());
         holder.productQuantity.setText(product.getQuantity()+"");
     }
 

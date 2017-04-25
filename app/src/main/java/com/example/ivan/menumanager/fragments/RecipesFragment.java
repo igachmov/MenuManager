@@ -1,6 +1,6 @@
 package com.example.ivan.menumanager.fragments;
 
-
+import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
+
+import com.example.ivan.menumanager.RecipeActivity;
+
 import com.example.ivan.menumanager.adapters.ProductsRecyclerAdapter;
 import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
 import com.example.ivan.menumanager.model.Product;
@@ -32,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -52,7 +56,8 @@ public class RecipesFragment extends Fragment {
     private RecyclerView recyclerView;
     private EditText searchName;
     private ImageView imageView;
-    protected ArrayList<Recipe> recipeData;
+    private Bitmap imageBitmap;
+    protected ArrayList<Recipe> recipeData ;
     private LinearLayout fridgeLayout;
     private Bitmap bitmapImage;
     private int counter = 0;
@@ -61,10 +66,8 @@ public class RecipesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_fragment3, container, false);
+        final View root = inflater.inflate(R.layout.fragment_recipes, container, false);
 
-        recipeName = (TextView) root.findViewById(R.id.recipe_name_tv);
-        imageView = (ImageView) root.findViewById(R.id.recipe_image);
         fridgeLayout = (LinearLayout) root.findViewById(R.id.recipe_search_layout);
         searchName = (EditText) root.findViewById(R.id.search_recipe);
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
@@ -77,7 +80,7 @@ public class RecipesFragment extends Fragment {
                 recipeData = new ArrayList<>();
                 String name = searchName.getText().toString();
                 new DownloadRecipeTask().execute(name);
-                Log.e("Ivan", Integer.toString(recipeData.size()));
+                Log.e("Ivan",Integer.toString(recipeData.size()));
                 dismissKeyboard(getActivity());
             }
         });
@@ -93,22 +96,16 @@ public class RecipesFragment extends Fragment {
 
 
     public class DownloadRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
-
-
         JSONObject json = null;
         JSONArray jsonArr = null;
         Recipe recipe = null;
 
         @Override
         protected ArrayList<Recipe> doInBackground(String... params) {
-
             String recipeTitle = params[0];
-
-
             try {
-
                 Log.e("Ivan", "connection");
-                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=" + recipeTitle);
+                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=" + recipeTitle.replace(" ", "+").trim());
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
                 con.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");
@@ -125,10 +122,10 @@ public class RecipesFragment extends Fragment {
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
                         String name = jsonObj.getString("title");
-                        String description = jsonObj.getString("readyInMinutes");
+                        String id = jsonObj.getString("id");
                         String image = jsonObj.getString("image");
                         String imageURL = ("https://spoonacular.com/recipeImages/" + image);
-                        recipe = new Recipe(name, description, imageURL);
+                        recipe = new Recipe(name, id, imageURL);
                         recipeData.add(recipe);
                     }
                 }
@@ -176,11 +173,10 @@ public class RecipesFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             counter2++;
-            if(counter2==counter) {
                 RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            }
+
         }
     }
 

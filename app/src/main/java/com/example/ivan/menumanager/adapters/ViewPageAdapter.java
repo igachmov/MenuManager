@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.ivan.menumanager.fragments.ProductsFragment;
 import com.example.ivan.menumanager.fragments.ShoppingFragment;
@@ -13,21 +14,20 @@ import com.example.ivan.menumanager.fragments.RecipesFragment;
  * Created by Ivan on 4/6/2017.
  */
 
-public class ViewPageAdapter extends FragmentPagerAdapter {
+public class ViewPageAdapter extends FragmentStatePagerAdapter {
     private Context context;
-    private ProductsFragment fragment1;
-    private ShoppingFragment fragment2;
-    private RecipesFragment fragment3;
+    private ProductsFragment productsFragment;
+    private ShoppingFragment shoppingFragment;
+    private RecipesFragment recipesFragment;
 
-    private String fragments[] = {"Products","Shopping","Recipe"};
+    private String fragments[] = {"Products","Shopping","Recipes"};
 
     public ViewPageAdapter(FragmentManager fm,Context context) {
         super(fm);
         this.context = context;
-        fragment1 = new ProductsFragment();
-        fragment2 = new ShoppingFragment();
-
-        fragment3 = new RecipesFragment();
+        productsFragment = new ProductsFragment();
+        shoppingFragment = new ShoppingFragment();
+        recipesFragment = new RecipesFragment();
     }
 
 
@@ -36,11 +36,11 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return fragment1;
+                return productsFragment;
             case 1:
-                return fragment2;
+                return shoppingFragment;
             case 2:
-                return fragment3;
+                return recipesFragment;
             default:
                 return null;
         }

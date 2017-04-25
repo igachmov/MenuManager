@@ -1,7 +1,7 @@
 package com.example.ivan.menumanager.fragments;
 
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,22 +31,24 @@ import com.example.ivan.menumanager.model.DBManager;
 public class ChooseHouseholdFragment extends DialogFragment {
 
 
-    Button okButton;
-    Button cancelButton;
-    Button addHouseholdButton;
-    EditText newHouseholdEditText;
-    View animatedViewGroup;
+    private Button okButton;
+    private Button cancelButton;
+    private Button addHouseholdButton;
+    private EditText newHouseholdEditText;
+    private View animatedViewGroup;
+    private RecyclerView chooseHousehold;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getDialog().setTitle("Households");
+
+        getDialog().requestWindowFeature(STYLE_NO_TITLE);
         final View dialog = inflater.inflate(R.layout.dialog_choose_household, container, false);
 
         RecyclerView householdList = (RecyclerView) dialog.findViewById(R.id.choose_household_recyclerview);
-        HouseholdRecyclerAdapter adapter = new HouseholdRecyclerAdapter(getContext());
+        HouseholdRecyclerAdapter adapter = new HouseholdRecyclerAdapter(getActivity());
         householdList.setAdapter(adapter);
         householdList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -56,37 +58,45 @@ public class ChooseHouseholdFragment extends DialogFragment {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = ChooseHouseholdFragment.this.getContext();
+                Activity activity = ChooseHouseholdFragment.this.getActivity();
                 String newHouseholdText = newHouseholdEditText.getText().toString();
-                Intent intent = new Intent(context, ViewPageActivity.class);
+                Intent intent = new Intent(activity, ViewPageActivity.class);
                 intent.putExtra("household name", newHouseholdText);
                 if(!newHouseholdText.isEmpty()){
                     if(MainActivity.households.containsKey(newHouseholdText)){
-                        Toast.makeText(context, "Household name already exists", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "Household name already exists", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    DBManager.getInstance(context).addHousehold(newHouseholdText);
-                    context.startActivity(intent);
+                    DBManager.getInstance(activity).addHousehold(newHouseholdText);
+                    activity.startActivity(intent);
+                    getActivity().finish();
                 }
                 else{
-                    Toast.makeText(context, "Household name must not be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Household name must not be empty", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
-
         animatedViewGroup = dialog.findViewById(R.id.animated_dropdown_views);
+        chooseHousehold = (RecyclerView) dialog.findViewById(R.id.choose_household_recyclerview);
+
         addHouseholdButton = (Button) dialog.findViewById(R.id.add_household_button);
         addHouseholdButton.setOnClickListener(new View.OnClickListener() {
-            boolean visible;
             @Override
             public void onClick(View v) {
-                Transition transition = new AutoTransition();
-                transition.setDuration(200);
-                TransitionManager.beginDelayedTransition((ViewGroup) animatedViewGroup, transition);
-                visible = !visible;
-                animatedViewGroup.setVisibility(visible ? View.VISIBLE : View.GONE);
+                animatedViewGroup.setVisibility(View.VISIBLE);
+                chooseHousehold.setVisibility(View.GONE);
+            }
+        });
+
+        cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newHouseholdEditText.setText("");
+                animatedViewGroup.setVisibility(View.GONE);
+                chooseHousehold.setVisibility(View.VISIBLE);
+                dismiss();
             }
         });
         return dialog;

@@ -2,12 +2,17 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#662323</color>
+
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorBeige">#937a64</color>
-    <color name="colorBeige2">#e7e0d0</color>
-    <color name="colorBordo">#662526</color>
-    <color name="colorBordoDarker">#410103</color>
-    <color name="colorLightBlue">#d9dde1</color>
+    <color name="colorWhite_transparent">#50ffffff</color>
+
+    <color name="colorBone">#E8DBC5</color>
+
+    <color name="colorBlue_grey">#8D99AE</color>
+    <color name="colorBlue_grey_dark">#6e788b</color>
+
+    <color name="colorAppleRed">#A10702</color>
+    <color name="colorAppleRed_transparent">#32a10702</color>
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.ivan.menumanager.model;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,16 +11,16 @@ import java.util.List;
  * Created by Ivan on 4/4/2017.
  */
 
-public class Recipe {
+public class Recipe implements Serializable {
     private String name;
-    private String description;
+    private String id;
     private String picURL;
     private Bitmap picBitmap;
     private ArrayList<Product> ingridients;
 
-    public Recipe(String name, String description, String picURL) {
+    public Recipe(String name, String id, String picURL) {
         this.name = name;
-        this.description = description;
+        this.id = id;
         this.picURL = picURL;
         this.ingridients = new ArrayList<>();
     }
@@ -28,8 +29,8 @@ public class Recipe {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getId() {
+        return id;
     }
 
     public String getPicURL() {

@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Menu Manager</string>
-    <string name="choose_button">Get your\nrecipe</string>
-    <string name="magic_button">Choose a\nhousehold</string>
-    <string name="in_fridge">Check\nall here</string>
+    <string name="recipe">Today ...</string>
+    <string name="households">Households</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="add_household">Add household</string>
     <string name="ok_button">ok</string>
     <string name="cancel_button">cancel</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="switch_households">Switch household</string>
+    <string name="explore_fridge">Explore fridge</string>
 </resources>

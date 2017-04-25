@@ -14,11 +14,12 @@ import com.example.ivan.menumanager.R;
  */
 public class ShoppingFragment extends Fragment {
 
+    View root;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_fragment2, container, false);
+        root = inflater.inflate(R.layout.fragment_shopping, container, false);
         return root;
     }
 

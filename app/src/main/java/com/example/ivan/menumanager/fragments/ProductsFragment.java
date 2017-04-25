@@ -26,7 +26,9 @@ public class ProductsFragment extends Fragment {
 
     private ImageView fridgeImage;
     private List<Product> fridge;
-    private  View root;
+
+
+    private View root;
     private RecyclerView recyclerView;
     private LinearLayout productLayout;
     private LinearLayout fridgeLayout;
@@ -35,27 +37,16 @@ public class ProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_fragment1, container, false);
+        root = inflater.inflate(R.layout.fragment_products, container, false);
 
-       productLayout = (LinearLayout) root.findViewById(R.id.category_layout);
-       fridgeLayout = (LinearLayout) root.findViewById(R.id.household_products_layout);
-
+        productLayout = (LinearLayout) root.findViewById(R.id.category_layout);
+        fridgeLayout = (LinearLayout) root.findViewById(R.id.household_products_layout);
 
         fridge = new ArrayList<>();
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
-        fridge.add(new Product("Tomato",R.drawable.tomato_icon,13,"10.03.2017", Product.Measure.KG));
 
 
         recyclerView = (RecyclerView) root.findViewById(R.id.household_products_recyclerview);
-        ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(getActivity(),fridge);
+        ProductsRecyclerAdapter adapter = new ProductsRecyclerAdapter(getActivity(), fridge);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -64,15 +55,24 @@ public class ProductsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Products is pressed", Toast.LENGTH_SHORT).show();
-                nextFragment();
+                setLayout();
             }
         });
         return root;
     }
 
-    public void nextFragment(){
+    public LinearLayout getProductLayout() {
+        return productLayout;
+    }
+
+    public LinearLayout getFridgeLayout() {
+        return fridgeLayout;
+    }
+
+    private void setLayout() {
         productLayout.setVisibility(View.GONE);
         fridgeLayout.setVisibility(View.VISIBLE);
     }
+
 
 }

@@ -42,8 +42,7 @@ public class Household {
                 this.products.get(product.getName()).setQuantity(product.getQuantity());
             }
             else{
-                this.products.put(product.getName(), new Product(product.getName(), product.getPic(),
-                                  product.getQuantity(), product.getDate(), product.getMeasure()));
+                this.products.put(product.getName(), new Product(product.getName(),0,0));
             }
         }
     }

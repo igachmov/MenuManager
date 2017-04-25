@@ -52,13 +52,6 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         Recipe recipe = recipes.get(position);
         holder.recipeName.setText(recipe.getName());
         holder.recipeImage.setImageBitmap(recipe.getPicBitmap());
-//        holder.recipeImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, RecipeActivity.class);
-//                context.startActivity(intent);
-//            }
-//        });
     }
 
     @Override

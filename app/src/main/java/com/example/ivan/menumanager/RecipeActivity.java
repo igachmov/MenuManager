@@ -81,23 +81,16 @@ public class RecipeActivity extends AppCompatActivity {
 
         Slidr.attach(this, config);
 
-//        image = (ImageView) findViewById(R.id.recipe_image2);
-//        byte[] byteArray = getIntent().getByteArrayExtra("imageBitmap");
-//        Bitmap imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//        image.setImageBitmap(imageBitmap);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         String householdName = getIntent().getStringExtra("Household name");
         if(householdName != null && !householdName.isEmpty()){
             toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
             toolbarTitle.setText(householdName);
         }
-
-
-
 
         PRODUCT_KEY_ID = "ID";
         PRODUCT_KEY_NAME = "name";
@@ -106,23 +99,13 @@ public class RecipeActivity extends AppCompatActivity {
         id = (String) i.getSerializableExtra(PRODUCT_KEY_ID);
         name = (String) i.getSerializableExtra(PRODUCT_KEY_NAME);
         bitmap = i.getParcelableExtra(PRODUCT_KEY_BITMAP);
+
         FragmentManager fm = getSupportFragmentManager();
         if(fm.getFragments() == null || fm.getFragments().isEmpty()) {
             fm.beginTransaction()
                     .add(R.id.activity_recipe, new RecipeViewFragment(id,name,bitmap), "Frag0")
                     .commit();
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override

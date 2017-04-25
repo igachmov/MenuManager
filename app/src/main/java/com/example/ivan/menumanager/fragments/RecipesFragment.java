@@ -1,6 +1,5 @@
 package com.example.ivan.menumanager.fragments;
 
-import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.ivan.menumanager.R;
 
@@ -61,34 +60,16 @@ public class RecipesFragment extends Fragment {
     private LinearLayout fridgeLayout;
     private Bitmap bitmapImage;
     private int counter = 0;
-    private static int  counter2 = 0;
+    private static int counter2 = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_recipes, container, false);
 
-       // recipeName = (TextView) root.findViewById(R.id.recipe_name_tv);
-//        imageView = (ImageView) root.findViewById(R.id.recipe_image);
-//
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), RecipeActivity.class);
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
-//                intent.putExtra("imageBitmap", byteArray);
-                //TODO intent.
-//                getActivity().startActivity(intent);
-//            }
-//        });
-
-
         fridgeLayout = (LinearLayout) root.findViewById(R.id.recipe_search_layout);
         searchName = (EditText) root.findViewById(R.id.search_recipe);
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
-
         searchButton = (Button) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +85,7 @@ public class RecipesFragment extends Fragment {
         });
         return root;
     }
+
     public void dismissKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (null != activity.getCurrentFocus())
@@ -112,23 +94,17 @@ public class RecipesFragment extends Fragment {
     }
 
 
-    public class DownloadRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe> >{
-
-
+    public class DownloadRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
         JSONObject json = null;
         JSONArray jsonArr = null;
         Recipe recipe = null;
 
         @Override
         protected ArrayList<Recipe> doInBackground(String... params) {
-
             String recipeTitle = params[0];
-
-
             try {
-
                 Log.e("Ivan", "connection");
-                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=" + recipeTitle);
+                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?query=" + recipeTitle.replace(" ", "+").trim());
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
                 con.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");
@@ -141,14 +117,14 @@ public class RecipesFragment extends Fragment {
                 json = new JSONObject(jsonResponse.toString());
                 jsonArr = json.getJSONArray("results");
 
-                if(jsonArr!=null){
-                    for (int i=0;i<jsonArr.length();i++){
+                if (jsonArr != null) {
+                    for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
                         String name = jsonObj.getString("title");
-                        String description = jsonObj.getString("readyInMinutes");
+                        String id = jsonObj.getString("id");
                         String image = jsonObj.getString("image");
                         String imageURL = ("https://spoonacular.com/recipeImages/" + image);
-                        recipe = new Recipe(name, description, imageURL);
+                        recipe = new Recipe(name, id, imageURL);
                         recipeData.add(recipe);
                     }
                 }
@@ -166,21 +142,19 @@ public class RecipesFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Recipe> recipes) {
-            for (int i = 0; i <recipeData.size(); i++) {
+            for (int i = 0; i < recipeData.size(); i++) {
                 String recipeImg = recipeData.get(i).getPicURL();
                 new DownloadImageTask().execute(recipeImg);
-                Log.e("Ivan","Counter in DownloadTask counter  " + counter +"");
+                Log.e("Ivan", "Counter in DownloadTask counter  " + counter + "");
                 counter++;
             }
-
-
-
         }
     }
+
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... params) {
-            Log.e("Ivan","Counter in DownloadTask " + counter2+"");
+            Log.e("Ivan", "Counter in DownloadTask " + counter2 + "");
             String urldisplay = params[0];
             Bitmap mIcon11 = null;
             InputStream in = null;
@@ -191,16 +165,17 @@ public class RecipesFragment extends Fragment {
             }
             mIcon11 = BitmapFactory.decodeStream(in);
 
-                recipeData.get(counter2).setPicBitmap(mIcon11);
+            recipeData.get(counter2).setPicBitmap(mIcon11);
             return mIcon11;
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             counter2++;
-            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(),recipeData);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         }
     }
 

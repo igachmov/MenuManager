@@ -45,12 +45,14 @@ public class ProductsFragment extends Fragment {
         fridgeLayout = (LinearLayout) root.findViewById(R.id.household_products_layout);
 
         fridge = new ArrayList<>();
+
         int counter = 0;
        for(Product product: DBManager.predefinedProducts.values()){
            counter++;
            fridge.add(product);
          // Log.e("Van", String.valueOf(counter));
        }
+
 
 
         //inflating recyclerView only if visible
@@ -73,10 +75,10 @@ public class ProductsFragment extends Fragment {
         return root;
     }
 
+
     public LinearLayout getProductLayout() {
         return productLayout;
     }
-
     public LinearLayout getFridgeLayout() {
         return fridgeLayout;
     }

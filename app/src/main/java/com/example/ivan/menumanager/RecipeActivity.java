@@ -1,6 +1,9 @@
 package com.example.ivan.menumanager;
 
 import android.graphics.Color;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
 import com.example.ivan.menumanager.model.DBManager;
+import com.example.ivan.menumanager.fragments.RecipeViewFragment;
+
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrListener;
@@ -20,10 +25,16 @@ import com.r0adkll.slidr.model.SlidrPosition;
 
 
 public class RecipeActivity extends AppCompatActivity {
+    private static String PRODUCT_KEY_ID;
+    private static String PRODUCT_KEY_NAME;
+    private static String PRODUCT_KEY_BITMAP;
 
     private Toolbar toolbar;
     private TextView toolbarTitle;
     private ImageView image;
+    private String id;
+    private String name;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +74,38 @@ public class RecipeActivity extends AppCompatActivity {
 
         Slidr.attach(this, config);
 
-//        image = (ImageView) findViewById(R.id.recipe_image2);
-//        byte[] byteArray = getIntent().getByteArrayExtra("imageBitmap");
-//        Bitmap imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//        image.setImageBitmap(imageBitmap);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setSubtitle(DBManager.currentHousehold);
+
+
+
+        String householdName = getIntent().getStringExtra("Household name");
+        if(householdName != null && !householdName.isEmpty()){
+            toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+            toolbarTitle.setText(householdName);
+        }
+
+
+        PRODUCT_KEY_ID = "ID";
+        PRODUCT_KEY_NAME = "name";
+        PRODUCT_KEY_BITMAP = "bitmap";
+        Intent i = getIntent();
+        id = (String) i.getSerializableExtra(PRODUCT_KEY_ID);
+        name = (String) i.getSerializableExtra(PRODUCT_KEY_NAME);
+        bitmap = i.getParcelableExtra(PRODUCT_KEY_BITMAP);
+        FragmentManager fm = getSupportFragmentManager();
+        if(fm.getFragments() == null || fm.getFragments().isEmpty()) {
+            fm.beginTransaction()
+                    .add(R.id.activity_recipe, new RecipeViewFragment(id,name,bitmap), "Frag0")
+                    .commit();
+
+        }
+
+
     }
 
 

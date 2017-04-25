@@ -47,7 +47,6 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsRecycl
         int image = category.getImage();
         holder.productImage.setImageResource(image);
         holder.productName.setText(product.getName());
-       // no need to display this -   holder.productExpiryTerm.setText(product.getExpiryTerm());
         holder.productQuantity.setText(product.getQuantity()+"");
         holder.productMeasure.setText(measure);
 

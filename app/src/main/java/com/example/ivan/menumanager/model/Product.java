@@ -11,10 +11,10 @@ public class Product {
     private int measureID;
     private int foodCategoryID;
     private String expiryTerm;
+    private String unit;
     private int purchaseDateMinutes;
     boolean expired;
     private double quantity;
-
 
 
     public Product(String name, int measureID, int foodCategoryID) {
@@ -35,6 +35,7 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getName() {
         return this.name;
@@ -64,9 +65,15 @@ public class Product {
         return this.expiryTerm;
     }
 
-    public void setExpiryTerm(String expiryTerm){
+    public void setExpiryTerm(String expiryTerm) {
         this.expiryTerm = expiryTerm;
     }
+
+
+    public int getPurchaseDateMinutes() {
+        return purchaseDateMinutes;
+    }
+
 
     public double getQuantity() {
         return this.quantity;
@@ -81,9 +88,6 @@ public class Product {
         this.purchaseDateMinutes =  purchaseDate;
     }
 
-    public int getPurchaseDateMinutes() {
-        return purchaseDateMinutes;
-    }
 
     private boolean isExpired(){
         int currentTimeMinutes = (int) ((System.currentTimeMillis()/1000)/60);
@@ -117,6 +121,16 @@ public class Product {
                 break;
         }
         return expiryInMinutes;
+    }
+
+
+    //for visualize
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getUnit() {
+        return unit;
     }
 
 }

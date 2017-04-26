@@ -23,18 +23,13 @@ import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 
-import com.example.ivan.menumanager.RecipeActivity;
-
-import com.example.ivan.menumanager.adapters.ProductsRecyclerAdapter;
 import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
-import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -42,7 +37,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**

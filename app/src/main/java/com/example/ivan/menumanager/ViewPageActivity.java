@@ -1,6 +1,7 @@
 package com.example.ivan.menumanager;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.adapters.ViewPageAdapter;
-import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
+import com.example.ivan.menumanager.fragments.ChooseFragment;
 import com.example.ivan.menumanager.fragments.ProductsFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
@@ -22,6 +23,7 @@ public class ViewPageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Toolbar toolbar;
     private TextView toolbarTitle;
+    public static FragmentManager fm;
 
     ViewPageAdapter adapter;
 
@@ -30,6 +32,9 @@ public class ViewPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_page);
+
+        //to use it in predefinedProductsAdapter
+        fm = getSupportFragmentManager();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
         adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
@@ -75,8 +80,8 @@ public class ViewPageActivity extends AppCompatActivity {
                 //TODO
                 return true;
             case R.id.menu_households:
-                ChooseHouseholdFragment chooseHousehold = new ChooseHouseholdFragment();
-                chooseHousehold.show(getSupportFragmentManager(), "chooseHousehold");
+                ChooseFragment chooseHousehold = new ChooseFragment();
+                chooseHousehold.show(getSupportFragmentManager(), "chooseItem");
                 return true;
             case R.id.menu_explore_fridge:
                 viewPager.setCurrentItem(0);

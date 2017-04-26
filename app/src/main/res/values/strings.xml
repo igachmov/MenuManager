@@ -4,6 +4,8 @@
     <string name="households">Households</string>
 
     <string name="add_household">Add household</string>
+    <string name="add_product">New product</string>
+
     <string name="add_button">add</string>
     <string name="cancel_button">cancel</string>
 

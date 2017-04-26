@@ -2,11 +2,6 @@ package com.example.ivan.menumanager.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,26 +12,24 @@ import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
 import com.example.ivan.menumanager.model.DBManager;
 
-import java.util.Date;
-
 
 /**
  * Created by Vanya on 14.4.2017 г..
  */
 
-public class HouseholdRecyclerAdapter extends RecyclerView.Adapter<HouseholdRecyclerAdapter.MyViewHolder> {
+public class HouseholdAdapter extends RecyclerView.Adapter<HouseholdAdapter.MyViewHolder> {
 
     private Activity activity;
     private String[] householdNames;
 
-    public HouseholdRecyclerAdapter(Activity activity){
+    public HouseholdAdapter(Activity activity){
         this.activity = activity;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(activity);
-        View row = inflater.inflate(R.layout.layout_households, parent, false);
+        View row = inflater.inflate(R.layout.choose_recycler, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(row);
         return viewHolder;
     }
@@ -74,7 +67,7 @@ public class HouseholdRecyclerAdapter extends RecyclerView.Adapter<HouseholdRecy
         public MyViewHolder(View itemView) {
             super(itemView);
             this.row = itemView;
-            textView = (TextView) row.findViewById(R.id.household_name);
+            textView = (TextView) row.findViewById(R.id.choose_item);
         }
     }
 }

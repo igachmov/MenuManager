@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -41,6 +43,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -61,6 +64,8 @@ public class RecipesFragment extends Fragment {
     private Bitmap bitmapImage;
     private int counter = 0;
     private static int counter2 = 0;
+    private ProgressBar progressBar;
+    private RelativeLayout relativeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +75,8 @@ public class RecipesFragment extends Fragment {
         fridgeLayout = (LinearLayout) root.findViewById(R.id.recipe_search_layout);
         searchName = (EditText) root.findViewById(R.id.search_recipe);
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
+        progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
+        relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
         searchButton = (Button) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +84,9 @@ public class RecipesFragment extends Fragment {
                 counter2 = 0;
                 counter = 0;
                 recipeData = new ArrayList<>();
+                relativeLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                fridgeLayout.setVisibility(View.GONE);
                 String name = searchName.getText().toString();
                 new DownloadRecipeTask().execute(name);
                 Log.e("Ivan",Integer.toString(recipeData.size()));
@@ -152,31 +162,58 @@ public class RecipesFragment extends Fragment {
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+
+
         @Override
         protected Bitmap doInBackground(String... params) {
             Log.e("Ivan", "Counter in DownloadTask " + counter2 + "");
             String urldisplay = params[0];
+            URLConnection urlConnection = null;
             Bitmap mIcon11 = null;
+            Bitmap defaul = BitmapFactory.decodeResource(getResources(), R.drawable.default_img);
             InputStream in = null;
+            URL url = null;
             try {
+                url = new URL(urldisplay);
+                urlConnection = url.openConnection();
+                urlConnection.connect();
                 in = new URL(urldisplay).openStream();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            mIcon11 = BitmapFactory.decodeStream(in);
 
+            int file_size = urlConnection.getContentLength();
+            if(file_size>150000){
+                recipeData.get(counter2).setPicBitmap(defaul);
+                return defaul;
+            }
+            mIcon11 = BitmapFactory.decodeStream(in);
             recipeData.get(counter2).setPicBitmap(mIcon11);
+
+
+
             return mIcon11;
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             counter2++;
-                RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                if (counter2==counter){
+                    relativeLayout.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
+                    progressBar.setProgress(0);
+                    fridgeLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                }
+
+
 
         }
     }
-
 }

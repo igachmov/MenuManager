@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ViewPageActivity" ></activity>
+        <activity android:name=".ViewPageActivity"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
 
         <activity android:name=".RecipeActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".ViewPageActivity"/>

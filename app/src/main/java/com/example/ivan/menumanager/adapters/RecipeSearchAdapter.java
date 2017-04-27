@@ -42,6 +42,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         Recipe recipe = recipes.get(position);
         holder.recipeName.setText(recipe.getName());
         holder.recipeImage.setImageBitmap(recipe.getPicBitmap());
+        holder.ingredients.setText("0/"+recipe.getIngredients().size()+"");
     }
 
     @Override

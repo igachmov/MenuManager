@@ -77,10 +77,6 @@ public class RecipeViewFragment extends Fragment {
         checkUrlButton = (Button) root.findViewById(R.id.url_button);
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_view_recyclerview);
         new DownloadRecipeInstruction().execute(id);
-
-
-
-
         return root;
     }
 
@@ -122,7 +118,6 @@ public class RecipeViewFragment extends Fragment {
                         product.setQuantity(Double.parseDouble(dx));
                         product.setUnit(unit);
                         productData.add(product);
-
                     }
                 }
             } catch (MalformedURLException e) {

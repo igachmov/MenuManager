@@ -2,8 +2,10 @@ package com.example.ivan.menumanager.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 import com.example.ivan.menumanager.R;
 
 import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
+import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 
 import org.json.JSONArray;
@@ -58,8 +61,10 @@ public class RecipesFragment extends Fragment {
     private Bitmap bitmapImage;
     private int counter = 0;
     private static int counter2 = 0;
+    private static int counter3 = 0;
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
+    private int size;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,8 +80,9 @@ public class RecipesFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter2 = 0;
                 counter = 0;
+                counter2 = 0;
+                counter3 = 0;
                 recipeData = new ArrayList<>();
                 relativeLayout.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
@@ -149,16 +155,68 @@ public class RecipesFragment extends Fragment {
             for (int i = 0; i < recipeData.size(); i++) {
                 String recipeImg = recipeData.get(i).getPicURL();
                 new DownloadImageTask().execute(recipeImg);
+                String id = recipeData.get(i).getId();
+                new DownloadRecipeInstruction().execute(id);
                 Log.e("Ivan", "Counter in DownloadTask counter  " + counter + "");
                 counter++;
             }
         }
     }
 
+
+
+    public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Recipe>> {
+        JSONObject json = null;
+        JSONArray jsonArr = null;
+        Product product = null;
+        @Override
+        protected ArrayList<Recipe> doInBackground(String... params) {
+            String recipeId = params[0];
+            try {
+                Log.e("Ivan", "Counter in DownloadIngredients " + counter3 + "");
+                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+recipeId+"/information");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");
+                con.setRequestProperty("Accept", "application/json");
+                Scanner sc = new Scanner(con.getInputStream());
+                StringBuilder jsonResponse = new StringBuilder();
+                while (sc.hasNextLine()) {
+                    jsonResponse.append(sc.nextLine());
+                }
+                json = new JSONObject(jsonResponse.toString());
+                jsonArr = json.getJSONArray("extendedIngredients");
+                if (jsonArr != null) {
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        JSONObject jsonObj = jsonArr.getJSONObject(i);
+                        String name = jsonObj.getString("name");
+//                        String amount = jsonObj.getString("amount");
+//                        String unit = jsonObj.getString("unit");
+                        product = new Product(name, 0, 0);
+//                        DecimalFormat df = new DecimalFormat("#.##");
+//                        String dx=df.format(Double.parseDouble(amount));
+//                        product.setQuantity(Double.parseDouble(dx));
+//                        product.setUnit(unit);
+                        recipeData.get(counter3).getIngredients().add(product);
+                    }
+                }
+            } catch (MalformedURLException e) {
+                Log.e("Ivan", "Malformed");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                Log.e("Ivan", "ProtocolException");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return recipeData;
+        }
+        @Override
+        protected void onPostExecute(ArrayList<Recipe> recipeData) {
+            counter3++;
+        }
+    }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-
-
-
         @Override
         protected Bitmap doInBackground(String... params) {
             Log.e("Ivan", "Counter in DownloadTask " + counter2 + "");
@@ -186,28 +244,22 @@ public class RecipesFragment extends Fragment {
             }
             mIcon11 = BitmapFactory.decodeStream(in);
             recipeData.get(counter2).setPicBitmap(mIcon11);
-
-
-
             return mIcon11;
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             counter2++;
-                if (counter2==counter){
-                    relativeLayout.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
-                    progressBar.setProgress(0);
-                    fridgeLayout.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                }
-
-
-
+            if (counter2==counter){
+                relativeLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                progressBar.setProgress(0);
+                fridgeLayout.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+                RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            }
         }
     }
 }

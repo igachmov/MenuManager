@@ -57,12 +57,13 @@ public class Recipe implements Serializable {
         return picBitmap;
     }
 
-    public void addIngredient(Product ingredient){
+    public void addIngredient(Product ingredient)
+    {
         this.ingredients.add(ingredient);
     }
 
-    public List<Product> getIngredients() {
-        return Collections.unmodifiableList(this.ingredients);
+    public ArrayList<Product> getIngredients() {
+        return this.ingredients;
     }
 
 

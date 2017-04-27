@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.ivan.menumanager.R;
@@ -71,7 +72,7 @@ public class RecipesFragment extends Fragment {
     private static int counter3 = 0;
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
-    private int size;
+    private String  name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,21 +84,28 @@ public class RecipesFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
         progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
+
         searchButton = (Button) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter = 0;
-                counter2 = 0;
-                counter3 = 0;
-                recipeData = new ArrayList<>();
-                relativeLayout.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
-                fridgeLayout.setVisibility(View.GONE);
-                String name = searchName.getText().toString();
-                new DownloadRecipeTask().execute(name);
-                Log.e("Ivan",Integer.toString(recipeData.size()));
-                dismissKeyboard(getActivity());
+                name = searchName.getText().toString();
+                if(name !=null && !name.isEmpty()){
+                    counter = 0;
+                    counter2 = 0;
+                    counter3 = 0;
+                    recipeData = new ArrayList<>();
+                    RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    fridgeLayout.setVisibility(View.GONE);
+                    new DownloadRecipeTask().execute(name);
+                    Log.e("Ivan",Integer.toString(recipeData.size()));
+                    dismissKeyboard(getActivity());
+                }
+               else {
+                    Toast.makeText(getActivity(), "Please enter a name for recipe", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return root;
@@ -145,6 +153,7 @@ public class RecipesFragment extends Fragment {
                         recipeData.add(recipe);
                     }
                 }
+
             } catch (MalformedURLException e) {
                 Log.e("Ivan", "Malformed");
             } catch (JSONException e) {
@@ -159,6 +168,14 @@ public class RecipesFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Recipe> recipes) {
+            if(jsonArr.isNull(0)) {
+                relativeLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                progressBar.setProgress(0);
+                fridgeLayout.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+                Toast.makeText(getActivity(), "Sorry there are no such recipes with that name try again", Toast.LENGTH_SHORT).show();
+            }
             for (int i = 0; i < recipeData.size(); i++) {
                 String recipeImg = recipeData.get(i).getPicURL();
                 new DownloadImageTask().execute(recipeImg);
@@ -169,8 +186,6 @@ public class RecipesFragment extends Fragment {
             }
         }
     }
-
-
 
     public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Recipe>> {
         JSONObject json = null;
@@ -245,7 +260,7 @@ public class RecipesFragment extends Fragment {
             }
 
             int file_size = urlConnection.getContentLength();
-            if(file_size>150000){
+            if(file_size>150000 || file_size==4384){
                 recipeData.get(counter2).setPicBitmap(defaul);
                 return defaul;
             }
@@ -257,7 +272,7 @@ public class RecipesFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             counter2++;
-            if (counter2==counter){
+            if (counter2==counter || recipeData.size()==0){
                 relativeLayout.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 progressBar.setProgress(0);

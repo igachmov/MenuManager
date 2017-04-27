@@ -49,7 +49,7 @@ import java.util.Scanner;
  */
 public class RecipesFragment extends Fragment {
 
-    private Button searchButton;
+    private ImageView searchButton;
     private TextView recipeName;
     private RecyclerView recyclerView;
     private EditText searchName;
@@ -76,7 +76,7 @@ public class RecipesFragment extends Fragment {
         progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
 
-        searchButton = (Button) root.findViewById(R.id.search_button);
+        searchButton = (ImageView) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,6 @@
 package com.example.ivan.menumanager;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -23,7 +24,6 @@ public class ViewPageActivity extends AppCompatActivity implements ProductsFridg
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
-    private TextView toolbarTitle;
     private ViewPageAdapter adapter;
 
 
@@ -76,8 +76,8 @@ public class ViewPageActivity extends AppCompatActivity implements ProductsFridg
                 //TODO
                 return true;
             case R.id.menu_households:
-                ChooseFragment chooseHousehold = new ChooseFragment();
-                chooseHousehold.show(getSupportFragmentManager(), "chooseItem");
+                ChooseFragment chooseItem = new ChooseFragment();
+                chooseItem.show(getSupportFragmentManager(), "chooseItem");
                 return true;
             case R.id.menu_explore_fridge:
                 viewPager.setCurrentItem(0);

@@ -10,7 +10,7 @@ public class Product {
     private String name;
     private int measureID;
     private int foodCategoryID;
-    private String expiryTerm;
+    private int expiryTermID;
     private String unit;
     private int purchaseDateMinutes;
     boolean expired;
@@ -61,12 +61,12 @@ public class Product {
         this.foodCategoryID = foodCategory;
     }
 
-    public String getExpiryTerm() {
-        return this.expiryTerm;
+    public int getExpiryTermID() {
+        return this.expiryTermID;
     }
 
-    public void setExpiryTerm(String expiryTerm) {
-        this.expiryTerm = expiryTerm;
+    public void setExpiryTerm(int expiryTerm) {
+        this.expiryTermID = expiryTerm;
     }
 
 
@@ -100,23 +100,23 @@ public class Product {
 
     private int expiryTermToMinutes(){
         int expiryInMinutes = 0;
-        switch(expiryTerm){
-            case "5 minutes":
-                expiryInMinutes = 5;
+        switch(expiryTermID){
+            case 1:
+                expiryInMinutes = 2;
             break;
-            case "1 day":
+            case 2:
                 expiryInMinutes = 1440;
             break;
-            case "3 days":
+            case 3:
                 expiryInMinutes = 4320;
             break;
-            case "7 days":
+            case 4:
                 expiryInMinutes = 10080;
                 break;
-            case "2 weeks":
+            case 5:
                 expiryInMinutes = 20160;
                 break;
-            case "1 month":
+            case 6:
                 expiryInMinutes = 43200;
                 break;
         }

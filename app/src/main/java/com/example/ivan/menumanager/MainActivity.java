@@ -1,16 +1,14 @@
 package com.example.ivan.menumanager;
 
-import android.content.ContentValues;
-import android.database.Cursor;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.andexert.library.RippleView;
-import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
+import com.example.ivan.menumanager.fragments.ChooseFragment;
 import com.example.ivan.menumanager.model.DBManager;
-import com.example.ivan.menumanager.model.Household;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onComplete(RippleView rippleView) {
-                        ChooseHouseholdFragment chooseDialog = new ChooseHouseholdFragment();
+                        ChooseFragment chooseDialog = new ChooseFragment();
                         FragmentManager fm = getSupportFragmentManager();
-                        chooseDialog.show(fm, "chooseHousehold");
+                        chooseDialog.show(fm, "chooseFragment");
                     }
                 });
             }

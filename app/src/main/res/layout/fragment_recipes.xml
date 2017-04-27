@@ -21,12 +21,16 @@
             android:ems="4"
             android:windowSoftInputMode="adjustPan"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/search_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/ic_search_black_24dp" />
+            />
 
     </LinearLayout>
 
@@ -53,8 +57,8 @@
         android:visibility="invisible">
         <ProgressBar
             android:id="@+id/recipe_progress_bar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:visibility="gone"
             android:layout_marginTop="30dp"

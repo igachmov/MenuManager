@@ -2,28 +2,18 @@ package com.example.ivan.menumanager.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.RecipeActivity;
-import com.example.ivan.menumanager.fragments.RecipesFragment;
-import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Ivan on 4/18/2017.
@@ -42,7 +32,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
     @Override
     public RecipeSearchAdapter.NewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = LayoutInflater.from(context);
-        View row = li.inflate(R.layout.layout_recipe_search, parent,false);
+        View row = li.inflate(R.layout.recipe_search_recycler, parent,false);
         RecipeSearchAdapter.NewViewHolder vh = new RecipeSearchAdapter.NewViewHolder(row);
         return vh;
     }

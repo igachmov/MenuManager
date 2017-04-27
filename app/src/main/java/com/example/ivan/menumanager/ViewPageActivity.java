@@ -1,6 +1,7 @@
 package com.example.ivan.menumanager;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,19 +12,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.adapters.ViewPageAdapter;
-import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
+import com.example.ivan.menumanager.fragments.ChooseFragment;
 import com.example.ivan.menumanager.fragments.ProductsFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
-public class ViewPageActivity extends AppCompatActivity {
+public class ViewPageActivity extends AppCompatActivity implements ProductsFridgeAdapter.ICommunicator{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
     private TextView toolbarTitle;
-
-    ViewPageAdapter adapter;
+    private ViewPageAdapter adapter;
 
 
     @Override
@@ -75,8 +76,8 @@ public class ViewPageActivity extends AppCompatActivity {
                 //TODO
                 return true;
             case R.id.menu_households:
-                ChooseHouseholdFragment chooseHousehold = new ChooseHouseholdFragment();
-                chooseHousehold.show(getSupportFragmentManager(), "chooseHousehold");
+                ChooseFragment chooseHousehold = new ChooseFragment();
+                chooseHousehold.show(getSupportFragmentManager(), "chooseItem");
                 return true;
             case R.id.menu_explore_fridge:
                 viewPager.setCurrentItem(0);
@@ -90,6 +91,11 @@ public class ViewPageActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public FragmentManager getTheFragmentManager() {
+        return this.getSupportFragmentManager();
     }
 
 

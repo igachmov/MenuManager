@@ -28,10 +28,6 @@ import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
 
-import com.example.ivan.menumanager.RecipeActivity;
-
-import com.example.ivan.menumanager.adapters.IngredientAdapter;
-import com.example.ivan.menumanager.adapters.ProductsRecyclerAdapter;
 import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
@@ -40,7 +36,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -48,9 +43,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -245,7 +238,7 @@ public class RecipesFragment extends Fragment {
             String urldisplay = params[0];
             URLConnection urlConnection = null;
             Bitmap mIcon11 = null;
-            Bitmap defaul = BitmapFactory.decodeResource(getResources(), R.drawable.default_img);
+            Bitmap defaul = BitmapFactory.decodeResource(getResources(), R.mipmap.img_default);
             InputStream in = null;
             URL url = null;
             try {

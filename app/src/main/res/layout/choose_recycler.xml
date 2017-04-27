@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/round_corner_shape_bone"
+    android:background="@drawable/z_round_corner_shape_bone"
     android:layout_margin="8dp"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/household_name"
+        android:id="@+id/choose_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textColor="@color/colorBlue_grey_dark"
-        android:padding="4dp"
+        android:padding="5dp"
         android:textAlignment="center"
         android:text="dfjgdjgbdj"
         />

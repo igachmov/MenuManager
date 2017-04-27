@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
-import com.example.ivan.menumanager.fragments.ChooseHouseholdFragment;
+import com.example.ivan.menumanager.fragments.ChooseFragment;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.fragments.RecipeViewFragment;
 
@@ -129,7 +129,7 @@ public class RecipeActivity extends AppCompatActivity {
                 //TODO
                 return true;
             case R.id.menu_households:
-                ChooseHouseholdFragment chooseHousehold = new ChooseHouseholdFragment();
+                ChooseFragment chooseHousehold = new ChooseFragment();
                 chooseHousehold.show(getSupportFragmentManager(), "chooseHousehold");
                 return true;
             case R.id.menu_favourite_recipes:

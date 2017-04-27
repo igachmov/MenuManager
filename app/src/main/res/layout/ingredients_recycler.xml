@@ -2,35 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginBottom="2dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
 
 
     <TextView
         android:id="@+id/ingredient_name_tv"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:text="Tomato"
-        android:gravity="center"/>
+        android:gravity="left|center_vertical"/>
 
 
     <TextView
         android:id="@+id/ingredint_amount_tv"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:gravity="center"
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
         android:text="bar" />
 
     <TextView
         android:id="@+id/ingredint_unit_tv"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_weight="2"
         android:text="2/5"
-        android:gravity="center"
+        android:gravity="left|center_vertical"
         />
 
 

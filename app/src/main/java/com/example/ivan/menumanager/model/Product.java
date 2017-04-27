@@ -13,7 +13,6 @@ public class Product {
     private int expiryTermID;
     private String unit;
     private int purchaseDateMinutes;
-    boolean expired;
     private double quantity;
 
 
@@ -23,7 +22,7 @@ public class Product {
         this.measureID = measureID;
         this.foodCategoryID = foodCategoryID;
         if(this.getPurchaseDateMinutes() != 0){
-            this.expired = isExpired();
+           isExpired();
         }
 
     }
@@ -89,7 +88,7 @@ public class Product {
     }
 
 
-    private boolean isExpired(){
+    public boolean isExpired(){
         int currentTimeMinutes = (int) ((System.currentTimeMillis()/1000)/60);
         if((currentTimeMinutes - purchaseDateMinutes) >= expiryTermToMinutes()){
             return true;

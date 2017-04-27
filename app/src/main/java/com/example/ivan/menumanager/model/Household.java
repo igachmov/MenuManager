@@ -54,9 +54,9 @@ public class Household {
     }
 
 
-    public boolean removeProduct(Product product){
-        if(this.products.containsKey(product.getName())){
-            this.products.remove(product.getName());
+    public boolean removeProduct(String productName){
+        if(this.products.containsKey(productName)){
+            this.products.remove(productName);
             return true;
         }
         return false;

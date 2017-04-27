@@ -17,6 +17,7 @@ import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,7 +59,19 @@ public class ProductsFragment extends Fragment  {
             ProductsFridgeAdapter adapter = new ProductsFridgeAdapter(getActivity(), (ProductsFridgeAdapter.ICommunicator) getActivity(), productsList);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            // floating button
+            ImageView icon = new ImageView(getActivity());
+            // icon.setImageDrawable( ... );
+
+            FloatingActionButton actionButton = new FloatingActionButton.Builder(getActivity())
+                    .setContentView(icon)
+                    .build();
+           // actionButton.setVisibility();
+
         }
+
+
 
         fridgeImage = (ImageView) root.findViewById(R.id.fridge_image);
         fridgeImage.setOnClickListener(new View.OnClickListener() {

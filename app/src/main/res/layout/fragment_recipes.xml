@@ -21,15 +21,13 @@
             android:ems="4"
             android:windowSoftInputMode="adjustPan"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/search_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@mipmap/ic_youtube_searched_for_black_24dp"
             />
 
     </LinearLayout>

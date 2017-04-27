@@ -18,8 +18,8 @@ import java.util.TreeMap;
  * Created by Vanya on 13.4.2017 г..
  */
 
-public class DBManager extends SQLiteOpenHelper{
-    private static  Context context;
+public class DBManager extends SQLiteOpenHelper {
+    private static Context context;
     private static DBManager ourInstance;
     public static TreeMap<String, Household> households = new TreeMap<>();
     public static TreeMap<String, Product> predefinedProducts = new TreeMap<>();
@@ -29,7 +29,7 @@ public class DBManager extends SQLiteOpenHelper{
     public static String currentHousehold;
 
     private static final String DB_NAME = "mdb";
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 10;
 
     //tables
     private static final String HOUSEHOLD = "Household";
@@ -68,7 +68,7 @@ public class DBManager extends SQLiteOpenHelper{
     private static final String CREATE_EXPIRY_TERM = "CREATE TABLE " + EXPIRY_TERM + "(" + ID + " INTEGER PRIMARY KEY," + NAME + " TEXT);";
     private static final String CREATE_CATEGORY = "CREATE TABLE " + CATEGORY + "(" + ID + " INTEGER PRIMARY KEY," + NAME + " TEXT, " + IMAGE + " INTEGER);";
     private static final String CREATE_PRODUCT = "CREATE TABLE " + PRODUCT + "(" + ID + " INTEGER PRIMARY KEY," + NAME + " TEXT, " + MEASURE_ID + " INTEGER, " + CATEGORY_ID + " INTEGER);";
-    private static final String CREATE_RECIPE = "CREATE TABLE " + RECIPE + "(" + ID + " INTEGER PRIMARY KEY," + RECIPE_API_STRING + " INTEGER, "+ NAME + " INTEGER, " + IMAGE + " TEXT, " + DESCRIPTION + " TEXT);";
+    private static final String CREATE_RECIPE = "CREATE TABLE " + RECIPE + "(" + ID + " INTEGER PRIMARY KEY," + RECIPE_API_STRING + " INTEGER, " + NAME + " INTEGER, " + IMAGE + " TEXT, " + DESCRIPTION + " TEXT);";
     private static final String CREATE_SHOPPING_LIST_PRODUCT = "CREATE TABLE " + SHOPPING_LIST_PRODUCT + "(" + SHOPPING_LIST_ID + " INTEGER, " + PRODUCT_ID + " INTEGER, " + QUANTITY + " REAL)";
     private static final String CREATE_RECIPE_PRODUCT = "CREATE TABLE " + RECIPE_PRODUCT + "(" + RECIPE_ID + " INTEGER, " + PRODUCT_ID + " INTEGER, " + QUANTITY + " REAL);";
     private static final String CREATE_HOUSEHOLD_PRODUCT = "CREATE TABLE " + HOUSEHOLD_PRODUCT + "(" + HOUSEHOLD_ID + " INTEGER, " + PRODUCT_ID + " INTEGER, " + QUANTITY + " REAL, " + PURCHASE_DATE + " INTEGER, " + EXPIRY_TERM_ID + " INTEGER);";
@@ -77,7 +77,7 @@ public class DBManager extends SQLiteOpenHelper{
 
 
     public static DBManager getInstance(Context context) {
-        if(ourInstance == null){
+        if (ourInstance == null) {
             ourInstance = new DBManager(context);
             DBManager.context = context;
             loadInfo();
@@ -111,18 +111,18 @@ public class DBManager extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "  + HOUSEHOLD);
-        db.execSQL("DROP TABLE IF EXISTS "  + SHOPPING_LIST);
-        db.execSQL("DROP TABLE IF EXISTS "  + MEASURE);
-        db.execSQL("DROP TABLE IF EXISTS "  + EXPIRY_TERM);
-        db.execSQL("DROP TABLE IF EXISTS "  + CATEGORY);
-        db.execSQL("DROP TABLE IF EXISTS "  + PRODUCT);
-        db.execSQL("DROP TABLE IF EXISTS "  + RECIPE);
-        db.execSQL("DROP TABLE IF EXISTS "  + SHOPPING_LIST_PRODUCT);
-        db.execSQL("DROP TABLE IF EXISTS "  + RECIPE_PRODUCT);
-        db.execSQL("DROP TABLE IF EXISTS "  + HOUSEHOLD_PRODUCT);
-        db.execSQL("DROP TABLE IF EXISTS "  + HOUSEHOLD_RECIPE);
-        db.execSQL("DROP TABLE IF EXISTS "  + HOUSEHOLD_SHOPPING_LIST);
+        db.execSQL("DROP TABLE IF EXISTS " + HOUSEHOLD);
+        db.execSQL("DROP TABLE IF EXISTS " + SHOPPING_LIST);
+        db.execSQL("DROP TABLE IF EXISTS " + MEASURE);
+        db.execSQL("DROP TABLE IF EXISTS " + EXPIRY_TERM);
+        db.execSQL("DROP TABLE IF EXISTS " + CATEGORY);
+        db.execSQL("DROP TABLE IF EXISTS " + PRODUCT);
+        db.execSQL("DROP TABLE IF EXISTS " + RECIPE);
+        db.execSQL("DROP TABLE IF EXISTS " + SHOPPING_LIST_PRODUCT);
+        db.execSQL("DROP TABLE IF EXISTS " + RECIPE_PRODUCT);
+        db.execSQL("DROP TABLE IF EXISTS " + HOUSEHOLD_PRODUCT);
+        db.execSQL("DROP TABLE IF EXISTS " + HOUSEHOLD_RECIPE);
+        db.execSQL("DROP TABLE IF EXISTS " + HOUSEHOLD_SHOPPING_LIST);
         Toast.makeText(context, "ON UPGRADE WAS CALLED", Toast.LENGTH_SHORT).show();
         onCreate(db);
 
@@ -130,7 +130,7 @@ public class DBManager extends SQLiteOpenHelper{
 
 
     //adding only in household table because we still have no recipes and other stuff
-    public void addHousehold(String householdName){
+    public void addHousehold(String householdName) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, householdName);
         ourInstance.getWritableDatabase().insert(HOUSEHOLD, null, contentValues);
@@ -138,17 +138,17 @@ public class DBManager extends SQLiteOpenHelper{
     }
 
     //TODO
-    public void deleteHousehold(){
+    public void deleteHousehold() {
 
     }
 
     //TODO
-    public void addProduct(Product product){
-        int currentTime = (int)((System.currentTimeMillis()/1000)/60);
+    public void addProduct(Product product) {
+        int currentTime = (int) ((System.currentTimeMillis() / 1000) / 60);
         product.setPurchaseDateMinutes(currentTime);
         ContentValues contentValues = new ContentValues();
         //insert in predefined products
-        if(!predefinedProducts.containsKey(product.getName())) {
+        if (!predefinedProducts.containsKey(product.getName())) {
             contentValues.put(NAME, product.getName());
             contentValues.put(MEASURE_ID, product.getMeasureID());
             contentValues.put(CATEGORY_ID, product.getFoodCategoryID());
@@ -158,33 +158,36 @@ public class DBManager extends SQLiteOpenHelper{
         }
         int productID = 0;
         int householdID = 0;
-        if(!households.get(currentHousehold).getProducts().containsKey(product.getName())) {
+        if (!households.get(currentHousehold).getProducts().containsKey(product.getName())) {
             //insert in household_product
-            Cursor cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + PRODUCT + " WHERE " + NAME + "=?" , new String[]{product.getName()});
-            if(cursor.moveToNext()){
+            Cursor cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + PRODUCT + " WHERE " + NAME + "=?", new String[]{product.getName()});
+            while (cursor.moveToNext()) {
                 productID = cursor.getInt(cursor.getColumnIndex(ID));
-                cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + HOUSEHOLD + " WHERE " + NAME + "=?" , new String[]{currentHousehold});
-                if(cursor.moveToNext()){
+                cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + HOUSEHOLD + " WHERE " + NAME + "=?", new String[]{currentHousehold});
+                while (cursor.moveToNext()) {
                     householdID = cursor.getInt(cursor.getColumnIndex(ID));
-                    contentValues.put(HOUSEHOLD_ID, householdID );
+
+                    contentValues.put(HOUSEHOLD_ID, householdID);
                     contentValues.put(PRODUCT_ID, productID);
                     contentValues.put(QUANTITY, product.getQuantity());
                     contentValues.put(PURCHASE_DATE, product.getPurchaseDateMinutes());
                     contentValues.put(EXPIRY_TERM_ID, product.getExpiryTermID());
                     ourInstance.getWritableDatabase().insert(HOUSEHOLD_PRODUCT, null, contentValues);
                     contentValues.clear();
+                    Toast.makeText(context, product.getName() + " added successfully", Toast.LENGTH_SHORT).show();
                 }
             }
-        }
-        else{
+        } else {
             //update in household_product
-            contentValues.put(HOUSEHOLD_ID, householdID );
+            contentValues.put(HOUSEHOLD_ID, householdID);
             contentValues.put(PRODUCT_ID, productID);
             contentValues.put(QUANTITY, product.getQuantity());
             contentValues.put(PURCHASE_DATE, product.getPurchaseDateMinutes());
             contentValues.put(EXPIRY_TERM_ID, product.getExpiryTermID());
-            ourInstance.getWritableDatabase().update(HOUSEHOLD_PRODUCT, contentValues, " WHERE " + HOUSEHOLD_ID + " =? AND " + PRODUCT_ID +  "=?", new String[]{String.valueOf(householdID), String.valueOf(productID)});
+            ourInstance.getWritableDatabase().update(HOUSEHOLD_PRODUCT, contentValues,
+                    HOUSEHOLD_ID + " =? AND " + PRODUCT_ID + "=?", new String[]{String.valueOf(householdID), String.valueOf(productID)});
             contentValues.clear();
+            Toast.makeText(context, product.getName() + " updated successfully", Toast.LENGTH_SHORT).show();
         }
         //gets overriden if existing
         households.get(currentHousehold).addProduct(product);
@@ -192,70 +195,86 @@ public class DBManager extends SQLiteOpenHelper{
 
 
     //TODO
-    public void deleteProduct(){
+    public void removeProduct(String productName) {
+        int productID = 0;
+        int householdID = 0;
+        Cursor cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + PRODUCT + " WHERE " + NAME + "=?", new String[]{productName});
+        while (cursor.moveToNext()) {
+            productID = cursor.getInt(cursor.getColumnIndex(ID));
+        }
+        cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + HOUSEHOLD + " WHERE " + NAME + "=?", new String[]{currentHousehold});
+        while (cursor.moveToNext()) {
+            householdID = cursor.getInt(cursor.getColumnIndex(ID));
+        }
+        ourInstance.getWritableDatabase().delete(HOUSEHOLD_PRODUCT,
+                HOUSEHOLD_ID + " =? AND " + PRODUCT_ID + "=?", new String[]{String.valueOf(householdID), String.valueOf(productID)});
+        if (households.get(currentHousehold).removeProduct(productName)) {
+            Toast.makeText(context, productName + " removed successfully", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    //TODO
+    public void updateProduct() {
 
     }
 
     //TODO
-    public void updateProduct(){
-
-    }
-
-    //TODO
-    public void addRecipe(){
+    public void addRecipe() {
         //TODO insert recipe table recipe
         //insert recipe id and household id in common table
 
     }
 
     //TODO
-    public void deleteRecipe(){
+    public void deleteRecipe() {
 
     }
 
     //TODO
-    public void addShoppingList(){
+    public void addShoppingList() {
 
     }
 
     //TODO
-    public void deleteShoppingList(){
+    public void deleteShoppingList() {
 
     }
 
 
-    private static void loadInfo(){
+    private static void loadInfo() {
         //get household id , name
         Cursor cursorHh = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + "," + NAME + " FROM " + HOUSEHOLD, null);
-        while(cursorHh.moveToNext()) {
+        while (cursorHh.moveToNext()) {
             int idHh = cursorHh.getInt(cursorHh.getColumnIndex(ID));
             String nameHh = cursorHh.getString(cursorHh.getColumnIndex(NAME));
             households.put(nameHh, new Household(nameHh));
             households.get(nameHh).setId(idHh);
 
             //get shoppingList id
-            Cursor cursorHh_ShL = ourInstance.getWritableDatabase().rawQuery("SELECT " + SHOPPING_LIST_ID + " FROM " + HOUSEHOLD_SHOPPING_LIST + " WHERE " + HOUSEHOLD_ID + " = ?", new String[] {String.valueOf(idHh)});
-            while (cursorHh_ShL.moveToNext()){
+            Cursor cursorHh_ShL = ourInstance.getWritableDatabase().rawQuery("SELECT " + SHOPPING_LIST_ID + " FROM " + HOUSEHOLD_SHOPPING_LIST + " WHERE " + HOUSEHOLD_ID + " = ?", new String[]{String.valueOf(idHh)});
+            while (cursorHh_ShL.moveToNext()) {
                 int idShL = cursorHh.getInt(cursorHh_ShL.getColumnIndex(SHOPPING_LIST_ID));
 
                 //get shoppingList name
-                Cursor cursorShL = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + " FROM " + SHOPPING_LIST + " WHERE " + ID + " = ?", new String[] {String.valueOf(idShL)});
+                Cursor cursorShL = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + " FROM " + SHOPPING_LIST + " WHERE " + ID + " = ?", new String[]{String.valueOf(idShL)});
                 ShoppingList shoppingList = null;
-                if(cursorHh_ShL.moveToNext()){
+                while (cursorHh_ShL.moveToNext()) {
                     String nameShL = cursorShL.getString(cursorHh_ShL.getColumnIndex(NAME));
                     shoppingList = new ShoppingList(nameShL, new ArrayList());
                     shoppingList.setId(idShL);
                 }
 
                 //get shopping list's product id, quantity
-                Cursor cursorShL_Pr = ourInstance.getWritableDatabase().rawQuery("SELECT " + PRODUCT_ID + "," + QUANTITY + " FROM " + SHOPPING_LIST_PRODUCT + " WHERE " + SHOPPING_LIST_ID + " = ?", new String[] {String.valueOf(idShL)});
-                while (cursorShL_Pr.moveToNext()){
+                Cursor cursorShL_Pr = ourInstance.getWritableDatabase().rawQuery("SELECT " + PRODUCT_ID + "," + QUANTITY + " FROM " + SHOPPING_LIST_PRODUCT + " WHERE " + SHOPPING_LIST_ID + " = ?", new String[]{String.valueOf(idShL)});
+                while (cursorShL_Pr.moveToNext()) {
                     int idPr = cursorShL_Pr.getInt(cursorShL_Pr.getColumnIndex(PRODUCT_ID));
-                    int quantityPr = cursorShL_Pr.getInt(cursorShL_Pr.getColumnIndex(QUANTITY));
+                    double quantityPr = cursorShL_Pr.getDouble(cursorShL_Pr.getColumnIndex(QUANTITY));
 
                     //get shopping list's product name measureID, categoryID
-                    Cursor cursorPr = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + MEASURE_ID + "," + CATEGORY_ID + " FROM " + PRODUCT + " WHERE " + ID + " = ?", new String[] {String.valueOf(idPr)});
-                    if(cursorPr.moveToNext()) {
+                    Cursor cursorPr = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + MEASURE_ID + "," + CATEGORY_ID + " FROM " + PRODUCT + " WHERE " + ID + " = ?", new String[]{String.valueOf(idPr)});
+                    while (cursorPr.moveToNext()) {
                         String namePr = cursorPr.getString(cursorPr.getColumnIndex(NAME));
                         int idMeasure = cursorPr.getInt(cursorPr.getColumnIndex(MEASURE_ID));
                         int idCateg = cursorPr.getInt(cursorPr.getColumnIndex(CATEGORY_ID));
@@ -268,14 +287,14 @@ public class DBManager extends SQLiteOpenHelper{
             }
 
             //get recipe id
-            Cursor cursorHh_Rec = ourInstance.getWritableDatabase().rawQuery("SELECT " + RECIPE_ID + " FROM " + HOUSEHOLD_RECIPE + " WHERE " + HOUSEHOLD_ID + " = ?", new String[] {String.valueOf(idHh)});
-            while (cursorHh_Rec.moveToNext()){
+            Cursor cursorHh_Rec = ourInstance.getWritableDatabase().rawQuery("SELECT " + RECIPE_ID + " FROM " + HOUSEHOLD_RECIPE + " WHERE " + HOUSEHOLD_ID + " = ?", new String[]{String.valueOf(idHh)});
+            while (cursorHh_Rec.moveToNext()) {
                 int idRec = cursorHh_Rec.getInt(cursorHh_Rec.getColumnIndex(RECIPE_ID));
 
                 //get Recipe API id, name, image, description
-                Cursor cursorRec = ourInstance.getWritableDatabase().rawQuery("SELECT " + RECIPE_API_STRING + "," + NAME + "," + IMAGE + "," + DESCRIPTION + " FROM " + RECIPE + " WHERE " + ID + " = ?", new String[] {String.valueOf(idRec)});
+                Cursor cursorRec = ourInstance.getWritableDatabase().rawQuery("SELECT " + RECIPE_API_STRING + "," + NAME + "," + IMAGE + "," + DESCRIPTION + " FROM " + RECIPE + " WHERE " + ID + " = ?", new String[]{String.valueOf(idRec)});
                 Recipe recipe = null;
-                if(cursorRec.moveToNext()){
+                while (cursorRec.moveToNext()) {
                     String apiIdRec = cursorRec.getString(cursorRec.getColumnIndex(RECIPE_API_STRING));
                     String nameRec = cursorRec.getString(cursorRec.getColumnIndex(NAME));
                     String imageRec = cursorRec.getString(cursorRec.getColumnIndex(IMAGE));
@@ -286,15 +305,15 @@ public class DBManager extends SQLiteOpenHelper{
 
 
                 //get recipe's product id, quantity
-                Cursor cursorRec_Pr = ourInstance.getWritableDatabase().rawQuery("SELECT " + PRODUCT_ID + "," + QUANTITY + " FROM " + RECIPE_PRODUCT + " WHERE " + RECIPE_ID + " = ?", new String[] {String.valueOf(idRec)});
-                while (cursorRec_Pr.moveToNext()){
+                Cursor cursorRec_Pr = ourInstance.getWritableDatabase().rawQuery("SELECT " + PRODUCT_ID + "," + QUANTITY + " FROM " + RECIPE_PRODUCT + " WHERE " + RECIPE_ID + " = ?", new String[]{String.valueOf(idRec)});
+                while (cursorRec_Pr.moveToNext()) {
                     int idPr = cursorRec_Pr.getInt(cursorRec_Pr.getColumnIndex(PRODUCT_ID));
-                    int quantityPr = cursorRec_Pr.getInt(cursorRec_Pr.getColumnIndex(QUANTITY));
+                    double quantityPr = cursorRec_Pr.getDouble(cursorRec_Pr.getColumnIndex(QUANTITY));
 
                     //get recipe's product name, measureID, categoryID
-                    Cursor cursorPr = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + MEASURE_ID + "," + CATEGORY_ID + " FROM " + PRODUCT + " WHERE " + PRODUCT_ID + " = ?", new String[] {String.valueOf(idPr)});
+                    Cursor cursorPr = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + MEASURE_ID + "," + CATEGORY_ID + " FROM " + PRODUCT + " WHERE " + PRODUCT_ID + " = ?", new String[]{String.valueOf(idPr)});
                     Product ingredient = null;
-                    if(cursorPr.moveToNext()){
+                    while (cursorPr.moveToNext()) {
                         String namePr = cursorPr.getString(cursorPr.getColumnIndex(NAME));
                         int idMeasure = cursorPr.getInt(cursorPr.getColumnIndex(MEASURE_ID));
                         int idCateg = cursorPr.getInt(cursorPr.getColumnIndex(CATEGORY_ID));
@@ -306,17 +325,18 @@ public class DBManager extends SQLiteOpenHelper{
                 households.get(nameHh).addRecipe(recipe);
             }
             //get household's product id, quantity, purchaseDate, expiryTermID
-            Cursor cursorHh_Pr = ourInstance.getWritableDatabase().rawQuery("SELECT " + PRODUCT_ID + "," + QUANTITY + "," + PURCHASE_DATE + "," + EXPIRY_TERM_ID + " FROM " + HOUSEHOLD_PRODUCT + " WHERE " + HOUSEHOLD_ID + " = ?", new String[] {String.valueOf(idHh)});
-            while (cursorHh_Pr.moveToNext()){
+            Cursor cursorHh_Pr = ourInstance.getWritableDatabase().rawQuery("SELECT " + PRODUCT_ID + "," + QUANTITY + "," + PURCHASE_DATE + "," + EXPIRY_TERM_ID + " FROM " + HOUSEHOLD_PRODUCT + " WHERE " + HOUSEHOLD_ID + " = ?", new String[]{String.valueOf(idHh)});
+            while (cursorHh_Pr.moveToNext()) {
                 int idPr = cursorHh_Pr.getInt(cursorHh_Pr.getColumnIndex(PRODUCT_ID));
-                int quantityPr = cursorHh_Pr.getInt(cursorHh_Pr.getColumnIndex(QUANTITY));
+                double quantityPr = cursorHh_Pr.getDouble(cursorHh_Pr.getColumnIndex(QUANTITY));
                 int purchPr = cursorHh_Pr.getInt(cursorHh_Pr.getColumnIndex(PURCHASE_DATE));
                 int idExp = cursorHh_Pr.getInt(cursorHh_Pr.getColumnIndex(EXPIRY_TERM_ID));
+                Log.e("Vanya", "on loading - quantity " + String.valueOf(quantityPr));
 
                 //get household's product name, measureID, categoryID
-                Cursor cursorPr = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + MEASURE_ID + "," + CATEGORY_ID + " FROM " + PRODUCT + " WHERE " + ID + " = ?", new String[] {String.valueOf(idPr)});
+                Cursor cursorPr = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + MEASURE_ID + "," + CATEGORY_ID + " FROM " + PRODUCT + " WHERE " + ID + " = ?", new String[]{String.valueOf(idPr)});
                 Product product = null;
-                if(cursorPr.moveToNext()){
+                while (cursorPr.moveToNext()) {
                     String namePr = cursorPr.getString(cursorPr.getColumnIndex(NAME));
                     int idMeasure = cursorPr.getInt(cursorPr.getColumnIndex(MEASURE_ID));
                     int idCateg = cursorPr.getInt(cursorPr.getColumnIndex(CATEGORY_ID));
@@ -324,19 +344,20 @@ public class DBManager extends SQLiteOpenHelper{
                     product.setId(idPr);
                     product.setPurchaseDateMinutes(purchPr);
                     product.setExpiryTerm(idExp);
+                    product.setQuantity(quantityPr);
                     households.get(nameHh).addProduct(product);
                 }
             }
         }
         //get all measures
         Cursor cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + " FROM " + MEASURE, null);
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             String name = cursor.getString(cursor.getColumnIndex(NAME));
             predefinedMeasures.add(name);
         }
         //get all categories
         cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + IMAGE + " FROM " + CATEGORY, null);
-        while ((cursor.moveToNext())){
+        while ((cursor.moveToNext())) {
             String name = cursor.getString(cursor.getColumnIndex(NAME));
             int image = cursor.getInt(cursor.getColumnIndex(IMAGE));
             Category category = new Category(name, image);
@@ -344,7 +365,7 @@ public class DBManager extends SQLiteOpenHelper{
         }
         //get all expiry terms
         cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + " FROM " + EXPIRY_TERM, null);
-        while ((cursor.moveToNext())){
+        while ((cursor.moveToNext())) {
             String name = cursor.getString(cursor.getColumnIndex(NAME));
             predefinedExpiryTerms.add(name);
         }
@@ -354,18 +375,17 @@ public class DBManager extends SQLiteOpenHelper{
             String name = cursor.getString(cursor.getColumnIndex(NAME));
             int measureID = cursor.getInt(cursor.getColumnIndex(MEASURE_ID));
             int categoryID = cursor.getInt(cursor.getColumnIndex(CATEGORY_ID));
-            // Log.e("Van","category ID  - "+String.valueOf(categoryID));
             Product product = new Product(name, measureID, categoryID);
             predefinedProducts.put(name, product);
         }
     }
 
 
-    private void insertPredefinedValues(SQLiteDatabase db){
+    private void insertPredefinedValues(SQLiteDatabase db) {
 
         ContentValues contentValues = new ContentValues();
         String[] expiryTerms = new String[]{"expires in", "2 minutes", "1 day", "3 days", "7 days", "2 weeks", "1 month"};
-        for(int i = 0; i < expiryTerms.length; i++){
+        for (int i = 0; i < expiryTerms.length; i++) {
             contentValues.put(NAME, expiryTerms[i]);
             db.insert(EXPIRY_TERM, null, contentValues);
             contentValues.clear();
@@ -375,14 +395,14 @@ public class DBManager extends SQLiteOpenHelper{
         contentValues.put(NAME, "food category");
         db.insert(CATEGORY, null, contentValues);
         contentValues.clear();
-        for(int i = 0; i < categories.length; i++) {
+        for (int i = 0; i < categories.length; i++) {
             contentValues.put(NAME, categories[i]);
             contentValues.put(IMAGE, images[i]);
             db.insert(CATEGORY, null, contentValues);
             contentValues.clear();
         }
         String[] measures = new String[]{"measure", "g", "kg", "ml", "liter", "item", "pack"};
-        for(int i = 0; i < measures.length; i++) {
+        for (int i = 0; i < measures.length; i++) {
             contentValues.put(NAME, measures[i]);
             db.insert(MEASURE, null, contentValues);
             contentValues.clear();
@@ -390,14 +410,14 @@ public class DBManager extends SQLiteOpenHelper{
     }
 
 
-    public void insertPredefinedProducts(SQLiteDatabase db){
+    public void insertPredefinedProducts(SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
         Product[] products = new Product[]{
                 new Product("Apple", 2, 4),
                 new Product("Apricot", 2, 4),
                 new Product("Artichoke", 2, 8),
                 new Product("Avocado", 2, 4),
-                new Product("Bakon", 1, 6),
+                new Product("Bacon", 1, 6),
                 new Product("Bagel", 5, 1),
                 new Product("Baguette", 5, 1),
                 new Product("Baking powder", 1, 1),
@@ -462,7 +482,7 @@ public class DBManager extends SQLiteOpenHelper{
                 new Product("Yoghurt", 3, 2),
         };
 
-        for(int i = 0; i < products.length; i++) {
+        for (int i = 0; i < products.length; i++) {
             contentValues.put(NAME, products[i].getName());
             contentValues.put(MEASURE_ID, products[i].getMeasureID());
             contentValues.put(CATEGORY_ID, products[i].getFoodCategoryID());

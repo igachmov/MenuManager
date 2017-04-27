@@ -1,4 +1,5 @@
 package com.example.ivan.menumanager.fragments;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
@@ -38,8 +40,8 @@ public class EditProductFragment extends DialogFragment {
     private Button update;
     private Button check;
     private Button cancel;
-    String text;
-    double edittedQuantity;
+    private String text;
+    private double edittedQuantity;
 
 
     @Override
@@ -66,13 +68,11 @@ public class EditProductFragment extends DialogFragment {
         cancel = (Button) dialog.findViewById(R.id.cancel_product);
 
 
-
-        ChooseFragment chooseFragment = (ChooseFragment)getActivity().getSupportFragmentManager().findFragmentByTag("chooseItem");
+        ChooseFragment chooseFragment = (ChooseFragment) getActivity().getSupportFragmentManager().findFragmentByTag("chooseItem");
         TextView textFromEdit = chooseFragment.getItemEditText();
-        if(!textFromEdit.getText().toString().isEmpty()){
+        if (!textFromEdit.getText().toString().isEmpty()) {
             newProduct.setText(textFromEdit.getText().toString());
-        }
-        else{
+        } else {
             newProduct.setText(text);
         }
 
@@ -84,13 +84,14 @@ public class EditProductFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
         ArrayList<String> categoryNames = new ArrayList<>();
-        for(Category category: DBManager.predefinedCategories){
+        for (Category category : DBManager.predefinedCategories) {
             categoryNames.add(category.getName());
         }
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_predefined_value, categoryNames);
@@ -100,6 +101,7 @@ public class EditProductFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -112,6 +114,7 @@ public class EditProductFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -128,29 +131,27 @@ public class EditProductFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 String productName = newProduct.getText().toString();
-                if(!quantity.getText().toString().isEmpty()){
+                if (!(quantity.getText().toString().equals(""))) {
                     edittedQuantity = Double.parseDouble(quantity.getText().toString());
-                }
-                else{
+                } else {
                     quantity.setError("invalid quantity");
                     return;
                 }
                 TextView selectedItem;
                 int measureID = measureSpinner.getSelectedItemPosition();
-                Log.e("Vanya",String.valueOf(measureSpinner.getSelectedItemPosition()));
-                if(measureID == 0){
-                    selectedItem = (TextView)measureSpinner.getSelectedView();
+                if (measureID == 0) {
+                    selectedItem = (TextView) measureSpinner.getSelectedView();
                     selectedItem.setError("invalid measure");
                     return;
                 }
                 int categoryID = categorySpinner.getSelectedItemPosition();
-                if(categoryID == 0){
-                    selectedItem = (TextView)measureSpinner.getSelectedView();
+                if (categoryID == 0) {
+                    selectedItem = (TextView) measureSpinner.getSelectedView();
                     selectedItem.setError("invalid food category");
                     return;
                 }
                 int expiryTerm = expirySpinner.getSelectedItemPosition();
-                if(expiryTerm == 0) {
+                if (expiryTerm == 0) {
                     selectedItem = (TextView) measureSpinner.getSelectedView();
                     selectedItem.setError("invalid expiry term");
                     return;
@@ -166,13 +167,27 @@ public class EditProductFragment extends DialogFragment {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productName = newProduct.getText().toString();
+                if ((quantity.getText().toString().equals(""))) {
+                    quantity.setError("invalid quantity");
+                    return;
+                }
                 double edittedQuantity = Double.parseDouble(quantity.getText().toString());
-               //TODO check if quantity != available quantity toast "press update to update quantity"
-                //TODO INSERT IN DATABASE
+                String productName = newProduct.getText().toString();
+                if (DBManager.households.get(DBManager.currentHousehold).getProducts().containsKey(productName)) {
+                    Product productInFridge = DBManager.households.get(DBManager.currentHousehold).getProducts().get(productName);
+                    if (productInFridge.getQuantity() != edittedQuantity) {
+                        Toast.makeText(getContext(), "Update product! ", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        DBManager.getInstance(getActivity()).removeProduct(productName);
+                        dismiss();
+                    }
+                }
+                else{
+                    Toast.makeText(getContext(), "Invalid product name!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
 
 
         check.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +210,7 @@ public class EditProductFragment extends DialogFragment {
     public static EditProductFragment newInstance(String text) {
         EditProductFragment fr = new EditProductFragment();
         Bundle args = new Bundle();
-        args.putString("text", text );
+        args.putString("text", text);
         fr.setArguments(args);
 
         return fr;

@@ -1,7 +1,12 @@
 package com.example.ivan.menumanager.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +56,23 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
         holder.productName.setText(product.getName());
         holder.productQuantity.setText(product.getQuantity()+"");
         holder.productMeasure.setText(measure);
+
+        if(product.isExpired()){
+            final AnimationDrawable drawable = new AnimationDrawable();
+            final Handler handler = new Handler();
+
+            drawable.addFrame(new ColorDrawable(ContextCompat.getColor(context, R.color.colorBlue_grey_dark)), 400);
+            drawable.addFrame(new ColorDrawable(Color.WHITE), 400);
+            drawable.setOneShot(false);
+            holder.row.setBackground(drawable);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    drawable.start();
+                }
+            }, 100);
+        }
+
         holder.row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

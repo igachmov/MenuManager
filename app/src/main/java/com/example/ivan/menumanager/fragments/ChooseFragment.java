@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
 import com.example.ivan.menumanager.adapters.HouseholdAdapter;
 import com.example.ivan.menumanager.adapters.PredefinedProductsAdapter;
+import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.model.DBManager;
 
 /**
@@ -35,7 +35,7 @@ public class ChooseFragment extends DialogFragment {
     private EditText itemEditText;
     private View animatedView;
     private RecyclerView chooseItem;
-    RecyclerView itemList;
+    private RecyclerView itemList;
 
 
     @Override
@@ -71,7 +71,7 @@ public class ChooseFragment extends DialogFragment {
             case "ViewPageActivity":
                 addItemButton.setText("Add product");
                 itemEditText.setHint("enter product");
-                PredefinedProductsAdapter adapterPp = new PredefinedProductsAdapter(activity);
+                PredefinedProductsAdapter adapterPp = new PredefinedProductsAdapter(activity, (ProductsFridgeAdapter.ICommunicator)activity);
                 itemList.setAdapter(adapterPp);
                 itemList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
                 break;
@@ -82,7 +82,6 @@ public class ChooseFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (activityName.equals("MainActivity")) {
-                    Log.e("Vanya","if na main activity - "+activityName);
                     String newHouseholdName = itemEditText.getText().toString();
                     Intent intent = new Intent(activity, ViewPageActivity.class);
                     if (!newHouseholdName.isEmpty()) {
@@ -98,14 +97,11 @@ public class ChooseFragment extends DialogFragment {
                         Toast.makeText(activity, "Household name must not be empty", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("Vanya","if na view page activity - "+activityName);
                     String newProductName = itemEditText.getText().toString();
                     if(!newProductName.isEmpty()){
-                        Bundle bundle = new Bundle();
-                        bundle.putString(newProductName, null);
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         EditProductFragment editDialog = new EditProductFragment();
-                        editDialog.show(fm, "chooseItem");
+                        editDialog.show(fm, "editItem");
                         dismiss();
                     } else {
                         Toast.makeText(activity, "Product name must not be empty", Toast.LENGTH_SHORT).show();

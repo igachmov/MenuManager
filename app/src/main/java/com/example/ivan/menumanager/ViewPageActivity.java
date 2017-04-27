@@ -12,29 +12,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.adapters.ViewPageAdapter;
 import com.example.ivan.menumanager.fragments.ChooseFragment;
 import com.example.ivan.menumanager.fragments.ProductsFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
-public class ViewPageActivity extends AppCompatActivity {
+public class ViewPageActivity extends AppCompatActivity implements ProductsFridgeAdapter.ICommunicator{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
     private TextView toolbarTitle;
-    public static FragmentManager fm;
-
-    ViewPageAdapter adapter;
+    private ViewPageAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_page);
-
-        //to use it in predefinedProductsAdapter
-        fm = getSupportFragmentManager();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
         adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
@@ -95,6 +91,11 @@ public class ViewPageActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public FragmentManager getTheFragmentManager() {
+        return this.getSupportFragmentManager();
     }
 
 

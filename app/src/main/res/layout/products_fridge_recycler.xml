@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_weight="1.1"
         android:layout_height="match_parent"
-        android:src="@drawable/round_corner_shape_white"/>
+        android:src="@drawable/z_round_corner_shape_white"/>
 
 
     <TextView

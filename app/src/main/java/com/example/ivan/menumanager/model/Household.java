@@ -47,34 +47,19 @@ public class Household {
         return Collections.unmodifiableMap(this.products);
     }
 
-    //add product
-    // manually (predefined view should have quantity edit text)
-    // or through shoppinglist
+
     public void addProduct(Product product) {
+        this.products.put(product.getName(), product);
 
-            if(this.products.containsKey(product.getName())){
-                this.products.get(product.getName()).setQuantity(product.getQuantity());
-            }
-            else{
-                this.products.put(product.getName(), new Product(product.getName(), product.getMeasureID(), product.getFoodCategoryID()));
-            }
-    }
-    //update a single product
-    public void updateProduct(Product product) {
-        if(this.products.containsKey(product.getName())){
-            Product productToUpdate = this.products.get(product.getName());
-            productToUpdate.setQuantity(product.getQuantity());
-            productToUpdate.setExpiryTerm(product.getExpiryTerm());
-            productToUpdate.setFoodCategory(product.getFoodCategoryID());
-            productToUpdate.setMeasure(product.getMeasureID());
-        }
     }
 
-    //remove product manually or through recipe
-    public void removeProduct(Product product){
+
+    public boolean removeProduct(Product product){
         if(this.products.containsKey(product.getName())){
             this.products.remove(product.getName());
+            return true;
         }
+        return false;
     }
 
     public List<Recipe> getRecipes() {

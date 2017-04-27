@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/main_background"
+    android:background="@drawable/z_main_background"
     tools:context="com.example.ivan.menumanager.MainActivity">
 
     <LinearLayout
@@ -41,9 +41,9 @@
                     android:padding="3dp"
                     android:text="@string/recipe"
                     android:textColor="@color/colorWhite"
-                    android:textSize="28sp"
+                    android:textSize="29sp"
                     android:textStyle="italic"
-                    android:background="@drawable/round_corner_shape_blue_grey_transparent"/>
+                    android:background="@drawable/z_round_corner_shape_blue"/>
 
             </com.andexert.library.RippleView>
 
@@ -87,9 +87,9 @@
                 android:padding="3dp"
                 android:text="@string/households"
                 android:textColor="@color/colorBlueLightDarker"
-                android:textSize="28sp"
+                android:textSize="29sp"
                 android:textStyle="italic"
-                android:background="@drawable/round_corner_shape_white"/>
+                android:background="@drawable/z_round_corner_shape_white"/>
                 </com.andexert.library.RippleView>
             </LinearLayout>
         </LinearLayout>

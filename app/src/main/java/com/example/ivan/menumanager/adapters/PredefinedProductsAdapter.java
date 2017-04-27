@@ -1,6 +1,8 @@
 package com.example.ivan.menumanager.adapters;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
+import com.example.ivan.menumanager.fragments.ChooseFragment;
 import com.example.ivan.menumanager.fragments.EditProductFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
@@ -19,10 +22,12 @@ import com.example.ivan.menumanager.model.DBManager;
 public class PredefinedProductsAdapter extends RecyclerView.Adapter<PredefinedProductsAdapter.MyViewHolder> {
 
     private Activity activity;
+    private ProductsFridgeAdapter.ICommunicator iCommunicator;
     private String[] predefinedProductsName;
 
-    public PredefinedProductsAdapter(Activity activity){
+    public PredefinedProductsAdapter(Activity activity, ProductsFridgeAdapter.ICommunicator iCommunicator){
         this.activity = activity;
+        this.iCommunicator = iCommunicator;
     }
 
     @Override
@@ -43,8 +48,10 @@ public class PredefinedProductsAdapter extends RecyclerView.Adapter<PredefinedPr
             holder.textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EditProductFragment editDialog = new EditProductFragment();
-                    editDialog.show(ViewPageActivity.fm, "chooseItem");
+                    EditProductFragment editDialog = EditProductFragment.newInstance(holder.textView.getText().toString());
+                    editDialog.show(iCommunicator.getTheFragmentManager(), "editItem");
+                    ChooseFragment ch = (ChooseFragment)iCommunicator.getTheFragmentManager().findFragmentByTag("chooseItem");
+                    ch.dismiss();
                 }
             });
         }
@@ -66,4 +73,5 @@ public class PredefinedProductsAdapter extends RecyclerView.Adapter<PredefinedPr
             textView = (TextView) row.findViewById(R.id.choose_item);
         }
     }
+
 }

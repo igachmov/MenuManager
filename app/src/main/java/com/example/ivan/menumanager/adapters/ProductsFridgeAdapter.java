@@ -1,18 +1,16 @@
 package com.example.ivan.menumanager.adapters;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.ViewPageActivity;
 import com.example.ivan.menumanager.fragments.ChooseFragment;
-import com.example.ivan.menumanager.fragments.EditProductFragment;
 import com.example.ivan.menumanager.model.Category;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
@@ -27,11 +25,12 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
 
     private List<Product> products;
     private Context context;
-    public static ChooseFragment chooseDialog;
+    ICommunicator iCommunicator;
 
-    public ProductsFridgeAdapter(Context context, List<Product> products) {
+    public ProductsFridgeAdapter(Context context, ICommunicator iCommunicator, List<Product> products) {
         this.products = products;
         this.context = context;
+        this.iCommunicator = iCommunicator;
     }
 
     @Override
@@ -45,8 +44,8 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
     @Override
     public void onBindViewHolder(ProductsFridgeAdapter.NewViewHolder holder, int position) {
         Product product = products.get(position);
-        String measure = DBManager.predefinedMeasures.get(product.getMeasureID() - 1);
-        Category category = DBManager.predefinedCategories.get(product.getFoodCategoryID() - 1);
+        String measure = DBManager.predefinedMeasures.get(product.getMeasureID());
+        Category category = DBManager.predefinedCategories.get(product.getFoodCategoryID());
         int image = category.getImage();
         holder.productImage.setImageResource(image);
         holder.productName.setText(product.getName());
@@ -55,8 +54,8 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
         holder.row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseDialog = new ChooseFragment();
-                chooseDialog.show(ViewPageActivity.fm, "chooseItem");
+                ChooseFragment chooseDialog = new ChooseFragment();
+                chooseDialog.show(iCommunicator.getTheFragmentManager(), "chooseItem");
             }
         });
     }
@@ -84,7 +83,11 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
             productQuantity = (TextView) row.findViewById(R.id.qunatity_tv);
             productMeasure = (TextView) row.findViewById(R.id.measure_tv);
         }
+    }
 
 
+    public interface ICommunicator{
+
+        public FragmentManager getTheFragmentManager();
     }
 }

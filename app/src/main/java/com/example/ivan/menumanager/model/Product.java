@@ -17,6 +17,7 @@ public class Product {
     private double quantity;
 
 
+
     public Product(String name, int measureID, int foodCategoryID) {
 
         this.name = name;

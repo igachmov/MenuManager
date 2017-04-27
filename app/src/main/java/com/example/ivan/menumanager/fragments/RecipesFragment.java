@@ -29,6 +29,8 @@ import android.widget.Toast;
 import com.example.ivan.menumanager.R;
 
 import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
+import com.example.ivan.menumanager.model.DBManager;
+import com.example.ivan.menumanager.model.Household;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 
@@ -44,6 +46,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -63,6 +66,7 @@ public class RecipesFragment extends Fragment {
     private int counter = 0;
     private static int counter2 = 0;
     private static int counter3 = 0;
+
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
     private String  name;
@@ -122,6 +126,8 @@ public class RecipesFragment extends Fragment {
             String recipeTitle = params[0];
             try {
                 Log.e("Ivan", "connection");
+
+
                 URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?number=20&query=" + recipeTitle.replace(" ", "+").trim());
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
@@ -179,7 +185,6 @@ public class RecipesFragment extends Fragment {
             }
         }
     }
-
     public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Recipe>> {
         JSONObject json = null;
         JSONArray jsonArr = null;
@@ -202,18 +207,23 @@ public class RecipesFragment extends Fragment {
                 json = new JSONObject(jsonResponse.toString());
                 jsonArr = json.getJSONArray("extendedIngredients");
                 if (jsonArr != null) {
+                    int productCounter = 0 ;
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
                         String name = jsonObj.getString("name");
-//                        String amount = jsonObj.getString("amount");
-//                        String unit = jsonObj.getString("unit");
                         product = new Product(name, 0, 0);
-//                        DecimalFormat df = new DecimalFormat("#.##");
-//                        String dx=df.format(Double.parseDouble(amount));
-//                        product.setQuantity(Double.parseDouble(dx));
-//                        product.setUnit(unit);
+                        for(Map.Entry<String,Product> e : DBManager.households.get(DBManager.currentHousehold).getProducts().entrySet()){
+                            String poductInFridge = e.getKey();
+                            if(name.toLowerCase().contains(poductInFridge.toLowerCase())){
+                                productCounter++;
+                            }
+                        }
                         recipeData.get(counter3).getIngredients().add(product);
+
                     }
+                    recipeData.get(counter3).setProductCounter(productCounter);
+                    Log.e("Ivan","Product counter "+counter3+"");
+
                 }
             } catch (MalformedURLException e) {
                 Log.e("Ivan", "Malformed");
@@ -226,8 +236,9 @@ public class RecipesFragment extends Fragment {
             }
             return recipeData;
         }
+
         @Override
-        protected void onPostExecute(ArrayList<Recipe> recipeData) {
+        protected void onPostExecute(ArrayList<Recipe> recipes) {
             counter3++;
         }
     }

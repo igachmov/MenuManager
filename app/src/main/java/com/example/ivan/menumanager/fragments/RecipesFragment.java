@@ -110,7 +110,7 @@ public class RecipesFragment extends Fragment {
         return root;
     }
 
-    public void dismissKeyboard(Activity activity) {
+    public  void dismissKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (null != activity.getCurrentFocus())
             imm.hideSoftInputFromWindow(activity.getCurrentFocus()

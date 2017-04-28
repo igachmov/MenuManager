@@ -1,5 +1,7 @@
 package com.example.ivan.menumanager.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -7,8 +9,10 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -74,6 +78,7 @@ public class EditProductFragment extends DialogFragment {
             newProduct.setText(textFromEdit.getText().toString());
         } else {
             newProduct.setText(text);
+
         }
 
         //spinners
@@ -87,7 +92,9 @@ public class EditProductFragment extends DialogFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
+
         });
 
         ArrayList<String> categoryNames = new ArrayList<>();

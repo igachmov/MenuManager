@@ -17,7 +17,6 @@ import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,10 +63,7 @@ public class ProductsFragment extends Fragment  {
             ImageView icon = new ImageView(getActivity());
             // icon.setImageDrawable( ... );
 
-            FloatingActionButton actionButton = new FloatingActionButton.Builder(getActivity())
-                    .setContentView(icon)
-                    .build();
-           // actionButton.setVisibility();
+
 
         }
 

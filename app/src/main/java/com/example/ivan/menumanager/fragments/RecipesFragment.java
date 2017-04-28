@@ -43,6 +43,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -53,33 +54,26 @@ import java.util.Scanner;
 public class RecipesFragment extends Fragment {
 
     private Button searchButton;
-    private TextView recipeName;
     private RecyclerView recyclerView;
     private EditText searchName;
-    private ImageView imageView;
-    private Bitmap imageBitmap;
     protected ArrayList<Recipe> recipeData ;
     private LinearLayout fridgeLayout;
-    private Bitmap bitmapImage;
     private int counter = 0;
-    private static int counter2 = 0;
-    private static int counter3 = 0;
+    private int counter2 = 0;
+    private int counter3 = 0;
 
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
     private String  name;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_recipes, container, false);
-
         fridgeLayout = (LinearLayout) root.findViewById(R.id.recipe_search_layout);
         searchName = (EditText) root.findViewById(R.id.search_recipe);
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
         progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
-
         searchButton = (Button) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,8 +118,6 @@ public class RecipesFragment extends Fragment {
             String recipeTitle = params[0];
             try {
                 Log.e("Ivan", "connection");
-
-
                 URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?number=20&query=" + recipeTitle.replace(" ", "+").trim());
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
@@ -209,10 +201,22 @@ public class RecipesFragment extends Fragment {
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
                         String name = jsonObj.getString("name");
+                        String amount = jsonObj.getString("amount");
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        String dx=df.format(Double.parseDouble(amount));
+                        double qunatity = Double.parseDouble(dx);
                         product = new Product(name, 0, 0);
                         for(Map.Entry<String,Product> e : DBManager.households.get(DBManager.currentHousehold).getProducts().entrySet()){
-                            String poductInFridge = e.getKey();
-                            if(name.toLowerCase().contains(poductInFridge.toLowerCase())){
+                            String productInFridge = e.getKey();
+                            String plularNameInFridge = productInFridge+"s";
+                            double quantityInFridge = e.getValue().getQuantity();
+                            Log.e("Ivan",productInFridge);
+                            Log.e("Ivan",plularNameInFridge);
+                            Log.e("Ivan",name);
+                            Log.e("Ivan",quantityInFridge+"");
+                            Log.e("Ivan",qunatity+"");
+                            if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))
+                                    && (quantityInFridge>=qunatity)){
                                 productCounter++;
                             }
                         }

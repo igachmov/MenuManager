@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +29,8 @@ import android.widget.Toast;
 import com.example.ivan.menumanager.R;
 
 import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
+import com.example.ivan.menumanager.model.DBManager;
+import com.example.ivan.menumanager.model.Household;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 
@@ -41,7 +45,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -49,27 +55,25 @@ import java.util.Scanner;
  */
 public class RecipesFragment extends Fragment {
 
+
     private ImageView searchButton;
     private TextView recipeName;
+
     private RecyclerView recyclerView;
     private EditText searchName;
-    private ImageView imageView;
-    private Bitmap imageBitmap;
     protected ArrayList<Recipe> recipeData ;
     private LinearLayout fridgeLayout;
-    private Bitmap bitmapImage;
     private int counter = 0;
-    private static int counter2 = 0;
-    private static int counter3 = 0;
+    private int counter2 = 0;
+    private int counter3 = 0;
+
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
     private String  name;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_recipes, container, false);
-
         fridgeLayout = (LinearLayout) root.findViewById(R.id.recipe_search_layout);
         searchName = (EditText) root.findViewById(R.id.search_recipe);
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
@@ -81,22 +85,26 @@ public class RecipesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 name = searchName.getText().toString();
-                if(name !=null && !name.isEmpty()){
-                    counter = 0;
-                    counter2 = 0;
-                    counter3 = 0;
-                    recipeData = new ArrayList<>();
-                    RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
-                    relativeLayout.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
-                    fridgeLayout.setVisibility(View.GONE);
-                    new DownloadRecipeTask().execute(name);
-                    Log.e("Ivan",Integer.toString(recipeData.size()));
-                    dismissKeyboard(getActivity());
-                }
-               else {
-                    Toast.makeText(getActivity(), "Please enter a name for recipe", Toast.LENGTH_SHORT).show();
-                }
+              if(isNetworkAvailable()) {
+                  if (name != null && !name.isEmpty()) {
+                      counter = 0;
+                      counter2 = 0;
+                      counter3 = 0;
+                      recipeData = new ArrayList<>();
+                      RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
+                      relativeLayout.setVisibility(View.VISIBLE);
+                      progressBar.setVisibility(View.VISIBLE);
+                      fridgeLayout.setVisibility(View.GONE);
+                      new DownloadRecipeTask().execute(name);
+                      Log.e("Ivan", Integer.toString(recipeData.size()));
+                      dismissKeyboard(getActivity());
+                  } else {
+                      Toast.makeText(getActivity(), "Please enter a name for recipe", Toast.LENGTH_SHORT).show();
+                  }
+              }
+              else {
+                  Toast.makeText(getActivity(), "There is no internet connection", Toast.LENGTH_SHORT).show();
+              }
             }
         });
         return root;
@@ -177,7 +185,6 @@ public class RecipesFragment extends Fragment {
             }
         }
     }
-
     public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Recipe>> {
         JSONObject json = null;
         JSONArray jsonArr = null;
@@ -200,18 +207,59 @@ public class RecipesFragment extends Fragment {
                 json = new JSONObject(jsonResponse.toString());
                 jsonArr = json.getJSONArray("extendedIngredients");
                 if (jsonArr != null) {
+                    int productCounter = 0 ;
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
                         String name = jsonObj.getString("name");
-//                        String amount = jsonObj.getString("amount");
-//                        String unit = jsonObj.getString("unit");
+                        String amount = jsonObj.getString("amount");
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        String dx=df.format(Double.parseDouble(amount));
+                        double qunatity = Double.parseDouble(dx);
                         product = new Product(name, 0, 0);
-//                        DecimalFormat df = new DecimalFormat("#.##");
-//                        String dx=df.format(Double.parseDouble(amount));
-//                        product.setQuantity(Double.parseDouble(dx));
-//                        product.setUnit(unit);
+                        for(Map.Entry<String,Product> e : DBManager.households.get(DBManager.currentHousehold).getProducts().entrySet()){
+                            String productInFridge = e.getKey();
+                            String plularNameInFridge = productInFridge+"s";
+                            double quantityInFridge = e.getValue().getQuantity();
+                            String unit = jsonObj.getString("unit");
+                            String unitInFridge = e.getValue().getUnit();
+                            Log.e("Ivan",productInFridge);
+                            Log.e("Ivan",plularNameInFridge);
+                            Log.e("Ivan",name);
+                            Log.e("Ivan",quantityInFridge+"");
+                            Log.e("Ivan",qunatity+"");
+                            Log.e("Ivan",unit);
+                            if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))){
+//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("g")){
+//                                    quantityInFridge = quantityInFridge*1000;
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("kg")){
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("ml")){
+//                                    quantityInFridge = quantityInFridge*1000;
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("liter")){
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+                                productCounter++;
+                            }
+                        }
                         recipeData.get(counter3).getIngredients().add(product);
+
                     }
+                    recipeData.get(counter3).setProductCounter(productCounter);
+                    Log.e("Ivan","Product counter "+counter3+"");
+
                 }
             } catch (MalformedURLException e) {
                 Log.e("Ivan", "Malformed");
@@ -224,8 +272,9 @@ public class RecipesFragment extends Fragment {
             }
             return recipeData;
         }
+
         @Override
-        protected void onPostExecute(ArrayList<Recipe> recipeData) {
+        protected void onPostExecute(ArrayList<Recipe> recipes) {
             counter3++;
         }
     }
@@ -275,4 +324,15 @@ public class RecipesFragment extends Fragment {
             }
         }
     }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
+
 }

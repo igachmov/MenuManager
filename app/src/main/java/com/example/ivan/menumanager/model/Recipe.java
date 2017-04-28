@@ -18,6 +18,7 @@ public class Recipe implements Serializable {
     private String id;
     private String picURL;
     private Bitmap picBitmap;
+    private int productCounter;
 
     //frequent product add and get
     private ArrayList<Product> ingredients;
@@ -66,5 +67,11 @@ public class Recipe implements Serializable {
         return this.ingredients;
     }
 
+    public int getProductCounter() {
+        return productCounter;
+    }
 
+    public void setProductCounter(int productCounter) {
+        this.productCounter = productCounter;
+    }
 }

@@ -68,9 +68,8 @@
             android:text="Searching for recipes please wait"
             android:gravity="center"
             android:textColor="@color/colorBone"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:layout_below="@+id/recipe_progress_bar"
-            android:layout_alignLeft="@+id/recipe_progress_bar"
-            android:layout_alignStart="@+id/recipe_progress_bar" />
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>

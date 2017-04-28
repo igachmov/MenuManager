@@ -24,9 +24,11 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
     public static ArrayList<Recipe> recipes;
     private Context context;
 
+
     public RecipeSearchAdapter(Context context,  ArrayList<Recipe> recipes) {
         this.recipes = recipes;
         this.context = context;
+
     }
 
     @Override
@@ -42,7 +44,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         Recipe recipe = recipes.get(position);
         holder.recipeName.setText(recipe.getName());
         holder.recipeImage.setImageBitmap(recipe.getPicBitmap());
-        holder.ingredients.setText("0/"+recipe.getIngredients().size()+"");
+        holder.ingredients.setText(recipe.getProductCounter()+""+"/"+recipe.getIngredients().size()+"");
     }
 
     @Override

@@ -54,8 +54,11 @@ public class ProductsFragment extends Fragment  {
         if(recyclerView.getVisibility() == View.VISIBLE){
             adapter = new ProductsFridgeAdapter(getActivity(), (ProductsFridgeAdapter.ICommunicator) getActivity(), productsList);
             recyclerView.setAdapter(adapter);
+
             recyclerView.setLayoutManager(new
                     LinearLayoutManager(getActivity()));
+
+
             fab = (FloatingActionButton) root.findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -68,6 +71,7 @@ public class ProductsFragment extends Fragment  {
                     chooseFragment.show(fm, "chooseItem");
                 }
             });
+
 
         }
 

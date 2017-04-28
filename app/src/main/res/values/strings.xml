@@ -14,7 +14,7 @@
     <string name="explore_fridge">Explore fridge</string>
     <string name="add_to_favourites">Add to favorites</string>
     <string name="favourite_recipes">Favourite recipes</string>
-    <string name="add_update">add/Update</string>
+    <string name="update">Update</string>
     <string name="remove">Remove</string>
     <string name="check_shopping_lists">Check shopping lists</string>
     <string name="cancel">Cancel</string>

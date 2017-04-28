@@ -60,7 +60,8 @@ public class ChooseFragment extends DialogFragment {
         //choosing adapter to set upon calling subjects to show
         //in case another fragment is calling we set arguments
         //in case Main activity or menu item arguments == null
-        if(getActivity().getLocalClassName().equals("MainActivity") || getArguments() == null) {
+        // || getArguments() == null
+        if(getActivity().getLocalClassName().equals("MainActivity")) {
             addItemButton.setText("Add household");
             itemEditText.setHint("enter household");
             HouseholdAdapter adapterHh = new HouseholdAdapter(getActivity());
@@ -81,7 +82,8 @@ public class ChooseFragment extends DialogFragment {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getActivity().getLocalClassName().equals("MainActivity") || getArguments() == null) {
+                //|| getArguments() == null
+                if (getActivity().getLocalClassName().equals("MainActivity")) {
                     //insert new household in database
                     String newHouseholdName = itemEditText.getText().toString();
                     Intent intent = new Intent(getActivity(), ViewPageActivity.class);

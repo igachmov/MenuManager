@@ -138,9 +138,13 @@ public class EditProductFragment extends DialogFragment {
         //if calling fragment is choose fragment get product name from edit text or from predefined products(adapter sent arguments)
         ChooseFragment chooseFragment = chooseFragment = (ChooseFragment) getActivity().getSupportFragmentManager().findFragmentByTag("chooseItem");
         if(chooseFragment != null){
+
             TextView textFromEdit = chooseFragment.getItemEditText();
             if (!textFromEdit.getText().toString().isEmpty()) {
                 newProduct.setText(textFromEdit.getText().toString());
+                name = newProduct.getText().toString();
+
+
             } else {
                 newProduct.setText(name);
             }
@@ -189,11 +193,18 @@ public class EditProductFragment extends DialogFragment {
                     selectedItem.setError("invalid food category");
                     return;
                 }
-                expiryTerm = expirySpinner.getSelectedItemPosition();
+                if(expirySpinner.getSelectedItemPosition() == 0){
+                    selectedItem = (TextView) expirySpinner.getSelectedView();
+                   //TODO expiryTerm = initialise
+                    selectedItem.setError("invalid expiry term");
+                }
 
+
+                name = newProduct.getText().toString();
                 Product product = new Product(name, measure, category);
                 product.setQuantity(quantity);
                 product.setExpiryTerm(expiryTerm);
+
                 DBManager.getInstance(getActivity()).addProduct(product);
                 dismiss();
             }

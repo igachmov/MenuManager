@@ -232,7 +232,11 @@ public class RecipesFragment extends Fragment {
 //                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("g")){
 //                                    quantityInFridge = quantityInFridge*1000;
 //                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
+//
+
+
+//
+// productCounter++;
 //                                    }
 //                                }
 //                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("kg")){

@@ -148,6 +148,7 @@ public class DBManager extends SQLiteOpenHelper {
         product.setPurchaseDateMinutes(currentTime);
         ContentValues contentValues = new ContentValues();
         //insert in predefined products
+        Log.e("Vanya",String.valueOf(predefinedProducts.size() + " ," + product));
         if (!predefinedProducts.containsKey(product.getName())) {
             contentValues.put(NAME, product.getName());
             contentValues.put(MEASURE_ID, product.getMeasureID());

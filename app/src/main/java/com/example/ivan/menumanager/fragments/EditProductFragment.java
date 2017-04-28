@@ -32,25 +32,47 @@ import java.util.ArrayList;
 public class EditProductFragment extends DialogFragment {
 
     private TextView newProduct;
+    private EditText quantityEditText;
     private Spinner measureSpinner;
     private Spinner categorySpinner;
     private Spinner expirySpinner;
-    private EditText quantity;
     private Button remove;
     private Button update;
     private Button check;
     private Button cancel;
-    private String text;
-    private double edittedQuantity;
+    private String name;
+    private double quantityArgs;
+    private int measureArgs;
+    private int categoryArgs;
+    private int expiryTermArgs;
+    private double quantity;
+    private int measure;
+    private int category;
+    private int expiryTerm;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        text = getArguments().getString("text");
-
+        //in case edit product fragment is instanciated from adapter by newInstance method
+        if (getArguments() != null) {
+            name = getArguments().getString("text");
+            if (getArguments().getDouble("quantity") != 0) {
+                quantityArgs = getArguments().getDouble("quantity");
+            }
+            if (getArguments().getInt("measureID") != 0) {
+                measureArgs = getArguments().getInt("measureID");
+            }
+            if (getArguments().getInt("categoryID") != 0) {
+                categoryArgs = getArguments().getInt("categoryID");
+            }
+            if(getArguments().getInt("expiryTerm") != 0){
+                expiryTermArgs = getArguments().getInt("expiryTerm");
+                Log.e("Vanya",String.valueOf(expiryTerm));
+            }
+        }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,20 +83,12 @@ public class EditProductFragment extends DialogFragment {
         measureSpinner = (Spinner) dialog.findViewById(R.id.measure_spin);
         categorySpinner = (Spinner) dialog.findViewById(R.id.category_spin);
         expirySpinner = (Spinner) dialog.findViewById(R.id.expiry_spin);
-        quantity = (EditText) dialog.findViewById(R.id.qunatity_edit);
+        quantityEditText = (EditText) dialog.findViewById(R.id.qunatity_edit);
         remove = (Button) dialog.findViewById(R.id.remove_product);
         update = (Button) dialog.findViewById(R.id.update_product);
         check = (Button) dialog.findViewById(R.id.check_shopping_list);
         cancel = (Button) dialog.findViewById(R.id.cancel_product);
 
-
-        ChooseFragment chooseFragment = (ChooseFragment) getActivity().getSupportFragmentManager().findFragmentByTag("chooseItem");
-        TextView textFromEdit = chooseFragment.getItemEditText();
-        if (!textFromEdit.getText().toString().isEmpty()) {
-            newProduct.setText(textFromEdit.getText().toString());
-        } else {
-            newProduct.setText(text);
-        }
 
         //spinners
         ArrayAdapter<String> measureAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_predefined_value, DBManager.predefinedMeasures);
@@ -120,7 +134,28 @@ public class EditProductFragment extends DialogFragment {
             }
         });
 
-        quantity.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+        //if calling fragment is choose fragment get product name from edit text or from predefined products(adapter sent arguments)
+        ChooseFragment chooseFragment = chooseFragment = (ChooseFragment) getActivity().getSupportFragmentManager().findFragmentByTag("chooseItem");
+        if(chooseFragment != null){
+            TextView textFromEdit = chooseFragment.getItemEditText();
+            if (!textFromEdit.getText().toString().isEmpty()) {
+                newProduct.setText(textFromEdit.getText().toString());
+            } else {
+                newProduct.setText(name);
+            }
+        }
+        //if calling fragment is product fragment set values from arguments
+        else{
+            newProduct.setText(name);
+            quantityEditText.setText(String.valueOf(quantityArgs));
+            measureSpinner.setSelection(measureArgs);
+            categorySpinner.setSelection(categoryArgs);
+            expirySpinner.setSelection(expiryTermArgs);
+        }
+
+
+        quantityEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 return false;
@@ -130,34 +165,34 @@ public class EditProductFragment extends DialogFragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productName = newProduct.getText().toString();
-                if (!(quantity.getText().toString().equals(""))) {
-                    edittedQuantity = Double.parseDouble(quantity.getText().toString());
+                if (!(quantityEditText.getText().toString().equals(""))) {
+                    quantity = Double.parseDouble(quantityEditText.getText().toString());
+                    if(quantity == 0) {
+                        quantityEditText.setError("invalid quantity");
+                        return;
+                    }
                 } else {
-                    quantity.setError("invalid quantity");
+
+                    quantityEditText.setError("invalid quantity");
                     return;
                 }
                 TextView selectedItem;
-                int measureID = measureSpinner.getSelectedItemPosition();
-                if (measureID == 0) {
+                measure = measureSpinner.getSelectedItemPosition();
+                if (measure == 0) {
                     selectedItem = (TextView) measureSpinner.getSelectedView();
                     selectedItem.setError("invalid measure");
                     return;
                 }
-                int categoryID = categorySpinner.getSelectedItemPosition();
-                if (categoryID == 0) {
+                category = categorySpinner.getSelectedItemPosition();
+                if (category == 0) {
                     selectedItem = (TextView) measureSpinner.getSelectedView();
                     selectedItem.setError("invalid food category");
                     return;
                 }
-                int expiryTerm = expirySpinner.getSelectedItemPosition();
-                if (expiryTerm == 0) {
-                    selectedItem = (TextView) measureSpinner.getSelectedView();
-                    selectedItem.setError("invalid expiry term");
-                    return;
-                }
-                Product product = new Product(productName, measureID, categoryID);
-                product.setQuantity(edittedQuantity);
+                expiryTerm = expirySpinner.getSelectedItemPosition();
+
+                Product product = new Product(name, measure, category);
+                product.setQuantity(quantity);
                 product.setExpiryTerm(expiryTerm);
                 DBManager.getInstance(getActivity()).addProduct(product);
                 dismiss();
@@ -167,19 +202,18 @@ public class EditProductFragment extends DialogFragment {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((quantity.getText().toString().equals(""))) {
-                    quantity.setError("invalid quantity");
+                if ((quantityEditText.getText().toString().equals(""))) {
+                    quantityEditText.setError("invalid quantity");
                     return;
                 }
-                double edittedQuantity = Double.parseDouble(quantity.getText().toString());
-                String productName = newProduct.getText().toString();
-                if (DBManager.households.get(DBManager.currentHousehold).getProducts().containsKey(productName)) {
-                    Product productInFridge = DBManager.households.get(DBManager.currentHousehold).getProducts().get(productName);
-                    if (productInFridge.getQuantity() != edittedQuantity) {
+                quantity = Double.parseDouble(quantityEditText.getText().toString());
+                if (DBManager.households.get(DBManager.currentHousehold).getProducts().containsKey(name)) {
+                    Product productInFridge = DBManager.households.get(DBManager.currentHousehold).getProducts().get(name);
+                    if (productInFridge.getQuantity() != quantity) {
                         Toast.makeText(getContext(), "Update product! ", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        DBManager.getInstance(getActivity()).removeProduct(productName);
+                        DBManager.getInstance(getActivity()).removeProduct(name);
                         dismiss();
                     }
                 }
@@ -207,10 +241,13 @@ public class EditProductFragment extends DialogFragment {
         return dialog;
     }
 
-    public static EditProductFragment newInstance(String text) {
+    public static EditProductFragment newInstance(String text, double quantity, int measureID, int categoryID, int expiryTerm) {
         EditProductFragment fr = new EditProductFragment();
         Bundle args = new Bundle();
         args.putString("text", text);
+        args.putDouble("quantity", quantity);
+        args.putInt("measureID", measureID);
+        args.putInt("categoryID", categoryID);
         fr.setArguments(args);
 
         return fr;

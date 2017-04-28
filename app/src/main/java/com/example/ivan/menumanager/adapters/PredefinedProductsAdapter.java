@@ -48,7 +48,7 @@ public class PredefinedProductsAdapter extends RecyclerView.Adapter<PredefinedPr
             holder.textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EditProductFragment editDialog = EditProductFragment.newInstance(holder.textView.getText().toString());
+                    EditProductFragment editDialog = EditProductFragment.newInstance(holder.textView.getText().toString(),0,0,0,0);
                     editDialog.show(iCommunicator.getTheFragmentManager(), "editItem");
                     ChooseFragment ch = (ChooseFragment)iCommunicator.getTheFragmentManager().findFragmentByTag("chooseItem");
                     ch.dismiss();

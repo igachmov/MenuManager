@@ -54,13 +54,17 @@ public class ProductsFragment extends Fragment  {
         if(recyclerView.getVisibility() == View.VISIBLE){
             adapter = new ProductsFridgeAdapter(getActivity(), (ProductsFridgeAdapter.ICommunicator) getActivity(), productsList);
             recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerView.setLayoutManager(new
+                    LinearLayoutManager(getActivity()));
             fab = (FloatingActionButton) root.findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ChooseFragment chooseFragment = new ChooseFragment();
                     FragmentManager fm = getActivity().getSupportFragmentManager();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("floating button", "floating button");
+                    chooseFragment.setArguments(bundle);
                     chooseFragment.show(fm, "chooseItem");
                 }
             });

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -83,22 +85,26 @@ public class RecipesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 name = searchName.getText().toString();
-                if(name !=null && !name.isEmpty()){
-                    counter = 0;
-                    counter2 = 0;
-                    counter3 = 0;
-                    recipeData = new ArrayList<>();
-                    RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
-                    relativeLayout.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
-                    fridgeLayout.setVisibility(View.GONE);
-                    new DownloadRecipeTask().execute(name);
-                    Log.e("Ivan",Integer.toString(recipeData.size()));
-                    dismissKeyboard(getActivity());
-                }
-               else {
-                    Toast.makeText(getActivity(), "Please enter a name for recipe", Toast.LENGTH_SHORT).show();
-                }
+              if(isNetworkAvailable()) {
+                  if (name != null && !name.isEmpty()) {
+                      counter = 0;
+                      counter2 = 0;
+                      counter3 = 0;
+                      recipeData = new ArrayList<>();
+                      RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
+                      relativeLayout.setVisibility(View.VISIBLE);
+                      progressBar.setVisibility(View.VISIBLE);
+                      fridgeLayout.setVisibility(View.GONE);
+                      new DownloadRecipeTask().execute(name);
+                      Log.e("Ivan", Integer.toString(recipeData.size()));
+                      dismissKeyboard(getActivity());
+                  } else {
+                      Toast.makeText(getActivity(), "Please enter a name for recipe", Toast.LENGTH_SHORT).show();
+                  }
+              }
+              else {
+                  Toast.makeText(getActivity(), "There is no internet connection", Toast.LENGTH_SHORT).show();
+              }
             }
         });
         return root;
@@ -318,4 +324,15 @@ public class RecipesFragment extends Fragment {
             }
         }
     }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
+
 }

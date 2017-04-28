@@ -16,18 +16,18 @@
             android:id="@+id/search_recipe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="6"
+            android:layout_weight="4"
             android:hint="Search for a recipe"
             android:ems="4"
             android:windowSoftInputMode="adjustPan"/>
 
 
-        <Button
+        <ImageView
             android:id="@+id/search_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@mipmap/ic_youtube_searched_for_black_24dp"
+            android:src="@android:drawable/ic_search_category_default"
             />
 
     </LinearLayout>
@@ -68,9 +68,8 @@
             android:text="Searching for recipes please wait"
             android:gravity="center"
             android:textColor="@color/colorBone"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:layout_below="@+id/recipe_progress_bar"
-            android:layout_alignLeft="@+id/recipe_progress_bar"
-            android:layout_alignStart="@+id/recipe_progress_bar" />
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>

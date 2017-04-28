@@ -53,7 +53,10 @@ import java.util.Scanner;
  */
 public class RecipesFragment extends Fragment {
 
-    private Button searchButton;
+
+    private ImageView searchButton;
+    private TextView recipeName;
+
     private RecyclerView recyclerView;
     private EditText searchName;
     protected ArrayList<Recipe> recipeData ;
@@ -74,7 +77,8 @@ public class RecipesFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
         progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
-        searchButton = (Button) root.findViewById(R.id.search_button);
+
+        searchButton = (ImageView) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,13 +214,37 @@ public class RecipesFragment extends Fragment {
                             String productInFridge = e.getKey();
                             String plularNameInFridge = productInFridge+"s";
                             double quantityInFridge = e.getValue().getQuantity();
+                            String unit = jsonObj.getString("unit");
+                            String unitInFridge = e.getValue().getUnit();
                             Log.e("Ivan",productInFridge);
                             Log.e("Ivan",plularNameInFridge);
                             Log.e("Ivan",name);
                             Log.e("Ivan",quantityInFridge+"");
                             Log.e("Ivan",qunatity+"");
-                            if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))
-                                    && (quantityInFridge>=qunatity)){
+                            Log.e("Ivan",unit);
+                            if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))){
+//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("g")){
+//                                    quantityInFridge = quantityInFridge*1000;
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("kg")){
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("ml")){
+//                                    quantityInFridge = quantityInFridge*1000;
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("liter")){
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
                                 productCounter++;
                             }
                         }

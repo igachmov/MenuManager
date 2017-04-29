@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.adapters;
+package com.example.ivan.menumanager.household;
 
 import android.app.Activity;
 import android.content.Intent;

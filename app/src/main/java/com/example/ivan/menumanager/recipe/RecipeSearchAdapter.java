@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.adapters;
+package com.example.ivan.menumanager.recipe;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.RecipeActivity;
 import com.example.ivan.menumanager.model.Recipe;
 
 import java.util.ArrayList;

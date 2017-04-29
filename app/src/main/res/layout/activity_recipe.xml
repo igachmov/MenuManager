@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_material_light"
-    tools:context="com.example.ivan.menumanager.RecipeActivity">
+    tools:context="com.example.ivan.menumanager.recipe.RecipeActivity">
 
     <include
         layout="@layout/toolbar"

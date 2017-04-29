@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.fragments;
+package com.example.ivan.menumanager.household;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,11 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
@@ -29,7 +29,7 @@ public class ProductsFragment extends Fragment  {
     private View root;
     private RecyclerView recyclerView;
     private LinearLayout productLayout;
-    private LinearLayout fridgeLayout;
+    private FrameLayout fridgeLayout;
     private FloatingActionButton fab;
     ProductsFridgeAdapter adapter;
 
@@ -40,7 +40,7 @@ public class ProductsFragment extends Fragment  {
         root = inflater.inflate(R.layout.fragment_products, container, false);
 
         productLayout = (LinearLayout) root.findViewById(R.id.category_layout);
-        fridgeLayout = (LinearLayout) root.findViewById(R.id.household_products_layout);
+        fridgeLayout = (FrameLayout) root.findViewById(R.id.household_products_layout);
 
 
         //inflating recyclerView only if visible
@@ -73,6 +73,8 @@ public class ProductsFragment extends Fragment  {
             });
 
 
+
+
         }
 
 
@@ -98,7 +100,7 @@ public class ProductsFragment extends Fragment  {
     public LinearLayout getProductLayout() {
         return productLayout;
     }
-    public LinearLayout getFridgeLayout() {
+    public FrameLayout getFridgeLayout() {
         return fridgeLayout;
     }
 

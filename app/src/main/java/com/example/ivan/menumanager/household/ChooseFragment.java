@@ -1,7 +1,6 @@
-package com.example.ivan.menumanager.fragments;
+package com.example.ivan.menumanager.household;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -19,10 +18,14 @@ import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
-import com.example.ivan.menumanager.adapters.HouseholdAdapter;
-import com.example.ivan.menumanager.adapters.PredefinedProductsAdapter;
-import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
+import com.example.ivan.menumanager.household.EditProductFragment;
+import com.example.ivan.menumanager.household.HouseholdAdapter;
+import com.example.ivan.menumanager.household.PredefinedProductsAdapter;
+import com.example.ivan.menumanager.household.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.model.DBManager;
+import com.example.ivan.menumanager.model.Product;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +64,8 @@ public class ChooseFragment extends DialogFragment {
         //in case another fragment is calling we set arguments
         //in case Main activity or menu item arguments == null
         // || getArguments() == null
+        //
+        // fillData();
         if(getActivity().getLocalClassName().equals("MainActivity")) {
             addItemButton.setText("Add household");
             itemEditText.setHint("enter household");
@@ -71,7 +76,12 @@ public class ChooseFragment extends DialogFragment {
         else {
             addItemButton.setText("Add product");
             itemEditText.setHint("enter product");
-            PredefinedProductsAdapter adapterPp = new PredefinedProductsAdapter(getActivity(), (ProductsFridgeAdapter.ICommunicator) getActivity());
+
+            ArrayList<Product> predefinedProd = new ArrayList<>();
+            for(Product product:DBManager.predefinedProducts.values()){
+                predefinedProd.add(product);
+            }
+            PredefinedProductsAdapter adapterPp = new PredefinedProductsAdapter(getActivity(), (ProductsFridgeAdapter.ICommunicator) getActivity(), predefinedProd);
             itemList.setAdapter(adapterPp);
             itemList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
         }
@@ -105,6 +115,9 @@ public class ChooseFragment extends DialogFragment {
                     if(!newProductName.isEmpty()){
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         EditProductFragment editDialog = new EditProductFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("product", newProductName);
+                        editDialog.setArguments(bundle);
                         editDialog.show(fm, "editItem");
                         dismiss();
                     } else {
@@ -140,6 +153,9 @@ public class ChooseFragment extends DialogFragment {
 
         return dialog;
     }
+
+   // protected abstract void fillData();
+
 
     public TextView getItemEditText(){
         return this.itemEditText;

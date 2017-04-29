@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.fragments;
+package com.example.ivan.menumanager.shopping_list;
 
 
 import android.os.Bundle;

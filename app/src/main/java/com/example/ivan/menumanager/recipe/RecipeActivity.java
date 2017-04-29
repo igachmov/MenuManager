@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager;
+package com.example.ivan.menumanager.recipe;
 
 import android.graphics.Color;
 import android.content.Intent;
@@ -14,10 +14,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
-import com.example.ivan.menumanager.fragments.ChooseFragment;
+import com.example.ivan.menumanager.R;
+import com.example.ivan.menumanager.household.ChooseFragment;
 import com.example.ivan.menumanager.model.DBManager;
-import com.example.ivan.menumanager.fragments.RecipeViewFragment;
 
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
@@ -130,7 +129,7 @@ public class RecipeActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_households:
                 ChooseFragment chooseHousehold = new ChooseFragment();
-                chooseHousehold.show(getSupportFragmentManager(), "chooseHousehold");
+                chooseHousehold.show(getSupportFragmentManager(), "chooseItem");
                 return true;
             case R.id.menu_favourite_recipes:
                 //TODO

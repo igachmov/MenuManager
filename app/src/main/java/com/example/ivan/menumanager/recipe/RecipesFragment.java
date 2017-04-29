@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.fragments;
+package com.example.ivan.menumanager.recipe;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,9 +27,7 @@ import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
 
-import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
 import com.example.ivan.menumanager.model.DBManager;
-import com.example.ivan.menumanager.model.Household;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 

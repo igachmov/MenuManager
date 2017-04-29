@@ -143,12 +143,9 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     //TODO
-    public void addProduct(Product product) {
-        int currentTime = (int) ((System.currentTimeMillis() / 1000) / 60);
-        product.setPurchaseDateMinutes(currentTime);
+    public void addProduct(Product product, double quantity, int expiryTermID, int currentTimeInMinutes) {
         ContentValues contentValues = new ContentValues();
         //insert in predefined products
-        Log.e("Vanya",String.valueOf(predefinedProducts.size() + " ," + product));
         if (!predefinedProducts.containsKey(product.getName())) {
             contentValues.put(NAME, product.getName());
             contentValues.put(MEASURE_ID, product.getMeasureID());
@@ -170,9 +167,9 @@ public class DBManager extends SQLiteOpenHelper {
 
                     contentValues.put(HOUSEHOLD_ID, householdID);
                     contentValues.put(PRODUCT_ID, productID);
-                    contentValues.put(QUANTITY, product.getQuantity());
-                    contentValues.put(PURCHASE_DATE, product.getPurchaseDateMinutes());
-                    contentValues.put(EXPIRY_TERM_ID, product.getExpiryTermID());
+                    contentValues.put(QUANTITY, quantity);
+                    contentValues.put(PURCHASE_DATE, currentTimeInMinutes);
+                    contentValues.put(EXPIRY_TERM_ID, expiryTermID);
                     ourInstance.getWritableDatabase().insert(HOUSEHOLD_PRODUCT, null, contentValues);
                     contentValues.clear();
                     Toast.makeText(context, product.getName() + " added successfully", Toast.LENGTH_SHORT).show();
@@ -182,15 +179,19 @@ public class DBManager extends SQLiteOpenHelper {
             //update in household_product
             contentValues.put(HOUSEHOLD_ID, householdID);
             contentValues.put(PRODUCT_ID, productID);
-            contentValues.put(QUANTITY, product.getQuantity());
-            contentValues.put(PURCHASE_DATE, product.getPurchaseDateMinutes());
-            contentValues.put(EXPIRY_TERM_ID, product.getExpiryTermID());
+            contentValues.put(QUANTITY, quantity);
+            contentValues.put(PURCHASE_DATE, currentTimeInMinutes);
+            contentValues.put(EXPIRY_TERM_ID, expiryTermID);
             ourInstance.getWritableDatabase().update(HOUSEHOLD_PRODUCT, contentValues,
                     HOUSEHOLD_ID + " =? AND " + PRODUCT_ID + "=?", new String[]{String.valueOf(householdID), String.valueOf(productID)});
             contentValues.clear();
             Toast.makeText(context, product.getName() + " updated successfully", Toast.LENGTH_SHORT).show();
         }
         //gets overriden if existing
+        Product productToAdd = product;
+        product.setPurchaseDateMinutes(currentTimeInMinutes);
+        product.setQuantity(quantity);
+        product.setExpiryTermID(expiryTermID);
         households.get(currentHousehold).addProduct(product);
     }
 
@@ -344,7 +345,7 @@ public class DBManager extends SQLiteOpenHelper {
                     product = new Product(namePr, idMeasure, idCateg);
                     product.setId(idPr);
                     product.setPurchaseDateMinutes(purchPr);
-                    product.setExpiryTerm(idExp);
+                    product.setExpiryTermID(idExp);
                     product.setQuantity(quantityPr);
                     households.get(nameHh).addProduct(product);
                 }

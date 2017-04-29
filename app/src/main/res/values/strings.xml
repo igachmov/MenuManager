@@ -18,4 +18,8 @@
     <string name="remove">Remove</string>
     <string name="check_shopping_lists">Check shopping lists</string>
     <string name="cancel">Cancel</string>
+    <string name="product">Product</string>
+    <string name="quantity">Quantity</string>
+    <string name="best_to">Best to</string>
+    <string name="category">Category</string>
 </resources>

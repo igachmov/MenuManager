@@ -24,7 +24,7 @@
             android:windowSoftInputMode="adjustPan"
             ></activity>
 
-        <activity android:name=".RecipeActivity">
+        <activity android:name=".recipe.RecipeActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".ViewPageActivity"/>
         </activity>
     </application>

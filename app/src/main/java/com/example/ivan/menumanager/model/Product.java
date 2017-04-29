@@ -18,14 +18,9 @@ public class Product {
 
 
     public Product(String name, int measureID, int foodCategoryID) {
-
         this.name = name;
         this.measureID = measureID;
         this.foodCategoryID = foodCategoryID;
-        if(this.getPurchaseDateMinutes() != 0){
-           isExpired();
-        }
-
     }
 
     public int getId(){
@@ -65,8 +60,34 @@ public class Product {
         return this.expiryTermID;
     }
 
-    public void setExpiryTerm(int expiryTerm) {
-        this.expiryTermID = expiryTerm;
+    public void setExpiryTermID(int expiryTermID) {
+        this.expiryTermID = expiryTermID;
+    }
+
+    public long getExpiryTermInMilliseconds(int expiryTermID){
+        long expiryTermInMilliseconds = 0;
+        switch(expiryTermID){
+            case 1:
+                expiryTermInMilliseconds = 2*60*1000;
+                break;
+            case 2:
+                expiryTermInMilliseconds = 1440*60*1000;
+                break;
+            case 3:
+                expiryTermInMilliseconds = 4320*60*1000;
+                break;
+            case 4:
+                expiryTermInMilliseconds = 10080*60*1000;
+                break;
+            case 5:
+                expiryTermInMilliseconds = 20160*60*1000;
+                break;
+            case 6:
+                expiryTermInMilliseconds = 43200*60*1000;
+                break;
+        }
+
+        return expiryTermInMilliseconds;
     }
 
 
@@ -82,23 +103,24 @@ public class Product {
     public void setQuantity(double quantity){ this.quantity = quantity; }
 
 
-    public void setPurchaseDateMinutes(int purchaseDate){
-        //we get current time in minutes when
-        //pressing button add product to fridge and set it here
-        this.purchaseDateMinutes =  purchaseDate;
+    public void setPurchaseDateMinutes(int purchaseDateMinutes){
+        this.purchaseDateMinutes =  purchaseDateMinutes;
     }
 
 
     public boolean isExpired(){
-        int currentTimeMinutes = (int) ((System.currentTimeMillis()/1000)/60);
-        if((currentTimeMinutes - purchaseDateMinutes) >= expiryTermToMinutes()){
-            return true;
+        if(this.purchaseDateMinutes != 0){
+            int currentTimeMinutes = (int) ((System.currentTimeMillis()/1000)/60);
+            if((currentTimeMinutes - purchaseDateMinutes) >= getExpiryTermToMinutes()){
+                return true;
+            }
+            return false;
         }
         return false;
     }
 
 
-    private int expiryTermToMinutes(){
+    private int getExpiryTermToMinutes(){
         int expiryInMinutes = 0;
         switch(expiryTermID){
             case 1:

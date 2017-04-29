@@ -1,14 +1,13 @@
-package com.example.ivan.menumanager.adapters;
+package com.example.ivan.menumanager;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.ivan.menumanager.fragments.ProductsFragment;
-import com.example.ivan.menumanager.fragments.ShoppingFragment;
-import com.example.ivan.menumanager.fragments.RecipesFragment;
+import com.example.ivan.menumanager.household.ProductsFragment;
+import com.example.ivan.menumanager.shopping_list.ShoppingFragment;
+import com.example.ivan.menumanager.recipe.RecipesFragment;
 
 /**
  * Created by Ivan on 4/6/2017.

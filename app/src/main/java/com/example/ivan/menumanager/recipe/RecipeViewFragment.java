@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.fragments;
+package com.example.ivan.menumanager.recipe;
 
 
 import android.content.Intent;
@@ -17,10 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.adapters.IngredientAdapter;
 import com.example.ivan.menumanager.model.Product;
 
 import org.json.JSONArray;

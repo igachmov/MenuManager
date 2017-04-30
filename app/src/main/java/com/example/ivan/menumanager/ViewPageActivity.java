@@ -1,6 +1,5 @@
 package com.example.ivan.menumanager;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -11,12 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
-import com.example.ivan.menumanager.adapters.ViewPageAdapter;
-import com.example.ivan.menumanager.fragments.ChooseFragment;
-import com.example.ivan.menumanager.fragments.ProductsFragment;
+import com.example.ivan.menumanager.household.ProductsFridgeAdapter;
+import com.example.ivan.menumanager.household.ChooseFragment;
+import com.example.ivan.menumanager.household.ProductsFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
 public class ViewPageActivity extends AppCompatActivity implements ProductsFridgeAdapter.ICommunicator{
@@ -38,7 +35,7 @@ public class ViewPageActivity extends AppCompatActivity implements ProductsFridg
 
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());

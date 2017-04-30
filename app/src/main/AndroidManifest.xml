@@ -26,9 +26,11 @@
             android:screenOrientation="portrait"
             ></activity>
 
+
         <activity android:name=".RecipeActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".ViewPageActivity"
                 android:screenOrientation="portrait"/>
+
         </activity>
     </application>
 

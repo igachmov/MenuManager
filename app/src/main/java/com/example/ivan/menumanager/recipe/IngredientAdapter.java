@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.adapters;
+package com.example.ivan.menumanager.recipe;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

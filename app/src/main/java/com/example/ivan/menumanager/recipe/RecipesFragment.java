@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.fragments;
+package com.example.ivan.menumanager.recipe;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,9 +27,7 @@ import android.widget.Toast;
 
 import com.example.ivan.menumanager.R;
 
-import com.example.ivan.menumanager.adapters.RecipeSearchAdapter;
 import com.example.ivan.menumanager.model.DBManager;
-import com.example.ivan.menumanager.model.Household;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 
@@ -176,18 +173,8 @@ public class RecipesFragment extends Fragment {
                 recyclerView.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Sorry there are no such recipes with that name try again", Toast.LENGTH_SHORT).show();
             }
-            relativeLayout.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
-            progressBar.setProgress(0);
-            fridgeLayout.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.VISIBLE);
-            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
     }
-
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

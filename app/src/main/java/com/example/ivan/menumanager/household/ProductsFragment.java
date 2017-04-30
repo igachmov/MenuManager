@@ -1,4 +1,4 @@
-package com.example.ivan.menumanager.fragments;
+package com.example.ivan.menumanager.household;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.adapters.ProductsFridgeAdapter;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 

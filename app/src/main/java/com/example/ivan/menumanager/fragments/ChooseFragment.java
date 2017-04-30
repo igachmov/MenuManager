@@ -57,46 +57,48 @@ public class ChooseFragment extends DialogFragment {
         }
         getDialog().requestWindowFeature(STYLE_NO_TITLE);
 
-        //choosing adapter to set upon calling activity to show either households or predefined products
-        final Activity activity = getActivity();
-        final String activityName = activity.getLocalClassName();
-        switch (activityName) {
-            case "MainActivity":
-                addItemButton.setText("Add household");
-                itemEditText.setHint("enter household");
-                HouseholdAdapter adapterHh = new HouseholdAdapter(activity);
-                itemList.setAdapter(adapterHh);
-                itemList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
-                break;
-            case "ViewPageActivity":
-                addItemButton.setText("Add product");
-                itemEditText.setHint("enter product");
-                PredefinedProductsAdapter adapterPp = new PredefinedProductsAdapter(activity, (ProductsFridgeAdapter.ICommunicator)activity);
-                itemList.setAdapter(adapterPp);
-                itemList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
-                break;
+        //choosing adapter to set upon calling subjects to show
+        //in case another fragment is calling we set arguments
+        //in case Main activity or menu item arguments == null
+        if(getActivity().getLocalClassName().equals("MainActivity") ) {
+            addItemButton.setText("Add household");
+            itemEditText.setHint("enter household");
+            HouseholdAdapter adapterHh = new HouseholdAdapter(getActivity());
+            itemList.setAdapter(adapterHh);
+            itemList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
+        }
+        else {
+            addItemButton.setText("Add product");
+            itemEditText.setHint("enter product");
+            PredefinedProductsAdapter adapterPp = new PredefinedProductsAdapter(getActivity(), (ProductsFridgeAdapter.ICommunicator) getActivity());
+            itemList.setAdapter(adapterPp);
+            itemList.setLayoutManager(new LinearLayoutManager(dialog.getContext(), LinearLayoutManager.VERTICAL, false));
         }
 
         //setting different actions
+        //in case another fragment is calling we set arguments
+        //in case Main activity or menu item - arguments == null
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activityName.equals("MainActivity")) {
+                if (getActivity().getLocalClassName().equals("MainActivity")) {
+                    //insert new household in database
                     String newHouseholdName = itemEditText.getText().toString();
-                    Intent intent = new Intent(activity, ViewPageActivity.class);
+                    Intent intent = new Intent(getActivity(), ViewPageActivity.class);
                     if (!newHouseholdName.isEmpty()) {
                         if (DBManager.households.containsKey(newHouseholdName)) {
-                            Toast.makeText(activity, "Household name already exists", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Household name already exists", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        DBManager.getInstance(activity).addHousehold(newHouseholdName);
+                        DBManager.getInstance(getActivity()).addHousehold(newHouseholdName);
                         DBManager.currentHousehold = newHouseholdName;
-                        activity.startActivity(intent);
-                        activity.finish();
+                        getActivity().startActivity(intent);
+                        getActivity().finish();
                     } else {
-                        Toast.makeText(activity, "Household name must not be empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Household name must not be empty", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    //take me to edit fields
                     String newProductName = itemEditText.getText().toString();
                     if(!newProductName.isEmpty()){
                         FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -104,7 +106,7 @@ public class ChooseFragment extends DialogFragment {
                         editDialog.show(fm, "editItem");
                         dismiss();
                     } else {
-                        Toast.makeText(activity, "Product name must not be empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Product name must not be empty", Toast.LENGTH_SHORT).show();
                     }
                 }
 

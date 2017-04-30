@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.fragments.ChooseFragment;
+import com.example.ivan.menumanager.fragments.EditProductFragment;
 import com.example.ivan.menumanager.model.Category;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
@@ -47,9 +48,9 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
     }
 
     @Override
-    public void onBindViewHolder(ProductsFridgeAdapter.NewViewHolder holder, int position) {
-        Product product = products.get(position);
-        String measure = DBManager.predefinedMeasures.get(product.getMeasureID());
+    public void onBindViewHolder(final ProductsFridgeAdapter.NewViewHolder holder, int position) {
+        final Product product = products.get(position);
+        final String measure = DBManager.predefinedMeasures.get(product.getMeasureID());
         Category category = DBManager.predefinedCategories.get(product.getFoodCategoryID());
         int image = category.getImage();
         holder.productImage.setImageResource(image);
@@ -76,8 +77,8 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
         holder.row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChooseFragment chooseDialog = new ChooseFragment();
-                chooseDialog.show(iCommunicator.getTheFragmentManager(), "chooseItem");
+               EditProductFragment editProductFragment = EditProductFragment.newInstance(product.getName(), product.getQuantity(), product.getMeasureID(), product.getFoodCategoryID(), product.getExpiryTermID());
+                editProductFragment.show(iCommunicator.getTheFragmentManager(), "editItem");
             }
         });
     }
@@ -111,5 +112,6 @@ public class ProductsFridgeAdapter extends RecyclerView.Adapter<ProductsFridgeAd
     public interface ICommunicator{
 
         public FragmentManager getTheFragmentManager();
+
     }
 }

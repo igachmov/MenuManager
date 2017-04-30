@@ -25,21 +25,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
 
+            <EditText
+                android:id="@+id/qunatity_edit"
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:hint="quantity"
+                android:textSize="17sp"
+                android:textAlignment="center"
+                android:backgroundTint="@color/colorBlue_grey_dark"
+                android:textColor="@color/colorBlue_grey_dark"
+                android:textColorHint="@color/colorBlue_grey_dark"/>
 
-        <EditText
-            android:id="@+id/qunatity_edit"
-            android:layout_width="0dp"
-            android:layout_weight="0.7"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:hint="quantity"
-            android:textSize="17sp"
-            android:textAlignment="center"
-            android:backgroundTint="@color/colorBlue_grey_dark"
-            android:textColor="@color/colorBlue_grey_dark"
-            android:textColorHint="@color/colorBlue_grey_dark"/>
 
         <Spinner
             android:id="@+id/measure_spin"
@@ -102,7 +102,8 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:background="@drawable/z_round_corner_shape_bone"
-            android:text="@string/add_update"
+            android:text="@string/update"
+
             android:textSize="13dp"
             android:textColor="@color/colorBlue_grey_dark" />
     </LinearLayout>

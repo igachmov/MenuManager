@@ -47,15 +47,19 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
     public static ArrayList<Recipe> recipes;
     private Context context;
     private Recipe recipe;
-    private int position2;
+    private Bitmap bitmap;
     private  int x = 0;
     private int counter2 = 0;
     private int counter3 = 0;
 
 
-    public RecipeSearchAdapter(Context context,  ArrayList<Recipe> recipes) {
+
+
+    public RecipeSearchAdapter(Context context, ArrayList<Recipe> recipes,Bitmap bitmap) {
         this.recipes = recipes;
         this.context = context;
+        this.bitmap = bitmap;
+
 
     }
 
@@ -72,12 +76,9 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
                 String id = recipes.get(i).getId();
                    new DownloadRecipeInstruction().execute(id);
                    new DownloadImageTask().execute(recipeImg);
-
-
             }
             x++;
         }
-
         return vh;
     }
 
@@ -268,7 +269,6 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
             intent.putExtra("ID", recipes.get(getLayoutPosition()).getId());
             intent.putExtra("name", recipes.get(getLayoutPosition()).getName());
             intent.putExtra("position", getAdapterPosition());
-         //   intent.putExtra("bitmap", recipes.get(getLayoutPosition()).getPicBitmap());
             context.startActivity(intent);
         }
 
@@ -381,8 +381,6 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
             String urldisplay = params[0];
             URLConnection urlConnection = null;
             Bitmap mIcon11 = null;
-           // Bitmap defaul = BitmapFactory.decodeFile(fname);
-            //Log.e("Ivan",defaul.toString());
             InputStream in = null;
             URL url = null;
             try {
@@ -397,9 +395,10 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
             }
 
             int file_size = urlConnection.getContentLength();
+            Log.e("BITMAP",bitmap.toString());
             if(file_size>150000 || file_size==4384){
-//                recipe.setPicBitmap(defaul);
-//                return defaul;
+                recipes.get(counter2).setPicBitmap(bitmap);
+                return bitmap;
             }
             mIcon11 = BitmapFactory.decodeStream(in);
             if(counter2<20) {

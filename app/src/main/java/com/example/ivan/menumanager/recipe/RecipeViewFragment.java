@@ -41,7 +41,7 @@ public class RecipeViewFragment extends Fragment {
 
 
     private RecyclerView recyclerView;
-    protected ArrayList<Product> productData ;
+    private ArrayList<Product> productData ;
     private ImageView recipeImage;
     private TextView recipeText;
     private TextView recipeName;

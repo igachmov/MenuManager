@@ -64,6 +64,7 @@ public class RecipesFragment extends Fragment {
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
     private String  name;
+    private Bitmap defaul ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class RecipesFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
         progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
+        defaul =  BitmapFactory.decodeResource(getResources(), R.mipmap.img_default);
 
         if(recipeData != null && recipeData.size()!=0){
             Log.e("Fragment",recipeData.size()+"");
@@ -81,9 +83,10 @@ public class RecipesFragment extends Fragment {
             progressBar.setProgress(0);
             fridgeLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
-            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
+            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         }
 
         searchButton = (ImageView) root.findViewById(R.id.search_button);
@@ -98,9 +101,10 @@ public class RecipesFragment extends Fragment {
                       counter3 = 0;
                       recipeData = new ArrayList<>();
                       RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
-                      relativeLayout.setVisibility(View.VISIBLE);
-                      progressBar.setVisibility(View.VISIBLE);
-                      fridgeLayout.setVisibility(View.GONE);
+                      relativeLayout.setVisibility(View.GONE);
+                      progressBar.setVisibility(View.GONE);
+                      fridgeLayout.setVisibility(View.VISIBLE);
+                      recyclerView.setVisibility(View.VISIBLE);
                       new DownloadRecipeTask().execute(name);
                       Log.e("Ivan", Integer.toString(recipeData.size()));
                       dismissKeyboard(getActivity());
@@ -146,6 +150,9 @@ public class RecipesFragment extends Fragment {
                         String id = jsonObj.getString("id");
                         String image = jsonObj.getString("image");
                         String imageURL = ("https://spoonacular.com/recipeImages/" + image);
+                        Log.e("Bla",name);
+
+
                         recipe = new Recipe(name, id, imageURL);
                         recipeData.add(recipe);
                     }
@@ -173,6 +180,9 @@ public class RecipesFragment extends Fragment {
                 recyclerView.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Sorry there are no such recipes with that name try again", Toast.LENGTH_SHORT).show();
             }
+            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
     }
     private boolean isNetworkAvailable() {

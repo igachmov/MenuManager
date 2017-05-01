@@ -55,6 +55,7 @@ public class RecipesFragment extends Fragment {
 
     private ImageView searchButton;
     private TextView recipeName;
+    private LinearLayout recipesLayout;
 
     private RecyclerView recyclerView;
     private EditText searchName;
@@ -76,6 +77,7 @@ public class RecipesFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
         progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
+        recipesLayout = (LinearLayout) root.findViewById(R.id.recipes_layout);
 
         searchButton = (ImageView) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -322,6 +324,8 @@ public class RecipesFragment extends Fragment {
                 RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recipesLayout.setAlpha(0.5f);
+
             }
         }
     }

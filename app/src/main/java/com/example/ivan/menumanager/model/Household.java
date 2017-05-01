@@ -10,7 +10,8 @@ import java.util.TreeMap;
  * Created by Vanya on 14.4.2017 г..
  */
 
-public class Household {
+public class
+Household {
 
     private int id;
     private String name;
@@ -47,12 +48,10 @@ public class Household {
         return Collections.unmodifiableMap(this.products);
     }
 
-
     public void addProduct(Product product) {
         this.products.put(product.getName(), product);
 
     }
-
 
     public boolean removeProduct(String productName){
         if(this.products.containsKey(productName)){
@@ -70,6 +69,10 @@ public class Household {
         this.favouriteRecipes.add(recipe);
     }
 
+    public void removeRecipe(Recipe recipe) {
+        this.favouriteRecipes.remove(recipe);
+    }
+
     public List<ShoppingList> getShoppingLists() {
         return Collections.unmodifiableList(this.shoppingLists);
     }
@@ -78,17 +81,8 @@ public class Household {
         this.shoppingLists.add(shoppingList);
     }
 
-    //show products in one category in alphabetical order
-    public TreeMap<Integer, TreeMap<String, Product>> orderByCategory(){
-        TreeMap<Integer, TreeMap<String, Product>> orderedByCategory = new TreeMap<>();
-        for (Map.Entry<String, Product> product: this.products.entrySet()) {
-            Product productToPut = product.getValue();
-            int category= productToPut.getFoodCategoryID();
-            if(!orderedByCategory.containsKey(category)){
-                orderedByCategory.put(category, new TreeMap<String, Product>());
-            }
-            orderedByCategory.get(category).put(productToPut.getName(), productToPut);
-        }
-        return orderedByCategory;
+    public void removeShoppingLists(ShoppingList shoppingList) {
+        this.shoppingLists.remove(shoppingList);
     }
+
 }

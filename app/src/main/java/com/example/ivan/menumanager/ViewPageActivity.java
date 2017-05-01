@@ -11,12 +11,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.ivan.menumanager.household.ProductsFridgeAdapter;
-import com.example.ivan.menumanager.household.ChooseFragment;
+import com.example.ivan.menumanager.household.ProductsAdapter;
+import com.example.ivan.menumanager.household.ChooseItemFragment;
 import com.example.ivan.menumanager.household.ProductsFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
-public class ViewPageActivity extends AppCompatActivity implements ProductsFridgeAdapter.ICommunicator{
+public class ViewPageActivity extends AppCompatActivity{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -49,6 +49,9 @@ public class ViewPageActivity extends AppCompatActivity implements ProductsFridg
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                ProductsFragment productsFragment = (ProductsFragment) adapter.getItem(tabLayout.getSelectedTabPosition());
+                productsFragment.getCatagoryLayout().setVisibility(View.VISIBLE);
+                productsFragment.getFridgeLayout().setVisibility(View.GONE);
             }
         });
 
@@ -73,14 +76,11 @@ public class ViewPageActivity extends AppCompatActivity implements ProductsFridg
                 //TODO
                 return true;
             case R.id.menu_households:
-                ChooseFragment chooseItem = new ChooseFragment();
+                ChooseItemFragment chooseItem = new ChooseItemFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("callingObject", "menuHouseholds");
+                chooseItem.setArguments(bundle);
                 chooseItem.show(getSupportFragmentManager(), "chooseItem");
-                return true;
-            case R.id.menu_explore_fridge:
-                viewPager.setCurrentItem(0);
-                ProductsFragment productsFragment = (ProductsFragment) adapter.getItem(tabLayout.getSelectedTabPosition());
-                productsFragment.getProductLayout().setVisibility(View.VISIBLE);
-                productsFragment.getFridgeLayout().setVisibility(View.GONE);
                 return true;
             case R.id.menu_favourite_recipes:
                 //TODO
@@ -88,11 +88,6 @@ public class ViewPageActivity extends AppCompatActivity implements ProductsFridg
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public FragmentManager getTheFragmentManager() {
-        return this.getSupportFragmentManager();
     }
 
 

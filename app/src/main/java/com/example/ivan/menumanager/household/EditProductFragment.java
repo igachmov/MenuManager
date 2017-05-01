@@ -1,9 +1,11 @@
 package com.example.ivan.menumanager.household;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -55,7 +58,6 @@ public class EditProductFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         //in case edit product fragment is instantiated from adapter
         if (getArguments() != null) {
-            Log.e("Vanya", "arguments != null");
             name = getArguments().getString("name");
             quantityArgs = getArguments().getDouble("quantity");
             measureArgs = getArguments().getInt("measureID");
@@ -127,7 +129,12 @@ public class EditProductFragment extends DialogFragment {
 
         newProduct.setText(name);
         if (quantityArgs != 0) {
-            quantityEditText.setText(String.valueOf(quantityArgs));
+            if(measureArgs == 5 || measureArgs == 6){
+                quantityEditText.setText(String.valueOf((int)quantityArgs));
+            }
+            else{
+                quantityEditText.setText(String.valueOf(quantityArgs));
+            }
         }
         measureSpinner.setSelection(measureArgs);
         categorySpinner.setSelection(categoryArgs);
@@ -167,9 +174,10 @@ public class EditProductFragment extends DialogFragment {
                     return;
                 }
 
-                int currentTimeInMinutes = (int) (System.currentTimeMillis() / 1000) / 60;
+                long currentTimeInMilli = Calendar.getInstance().getTimeInMillis();
                 Product product = new Product(name, measureID, categoryID);
-                DBManager.getInstance(getActivity()).addProduct(product, quantity, expiryTermID, currentTimeInMinutes);
+                DBManager.getInstance(getActivity()).addProduct(product, quantity, expiryTermID, currentTimeInMilli);
+                Toast.makeText(getActivity(), product.getName() + " added successfully", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
@@ -185,7 +193,7 @@ public class EditProductFragment extends DialogFragment {
                 if (DBManager.households.get(DBManager.currentHousehold).getProducts().containsKey(name)) {
                     Product productInFridge = DBManager.households.get(DBManager.currentHousehold).getProducts().get(name);
                     if (productInFridge.getQuantity() != quantity) {
-                        Toast.makeText(getContext(), "Please add/update product! ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Please add or update this product! ", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         DBManager.getInstance(getActivity()).removeProduct(name);

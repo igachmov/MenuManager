@@ -10,10 +10,10 @@
         android:id="@+id/category_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
         android:background="@drawable/categories_background"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,15 +22,26 @@
             android:gravity="center"
             android:padding="3dp">
 
-            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.andexert.library.RippleView
                 android:id="@+id/dairy_image"
+                rv_centered="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/dairy"
-                app:riv_border_color="@color/colorWhite"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="15dip"
-                app:riv_mutate_background="true" />
+                app:rv_rippleDuration="150"
+                app:rv_type="doubleRipple"
+                app:rv_zoom="true"
+                app:rv_zoomScale="-0.001">
+
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dairy"
+                    app:riv_border_color="@color/colorWhite"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+
+            </com.andexert.library.RippleView>
         </LinearLayout>
 
         <LinearLayout
@@ -45,15 +56,25 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/bread_image"
+                <com.andexert.library.RippleView
+                    android:id="@+id/bakery_image"
+                    rv_centered="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bread"
-                    app:riv_border_color="@color/colorWhite"
-                    app:riv_border_width="@dimen/riv_border_width"
-                    app:riv_corner_radius="15dip"
-                    app:riv_mutate_background="true" />
+                    app:rv_rippleDuration="150"
+                    app:rv_type="doubleRipple"
+                    app:rv_zoom="true"
+                    app:rv_zoomScale="-0.001">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/bread"
+                        app:riv_border_color="@color/colorWhite"
+                        app:riv_border_width="@dimen/riv_border_width"
+                        app:riv_corner_radius="15dip"
+                        app:riv_mutate_background="true" />
+                </com.andexert.library.RippleView>
             </LinearLayout>
 
             <LinearLayout
@@ -62,15 +83,25 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/spice_oil_image"
+                <com.andexert.library.RippleView
+                    android:id="@+id/dressing_image"
+                    rv_centered="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/spice_oil"
-                    app:riv_border_color="@color/colorWhite"
-                    app:riv_border_width="@dimen/riv_border_width"
-                    app:riv_corner_radius="15dip"
-                    app:riv_mutate_background="true" />
+                    app:rv_rippleDuration="150"
+                    app:rv_type="doubleRipple"
+                    app:rv_zoom="true"
+                    app:rv_zoomScale="-0.001">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/spice_oil"
+                        app:riv_border_color="@color/colorWhite"
+                        app:riv_border_width="@dimen/riv_border_width"
+                        app:riv_corner_radius="15dip"
+                        app:riv_mutate_background="true" />
+                </com.andexert.library.RippleView>
             </LinearLayout>
         </LinearLayout>
 
@@ -88,16 +119,25 @@
                 android:orientation="vertical"
                 android:padding="2dp">
 
-                <com.makeramen.roundedimageview.RoundedImageView
+                <com.andexert.library.RippleView
                     android:id="@+id/veggies_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/veggies"
-                    app:riv_border_color="@color/colorWhite"
-                    app:riv_border_width="@dimen/riv_border_width"
-                    app:riv_corner_radius="15dip"
-                    app:riv_mutate_background="true" />
+                    rv_centered="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:rv_rippleDuration="150"
+                    app:rv_type="doubleRipple"
+                    app:rv_zoom="true"
+                    app:rv_zoomScale="-0.001">
 
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/veggies"
+                        app:riv_border_color="@color/colorWhite"
+                        app:riv_border_width="@dimen/riv_border_width"
+                        app:riv_corner_radius="15dip"
+                        app:riv_mutate_background="true" />
+                </com.andexert.library.RippleView>
             </LinearLayout>
 
             <LinearLayout
@@ -107,16 +147,25 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.makeramen.roundedimageview.RoundedImageView
+                <com.andexert.library.RippleView
                     android:id="@+id/fridge_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/fridge"
-                    app:riv_border_color="@color/colorWhite"
-                    app:riv_border_width="@dimen/riv_border_width"
-                    app:riv_corner_radius="50dip"
-                    app:riv_mutate_background="true" />
+                    rv_centered="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:rv_rippleDuration="150"
+                    app:rv_type="doubleRipple"
+                    app:rv_zoom="true"
+                    app:rv_zoomScale="-0.001">
 
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/fridge"
+                        app:riv_border_color="@color/colorWhite"
+                        app:riv_border_width="@dimen/riv_border_width"
+                        app:riv_corner_radius="50dip"
+                        app:riv_mutate_background="true" />
+                </com.andexert.library.RippleView>
             </LinearLayout>
 
             <LinearLayout
@@ -127,15 +176,25 @@
                 android:orientation="vertical"
                 android:padding="2dp">
 
-                <com.makeramen.roundedimageview.RoundedImageView
+                <com.andexert.library.RippleView
                     android:id="@+id/sauce_image"
+                    rv_centered="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/sauce"
-                    app:riv_border_color="@color/colorWhite"
-                    app:riv_border_width="@dimen/riv_border_width"
-                    app:riv_corner_radius="15dip"
-                    app:riv_mutate_background="true" />
+                    app:rv_rippleDuration="150"
+                    app:rv_type="doubleRipple"
+                    app:rv_zoom="true"
+                    app:rv_zoomScale="-0.001">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/sauce"
+                        app:riv_border_color="@color/colorWhite"
+                        app:riv_border_width="@dimen/riv_border_width"
+                        app:riv_corner_radius="15dip"
+                        app:riv_mutate_background="true" />
+                </com.andexert.library.RippleView>
             </LinearLayout>
         </LinearLayout>
 
@@ -151,15 +210,25 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <com.makeramen.roundedimageview.RoundedImageView
+                <com.andexert.library.RippleView
                     android:id="@+id/fruits_image"
+                    rv_centered="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/fruits"
-                    app:riv_border_color="@color/colorWhite"
-                    app:riv_border_width="@dimen/riv_border_width"
-                    app:riv_corner_radius="15dip"
-                    app:riv_mutate_background="true" />
+                    app:rv_rippleDuration="150"
+                    app:rv_type="doubleRipple"
+                    app:rv_zoom="true"
+                    app:rv_zoomScale="-0.001">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/fruits"
+                        app:riv_border_color="@color/colorWhite"
+                        app:riv_border_width="@dimen/riv_border_width"
+                        app:riv_corner_radius="15dip"
+                        app:riv_mutate_background="true" />
+                </com.andexert.library.RippleView>
             </LinearLayout>
 
             <LinearLayout
@@ -168,15 +237,25 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.andexert.library.RippleView
                     android:id="@+id/meat_image"
+                    rv_centered="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/meat"
-                    app:riv_border_color="@color/colorWhite"
-                    app:riv_border_width="@dimen/riv_border_width"
-                    app:riv_corner_radius="15dip"
-                    app:riv_mutate_background="true" />
+                    app:rv_rippleDuration="150"
+                    app:rv_type="doubleRipple"
+                    app:rv_zoom="true"
+                    app:rv_zoomScale="-0.001">
+
+                    <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/meat"
+                        app:riv_border_color="@color/colorWhite"
+                        app:riv_border_width="@dimen/riv_border_width"
+                        app:riv_corner_radius="15dip"
+                        app:riv_mutate_background="true" />
+                </com.andexert.library.RippleView>
             </LinearLayout>
         </LinearLayout>
 
@@ -187,16 +266,25 @@
             android:gravity="center"
             android:padding="3dp">
 
-
-            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/beans_image"
+            <com.andexert.library.RippleView
+                android:id="@+id/grain_image"
+                rv_centered="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/beans"
-                app:riv_border_color="@color/colorWhite"
-                app:riv_border_width="@dimen/riv_border_width"
-                app:riv_corner_radius="15dip"
-                app:riv_mutate_background="true" />
+                app:rv_rippleDuration="150"
+                app:rv_type="doubleRipple"
+                app:rv_zoom="true"
+                app:rv_zoomScale="-0.001">
+
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/beans"
+                    app:riv_border_color="@color/colorWhite"
+                    app:riv_border_width="@dimen/riv_border_width"
+                    app:riv_corner_radius="15dip"
+                    app:riv_mutate_background="true" />
+            </com.andexert.library.RippleView>
         </LinearLayout>
     </LinearLayout>
 
@@ -216,51 +304,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@color/colorBlue_grey_dark"
+                android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:paddingTop="5dp">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1.2"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/category"
-                    android:textSize="16sp"/>
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1.2"
                     android:layout_height="match_parent"
+                    android:layout_weight="1.3"
                     android:gravity="center_vertical"
                     android:text="@string/product"
-                    android:textSize="16sp"
-                    />
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1.5"
                     android:layout_height="match_parent"
+                    android:layout_weight="1.1"
                     android:gravity="center_vertical"
                     android:text="@string/quantity"
-                    android:textSize="16sp"/>
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="0.8"
                     android:layout_height="match_parent"
+                    android:layout_weight="1.2"
                     android:gravity="center_vertical"
-                    android:text="@string/best_to"
-                    android:textSize="16sp"/>
+                    android:text="@string/use_before"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp" />
             </LinearLayout>
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/household_products_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="10"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/household_products_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9" />
 
         </LinearLayout>
 
@@ -271,8 +363,8 @@
             android:layout_gravity="bottom|end|right"
             android:layout_margin="16dp"
             android:src="@android:drawable/ic_input_add"
-            app:elevation="6dp"
-            app:backgroundTint="@color/colorBlue_grey_dark" />
+            app:backgroundTint="@color/colorBlue_grey_dark"
+            app:elevation="10dp" />
 
     </FrameLayout>
 

@@ -1,14 +1,12 @@
 
-    <TextView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp"
-        style="?android:attr/spinnerItemStyle"
-        android:lines="1"
-        android:ellipsize="marquee"
-        android:background="@color/colorWhite"
-        android:textSize="17sp"
-        android:textColor="@color/colorBlue_grey_dark" />
+    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:background="@color/colorBlue_grey_dark"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:padding="3dp"
+    android:ellipsize="marquee"
+    android:textSize="@dimen/text_size"
+    android:textColor="@color/colorWhite" />
 

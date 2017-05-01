@@ -1,5 +1,7 @@
 package com.example.ivan.menumanager.model;
 
+import java.util.Calendar;
+
 /**
  * Created by Ivan on 4/4/2017.
  */
@@ -12,7 +14,7 @@ public class Product {
     private int foodCategoryID;
     private int expiryTermID;
     private String unit;
-    private int purchaseDateMinutes;
+    private long purchaseDateInMilli;
     private double quantity;
 
 
@@ -30,7 +32,6 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getName() {
         return this.name;
@@ -64,54 +65,25 @@ public class Product {
         this.expiryTermID = expiryTermID;
     }
 
-    public long getExpiryTermInMilliseconds(int expiryTermID){
-        long expiryTermInMilliseconds = 0;
-        switch(expiryTermID){
-            case 1:
-                expiryTermInMilliseconds = 2*60*1000;
-                break;
-            case 2:
-                expiryTermInMilliseconds = 1440*60*1000;
-                break;
-            case 3:
-                expiryTermInMilliseconds = 4320*60*1000;
-                break;
-            case 4:
-                expiryTermInMilliseconds = 10080*60*1000;
-                break;
-            case 5:
-                expiryTermInMilliseconds = 20160*60*1000;
-                break;
-            case 6:
-                expiryTermInMilliseconds = 43200*60*1000;
-                break;
-        }
-
-        return expiryTermInMilliseconds;
-    }
-
-
-    public int getPurchaseDateMinutes() {
-        return purchaseDateMinutes;
-    }
-
-
     public double getQuantity() {
         return this.quantity;
     }
 
     public void setQuantity(double quantity){ this.quantity = quantity; }
 
+    public long getPurchaseDateInMilli() {
+        return purchaseDateInMilli;
+    }
 
-    public void setPurchaseDateMinutes(int purchaseDateMinutes){
-        this.purchaseDateMinutes =  purchaseDateMinutes;
+    public void setPurchaseDateInMilli(long purchaseDateInMilli){
+        this.purchaseDateInMilli =  purchaseDateInMilli;
     }
 
 
     public boolean isExpired(){
-        if(this.purchaseDateMinutes != 0){
-            int currentTimeMinutes = (int) ((System.currentTimeMillis()/1000)/60);
-            if((currentTimeMinutes - purchaseDateMinutes) >= getExpiryTermToMinutes()){
+        if(this.purchaseDateInMilli != 0){
+            long currentTimeMilli = (long) (Calendar.getInstance().getTimeInMillis());
+            if((currentTimeMilli - purchaseDateInMilli) >= getExpiryTermInMilli()){
                 return true;
             }
             return false;
@@ -120,29 +92,29 @@ public class Product {
     }
 
 
-    private int getExpiryTermToMinutes(){
-        int expiryInMinutes = 0;
+    public long getExpiryTermInMilli(){
+        long expiryInMilli = 0;
         switch(expiryTermID){
             case 1:
-                expiryInMinutes = 2;
+                expiryInMilli = 120000;
             break;
             case 2:
-                expiryInMinutes = 1440;
+                expiryInMilli = 86400000;
             break;
             case 3:
-                expiryInMinutes = 4320;
+                expiryInMilli = 259200000;
             break;
             case 4:
-                expiryInMinutes = 10080;
+                expiryInMilli = 604800000;
                 break;
             case 5:
-                expiryInMinutes = 20160;
+                expiryInMilli = 1209600000;
                 break;
             case 6:
-                expiryInMinutes = 43200;
+                expiryInMilli = 2592000000L;
                 break;
         }
-        return expiryInMinutes;
+        return expiryInMilli;
     }
 
 

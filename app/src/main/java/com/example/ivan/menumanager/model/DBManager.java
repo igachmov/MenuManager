@@ -143,7 +143,8 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     //TODO
-    public void addProduct(Product product, double quantity, int expiryTermID, int currentTimeInMinutes) {
+    public void addProduct(Product product, double quantity, int expiryTermID, long
+            currentTimeInMilli) {
         ContentValues contentValues = new ContentValues();
         //insert in predefined products
         if (!predefinedProducts.containsKey(product.getName())) {
@@ -168,11 +169,10 @@ public class DBManager extends SQLiteOpenHelper {
                     contentValues.put(HOUSEHOLD_ID, householdID);
                     contentValues.put(PRODUCT_ID, productID);
                     contentValues.put(QUANTITY, quantity);
-                    contentValues.put(PURCHASE_DATE, currentTimeInMinutes);
+                    contentValues.put(PURCHASE_DATE, currentTimeInMilli);
                     contentValues.put(EXPIRY_TERM_ID, expiryTermID);
                     ourInstance.getWritableDatabase().insert(HOUSEHOLD_PRODUCT, null, contentValues);
                     contentValues.clear();
-                    Toast.makeText(context, product.getName() + " added successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         } else {
@@ -180,7 +180,7 @@ public class DBManager extends SQLiteOpenHelper {
             contentValues.put(HOUSEHOLD_ID, householdID);
             contentValues.put(PRODUCT_ID, productID);
             contentValues.put(QUANTITY, quantity);
-            contentValues.put(PURCHASE_DATE, currentTimeInMinutes);
+            contentValues.put(PURCHASE_DATE, currentTimeInMilli);
             contentValues.put(EXPIRY_TERM_ID, expiryTermID);
             ourInstance.getWritableDatabase().update(HOUSEHOLD_PRODUCT, contentValues,
                     HOUSEHOLD_ID + " =? AND " + PRODUCT_ID + "=?", new String[]{String.valueOf(householdID), String.valueOf(productID)});
@@ -189,7 +189,7 @@ public class DBManager extends SQLiteOpenHelper {
         }
         //gets overriden if existing
         Product productToAdd = product;
-        product.setPurchaseDateMinutes(currentTimeInMinutes);
+        product.setPurchaseDateInMilli(currentTimeInMilli);
         product.setQuantity(quantity);
         product.setExpiryTermID(expiryTermID);
         households.get(currentHousehold).addProduct(product);
@@ -331,9 +331,8 @@ public class DBManager extends SQLiteOpenHelper {
             while (cursorHh_Pr.moveToNext()) {
                 int idPr = cursorHh_Pr.getInt(cursorHh_Pr.getColumnIndex(PRODUCT_ID));
                 double quantityPr = cursorHh_Pr.getDouble(cursorHh_Pr.getColumnIndex(QUANTITY));
-                int purchPr = cursorHh_Pr.getInt(cursorHh_Pr.getColumnIndex(PURCHASE_DATE));
+                long purchPr = cursorHh_Pr.getLong(cursorHh_Pr.getColumnIndex(PURCHASE_DATE));
                 int idExp = cursorHh_Pr.getInt(cursorHh_Pr.getColumnIndex(EXPIRY_TERM_ID));
-                Log.e("Vanya", "on loading - quantity " + String.valueOf(quantityPr));
 
                 //get household's product name, measureID, categoryID
                 Cursor cursorPr = ourInstance.getWritableDatabase().rawQuery("SELECT " + NAME + "," + MEASURE_ID + "," + CATEGORY_ID + " FROM " + PRODUCT + " WHERE " + ID + " = ?", new String[]{String.valueOf(idPr)});
@@ -344,7 +343,7 @@ public class DBManager extends SQLiteOpenHelper {
                     int idCateg = cursorPr.getInt(cursorPr.getColumnIndex(CATEGORY_ID));
                     product = new Product(namePr, idMeasure, idCateg);
                     product.setId(idPr);
-                    product.setPurchaseDateMinutes(purchPr);
+                    product.setPurchaseDateInMilli(purchPr);
                     product.setExpiryTermID(idExp);
                     product.setQuantity(quantityPr);
                     households.get(nameHh).addProduct(product);
@@ -392,13 +391,13 @@ public class DBManager extends SQLiteOpenHelper {
             db.insert(EXPIRY_TERM, null, contentValues);
             contentValues.clear();
         }
-        String[] categories = new String[]{"bakery", "dairy", "dressing", "fruits", "grain", "meat", "sauce", "veggies"};
+        String[] categories = new String[]{"food category", "bakery", "dairy", "dressing", "fruits", "grain", "meat", "sauce", "veggies"};
         int[] images = new int[]{R.drawable.bread, R.drawable.dairy, R.drawable.spice_oil, R.drawable.fruits, R.drawable.beans, R.drawable.meat, R.drawable.sauce, R.drawable.veggies};
-        contentValues.put(NAME, "food category");
+        contentValues.put(NAME, categories[0]);
         db.insert(CATEGORY, null, contentValues);
         contentValues.clear();
         for (int i = 0; i < categories.length; i++) {
-            contentValues.put(NAME, categories[i]);
+            contentValues.put(NAME, categories[i+1]);
             contentValues.put(IMAGE, images[i]);
             db.insert(CATEGORY, null, contentValues);
             contentValues.clear();

@@ -91,4 +91,32 @@ public class ViewPageActivity extends AppCompatActivity{
     }
 
 
+
+
+
+
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_main_course:
+//                //TODO
+//                return true;
+//            case R.id.menu_households:
+//                ChooseItemFragment chooseItem = new ChooseItemFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("callingObject", "menuHouseholds");
+//                chooseItem.setArguments(bundle);
+//                chooseItem.show(getSupportFragmentManager(), "chooseItem");
+//                return true;
+//            case R.id.menu_favourite_recipes:
+//                //TODO
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+
+
 }

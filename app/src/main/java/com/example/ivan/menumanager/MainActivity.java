@@ -51,4 +51,28 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+//    listener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            RippleView view = (RippleView) v;
+//            view.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+//
+//                @Override
+//                public void onComplete(RippleView rippleView) {
+//                    ChooseItemFragment chooseDialog = new ChooseItemFragment();
+//                    FragmentManager fm = getSupportFragmentManager();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("callingObject","mainActivity");
+//                    chooseDialog.setArguments(bundle);
+//                    chooseDialog.show(fm, "chooseFragment");
+//                }
+//            });
+//        }
+//    };
+//        chooseHouseholdView.setOnClickListener(listener);
+//        magicView.setOnClickListener(listener);
 }

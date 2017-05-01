@@ -52,22 +52,20 @@ import java.util.Scanner;
  */
 public class RecipesFragment extends Fragment {
 
-
     private ImageView searchButton;
     private TextView recipeName;
-    private LinearLayout recipesLayout;
-
     private RecyclerView recyclerView;
     private EditText searchName;
-    protected ArrayList<Recipe> recipeData ;
+    private static ArrayList<Recipe> recipeData ;
     private LinearLayout fridgeLayout;
     private int counter = 0;
     private int counter2 = 0;
     private int counter3 = 0;
-
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
     private String  name;
+    private Bitmap defaul ;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -77,7 +75,20 @@ public class RecipesFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.recipe_search_recyclerview);
         progressBar = (ProgressBar) root.findViewById(R.id.recipe_progress_bar);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.searc_relative_layout);
-        recipesLayout = (LinearLayout) root.findViewById(R.id.recipes_layout);
+        defaul =  BitmapFactory.decodeResource(getResources(), R.mipmap.img_default);
+
+        if(recipeData != null && recipeData.size()!=0){
+            Log.e("Fragment",recipeData.size()+"");
+            relativeLayout.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+            progressBar.setProgress(0);
+            fridgeLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        }
 
         searchButton = (ImageView) root.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +102,10 @@ public class RecipesFragment extends Fragment {
                       counter3 = 0;
                       recipeData = new ArrayList<>();
                       RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
-                      relativeLayout.setVisibility(View.VISIBLE);
-                      progressBar.setVisibility(View.VISIBLE);
-                      fridgeLayout.setVisibility(View.GONE);
+                      relativeLayout.setVisibility(View.GONE);
+                      progressBar.setVisibility(View.GONE);
+                      fridgeLayout.setVisibility(View.VISIBLE);
+                      recyclerView.setVisibility(View.VISIBLE);
                       new DownloadRecipeTask().execute(name);
                       Log.e("Ivan", Integer.toString(recipeData.size()));
                       dismissKeyboard(getActivity());
@@ -108,14 +120,6 @@ public class RecipesFragment extends Fragment {
         });
         return root;
     }
-
-    public void dismissKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (null != activity.getCurrentFocus())
-            imm.hideSoftInputFromWindow(activity.getCurrentFocus()
-                    .getApplicationWindowToken(), 0);
-    }
-
 
     public class DownloadRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
         JSONObject json = null;
@@ -147,6 +151,9 @@ public class RecipesFragment extends Fragment {
                         String id = jsonObj.getString("id");
                         String image = jsonObj.getString("image");
                         String imageURL = ("https://spoonacular.com/recipeImages/" + image);
+                        Log.e("Bla",name);
+
+
                         recipe = new Recipe(name, id, imageURL);
                         recipeData.add(recipe);
                     }
@@ -174,170 +181,23 @@ public class RecipesFragment extends Fragment {
                 recyclerView.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Sorry there are no such recipes with that name try again", Toast.LENGTH_SHORT).show();
             }
-            for (int i = 0; i < recipeData.size(); i++) {
-                String recipeImg = recipeData.get(i).getPicURL();
-                new DownloadImageTask().execute(recipeImg);
-                String id = recipeData.get(i).getId();
-                new DownloadRecipeInstruction().execute(id);
-                Log.e("Ivan", "Counter in DownloadTask counter  " + counter + "");
-                counter++;
-            }
+            RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
     }
-    public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Recipe>> {
-        JSONObject json = null;
-        JSONArray jsonArr = null;
-        Product product = null;
-        @Override
-        protected ArrayList<Recipe> doInBackground(String... params) {
-            String recipeId = params[0];
-            try {
-                Log.e("Ivan", "Counter in DownloadIngredients " + counter3 + "");
-                URL url = new URL("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+recipeId+"/information");
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.setRequestProperty("X-Mashape-Key", "y6PWzRnUUrmshSwL1nXeJXgDCJuop1nEGLPjsnlBLEuOxNFyXY");
-                con.setRequestProperty("Accept", "application/json");
-                Scanner sc = new Scanner(con.getInputStream());
-                StringBuilder jsonResponse = new StringBuilder();
-                while (sc.hasNextLine()) {
-                    jsonResponse.append(sc.nextLine());
-                }
-                json = new JSONObject(jsonResponse.toString());
-                jsonArr = json.getJSONArray("extendedIngredients");
-                if (jsonArr != null) {
-                    int productCounter = 0 ;
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObj = jsonArr.getJSONObject(i);
-                        String name = jsonObj.getString("name");
-                        String amount = jsonObj.getString("amount");
-                        DecimalFormat df = new DecimalFormat("#.##");
-                        String dx=df.format(Double.parseDouble(amount));
-                        double qunatity = Double.parseDouble(dx);
-                        product = new Product(name, 0, 0);
-                        for(Map.Entry<String,Product> e : DBManager.households.get(DBManager.currentHousehold).getProducts().entrySet()){
-                            String productInFridge = e.getKey();
-                            String plularNameInFridge = productInFridge+"s";
-                            double quantityInFridge = e.getValue().getQuantity();
-                            String unit = jsonObj.getString("unit");
-                            String unitInFridge = e.getValue().getUnit();
-                            Log.e("Ivan",productInFridge);
-                            Log.e("Ivan",plularNameInFridge);
-                            Log.e("Ivan",name);
-                            Log.e("Ivan",quantityInFridge+"");
-                            Log.e("Ivan",qunatity+"");
-                            Log.e("Ivan",unit);
-                            if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))){
-//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("g")){
-//                                    quantityInFridge = quantityInFridge*1000;
-//                                    if(quantityInFridge>=qunatity){
-//
-
-
-//
-// productCounter++;
-//                                    }
-//                                }
-//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("kg")){
-//                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
-//                                    }
-//                                }
-//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("ml")){
-//                                    quantityInFridge = quantityInFridge*1000;
-//                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
-//                                    }
-//                                }
-//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("liter")){
-//                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
-//                                    }
-//                                }
-                                productCounter++;
-                            }
-                        }
-                        recipeData.get(counter3).getIngredients().add(product);
-
-                    }
-                    recipeData.get(counter3).setProductCounter(productCounter);
-                    Log.e("Ivan","Product counter "+counter3+"");
-
-                }
-            } catch (MalformedURLException e) {
-                Log.e("Ivan", "Malformed");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                Log.e("Ivan", "ProtocolException");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return recipeData;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Recipe> recipes) {
-            counter3++;
-        }
-    }
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            Log.e("Ivan", "Counter in DownloadTask " + counter2 + "");
-            String urldisplay = params[0];
-            URLConnection urlConnection = null;
-            Bitmap mIcon11 = null;
-            Bitmap defaul = BitmapFactory.decodeResource(getResources(), R.mipmap.img_default);
-            InputStream in = null;
-            URL url = null;
-            try {
-                url = new URL(urldisplay);
-                urlConnection = url.openConnection();
-                urlConnection.connect();
-                in = new URL(urldisplay).openStream();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            int file_size = urlConnection.getContentLength();
-            if(file_size>150000 || file_size==4384){
-                recipeData.get(counter2).setPicBitmap(defaul);
-                return defaul;
-            }
-            mIcon11 = BitmapFactory.decodeStream(in);
-            recipeData.get(counter2).setPicBitmap(mIcon11);
-            return mIcon11;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            counter2++;
-            if (counter2==counter || recipeData.size()==0){
-                relativeLayout.setVisibility(View.GONE);
-                progressBar.setVisibility(View.GONE);
-                progressBar.setProgress(0);
-                fridgeLayout.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
-                RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recipesLayout.setAlpha(0.5f);
-
-            }
-        }
-    }
-
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
+    public void dismissKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != activity.getCurrentFocus())
+            imm.hideSoftInputFromWindow(activity.getCurrentFocus()
+                    .getApplicationWindowToken(), 0);
+    }
 
 
 }

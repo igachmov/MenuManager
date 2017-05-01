@@ -1,13 +1,9 @@
 package com.example.ivan.menumanager.household;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +52,6 @@ public class EditProductFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //in case edit product fragment is instantiated from adapter
         if (getArguments() != null) {
             name = getArguments().getString("name");
             quantityArgs = getArguments().getDouble("quantity");
@@ -94,7 +89,9 @@ public class EditProductFragment extends DialogFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
+
         });
 
         ArrayList<String> categoryNames = new ArrayList<>();

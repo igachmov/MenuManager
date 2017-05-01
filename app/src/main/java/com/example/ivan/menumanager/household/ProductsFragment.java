@@ -3,14 +3,12 @@ package com.example.ivan.menumanager.household;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.andexert.library.RippleView;
@@ -18,8 +16,8 @@ import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
+
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * A simple {@link Fragment} subclass.

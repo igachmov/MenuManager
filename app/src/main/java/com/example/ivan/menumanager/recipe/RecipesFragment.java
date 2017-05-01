@@ -83,7 +83,11 @@ public class RecipesFragment extends Fragment {
             progressBar.setProgress(0);
             fridgeLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
+            Log.e("Fragment"," before new "+RecipeSearchAdapter.recipes.size()+"");
+            RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
+            Log.e("Fragment"," after new "+RecipeSearchAdapter.recipes.size()+"");
             RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
+            Log.e("Fragment"," visualiziation "+RecipeSearchAdapter.recipes.size()+"");
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

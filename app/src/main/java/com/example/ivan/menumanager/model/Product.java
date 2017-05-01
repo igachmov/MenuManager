@@ -14,6 +14,7 @@ public class Product {
     private String unit;
     private int purchaseDateMinutes;
     private double quantity;
+    private boolean hasItem;
 
 
 
@@ -31,6 +32,13 @@ public class Product {
         this.id = id;
     }
 
+    public void setHasItem(boolean hasItem) {
+        this.hasItem = hasItem;
+    }
+
+    public boolean getIsHasItem() {
+        return hasItem;
+    }
 
     public String getName() {
         return this.name;

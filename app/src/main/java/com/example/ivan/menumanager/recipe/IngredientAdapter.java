@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
@@ -40,6 +41,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Ne
         holder.ingredientName.setText(product.getName());
         holder.ingredientAmount.setText(product.getQuantity()+"");
         holder.ingredientUnit.setText(product.getUnit());
+        if(product.getIsHasItem()){
+            holder.ingredientLayout.setBackgroundResource(R.color.colorBlueLightDarker);
+        }
     }
 
     @Override
@@ -51,12 +55,14 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Ne
         TextView ingredientName;
         TextView ingredientAmount;
         TextView ingredientUnit;
+        LinearLayout ingredientLayout;
 
         public NewViewHolder(View row) {
             super(row);
             ingredientName = (TextView) row.findViewById(R.id.ingredient_name_tv);
             ingredientAmount = (TextView) row.findViewById(R.id.ingredint_amount_tv);
             ingredientUnit = (TextView) row.findViewById(R.id.ingredint_unit_tv);
+            ingredientLayout = (LinearLayout) row.findViewById(R.id.recipe_view_layout);
         }
     }
 

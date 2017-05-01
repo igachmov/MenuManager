@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
+import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -115,6 +117,38 @@ public class RecipeViewFragment extends Fragment {
                         String dx=df.format(Double.parseDouble(amount));
                         product.setQuantity(Double.parseDouble(dx));
                         product.setUnit(unit);
+
+                        for(Map.Entry<String,Product> e : DBManager.households.get(DBManager.currentHousehold).getProducts().entrySet()){
+                            String productInFridge = e.getKey();
+                            String plularNameInFridge = productInFridge+"s";
+                            double quantityInFridge = e.getValue().getQuantity();
+                            String unitInFridge = e.getValue().getUnit();
+                            if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))){
+//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("g")){
+//                                    quantityInFridge = quantityInFridge*1000;
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("kg")){
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("ml")){
+//                                    quantityInFridge = quantityInFridge*1000;
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("liter")){
+//                                    if(quantityInFridge>=qunatity){
+//                                        productCounter++;
+//                                    }
+//                                }
+                                product.setHasItem(true);
+                            }
+                        }
                         productData.add(product);
                     }
                 }

@@ -48,19 +48,14 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
     private Context context;
     private Recipe recipe;
     private Bitmap bitmap;
-    private  int x = 0;
+    private boolean isFinished = true ;
     private int counter2 = 0;
     private int counter3 = 0;
-
-
-
 
     public RecipeSearchAdapter(Context context, ArrayList<Recipe> recipes,Bitmap bitmap) {
         this.recipes = recipes;
         this.context = context;
         this.bitmap = bitmap;
-
-
     }
 
     @Override
@@ -69,30 +64,25 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         View row = li.inflate(R.layout.recipe_search_recycler, parent,false);
         RecipeSearchAdapter.NewViewHolder vh = new RecipeSearchAdapter.NewViewHolder(row);
 
-        if(x<1) {
+        if(isFinished && recipes.get(0).getIngredients().size()==0) {
             Log.e("Vleze","INSIDE");
             for (int i = 0; i <recipes.size() ; i++) {
                 String recipeImg = recipes.get(i).getPicURL();
                 String id = recipes.get(i).getId();
-                   new DownloadRecipeInstruction().execute(id);
-                   new DownloadImageTask().execute(recipeImg);
+                new DownloadRecipeInstruction().execute(id);
+                new DownloadImageTask().execute(recipeImg);
             }
-            x++;
+            isFinished = false;
         }
         return vh;
     }
 
     @Override
     public void onBindViewHolder(final RecipeSearchAdapter.NewViewHolder holder, final int position) {
-        //izvikva se asyntask za izteglqne na img i na recepta za receptata na opredelenata poziciq
-
-            //v onBindViewHolder anonimen klas s asynctask
             recipe = recipes.get(position);
             holder.recipeName.setText(recipe.getName());
             holder.recipeImage.setImageBitmap(recipe.getPicBitmap());
             holder.ingredients.setText(recipe.getProductCounter() + "" + "/" + recipe.getIngredients().size() + "");
-
-
 //            if(counter3<20) {
 //
 //            new AsyncTask<String, Void, Bitmap>() {
@@ -235,16 +225,12 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
 //            holder.ingredients.setText(recipe.getProductCounter() + "" + "/" + recipe.getIngredients().size() + "");
 //
 //        }
-
-
-
     }
 
     @Override
     public int getItemCount() {
         return recipes.size();
     }
-
 
     class NewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView recipeImage;
@@ -259,7 +245,6 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
                 recipeName = (TextView) row.findViewById(R.id.recipe_name_tv);
                 progressBar = (TextView) row.findViewById(R.id.progress_bar);
                 ingredients = (TextView) row.findViewById(R.id.ingredients_tv);
-
         }
 
 
@@ -271,12 +256,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
             intent.putExtra("position", getAdapterPosition());
             context.startActivity(intent);
         }
-
-
     }
-
-
-
     public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Recipe>> {
         JSONObject json = null;
         JSONArray jsonArr = null;
@@ -313,12 +293,6 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
                             double quantityInFridge = e.getValue().getQuantity();
                             String unit = jsonObj.getString("unit");
                             String unitInFridge = e.getValue().getUnit();
-                            Log.e("Ivan",productInFridge);
-                            Log.e("Ivan",plularNameInFridge);
-                            Log.e("Ivan",name);
-                            Log.e("Ivan",quantityInFridge+"");
-                            Log.e("Ivan",qunatity+"");
-                            Log.e("Ivan",unit);
                             if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))){
 //                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("g")){
 //                                    quantityInFridge = quantityInFridge*1000;

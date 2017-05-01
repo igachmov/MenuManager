@@ -1,10 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipes_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/z_recipe_image"
     tools:context="com.example.ivan.menumanager.recipe.RecipesFragment">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,9 +17,14 @@
             android:id="@+id/search_recipe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_weight="4"
             android:hint="Search for a recipe"
+            android:textColorHint="@color/colorBlue_grey_dark"
             android:ems="4"
+            android:backgroundTint="@color/colorBlue_grey_dark"
+            android:inputType="textAutoComplete"
+            android:textColor="@color/colorBlue_grey_dark"
             android:windowSoftInputMode="adjustPan"/>
 
 
@@ -27,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@android:drawable/ic_search_category_default"
+            android:src="@android:drawable/ic_menu_search"
             />
 
     </LinearLayout>
@@ -37,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
+        android:layout_marginLeft="5dp"
         android:id="@+id/recipe_search_layout"
         android:weightSum="1"
         android:visibility="gone">
@@ -72,4 +79,5 @@
             android:layout_below="@+id/recipe_progress_bar"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
+
 </LinearLayout>

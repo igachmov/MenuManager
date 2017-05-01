@@ -5,80 +5,139 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:background="@color/colorWhite"
-    tools:context="com.example.ivan.menumanager.household.ChooseFragment"
+    android:background="@drawable/categories_background"
+    tools:context="com.example.ivan.menumanager.household.ChooseItemFragment"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/new_product_name"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="5dp"
-        android:text="edit"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:padding="7dp"
+        android:textSize="@dimen/names_size"
         android:gravity="center"
-        android:background="@drawable/z_round_corner_shape_blue_grey"
+        android:background="@drawable/z_round_shape_blue_grey"
         android:textColor="@color/colorWhite" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+                android:layout_weight="1"
+            android:text="quantity"
+                android:padding="5dp"
+                android:layout_margin="7dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlue_grey_dark"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="measure"
+                android:padding="5dp"
+                android:layout_margin="7dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlue_grey_dark"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="food category"
+                android:padding="5dp"
+                android:layout_margin="7dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlue_grey_dark"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="expiry term"
+                android:padding="5dp"
+                android:layout_margin="7dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlue_grey_dark"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/qunatity_edit"
-                android:layout_width="0dp"
-                android:layout_weight="0.7"
-                android:layout_height="match_parent"
-                android:inputType="numberDecimal"
-                android:layout_marginLeft="5dp"
+            android:id="@+id/qunatity_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="13dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="quantity"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:backgroundTint="@color/colorBlue_grey_dark"
-                android:textColor="@color/colorBlue_grey_dark"
-                android:textColorHint="@color/colorBlue_grey_dark"/>
+            android:inputType="numberDecimal"
+            android:hint="@string/fill_in"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:backgroundTint="@color/colorBlue_grey_dark"
+            android:textColor="@color/colorBlue_grey_dark"
+            android:textColorHint="@color/colorBlue_grey_dark"/>
 
-
-        <Spinner
-            android:id="@+id/measure_spin"
-            android:layout_width="0dp"
-            android:layout_marginLeft="60dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:dropDownSelector="@color/colorBlue_grey_dark"
-            android:textColor="@color/colorBlue_grey_dark" ></Spinner>
-
-    </LinearLayout>
-
-    <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
 
             <Spinner
-                android:id="@+id/category_spin"
-                android:layout_width="0dp"
-                android:layout_weight="1.4"
-                android:layout_height="wrap_content"
-                android:dropDownSelector="@color/colorBlue_grey_dark"
-                android:textColor="@color/colorBlue_grey_dark" ></Spinner>
+            android:id="@+id/measure_spin"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="13dp"
+            android:dropDownSelector="@color/colorWhite"
+            android:backgroundTint="@color/colorBlue_grey_dark"
+            android:textColor="@color/colorBlue_grey_dark"></Spinner>
 
-        <Spinner
+            <Spinner
+            android:id="@+id/category_spin"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="13dp"
+            android:dropDownSelector="@color/colorWhite"
+            android:backgroundTint="@color/colorBlue_grey_dark"
+            android:textColor="@color/colorBlue_grey_dark"></Spinner>
+
+
+            <Spinner
             android:id="@+id/expiry_spin"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:dropDownSelector="@color/colorBlue_grey_dark"
-            android:textColor="@color/colorBlue_grey_dark" ></Spinner>
-            </LinearLayout>
+            android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="13dp"
+            android:dropDownSelector="@color/colorWhite"
+            android:backgroundTint="@color/colorBlue_grey_dark"
+            android:textColor="@color/colorBlue_grey_dark">
+            </Spinner>
+
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="5dp">
 
         <Button
             android:id="@+id/remove_product"
@@ -86,12 +145,11 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/z_round_corner_shape_bone"
+            android:textAllCaps="false"
+            android:background="@drawable/z_round_shape_blue_grey"
             android:text="@string/remove"
-            android:textSize="13dp"
-            android:textColor="@color/colorBlue_grey_dark" />
+            android:textSize="@dimen/button_text"
+            android:textColor="@color/colorWhite" />
 
         <Button
             android:id="@+id/update_product"
@@ -99,40 +157,35 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/z_round_corner_shape_bone"
-            android:text="@string/update"
-
-            android:textSize="13dp"
-            android:textColor="@color/colorBlue_grey_dark" />
+            android:textAllCaps="false"
+            android:background="@drawable/z_round_shape_blue_grey"
+            android:text="@string/add"
+            android:textSize="14sp"
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
-
 
         <Button
             android:id="@+id/check_shopping_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:background="@drawable/z_round_corner_shape_bone"
-            android:text="@string/check_shopping_lists"
-            android:textSize="13dp"
-            android:textColor="@color/colorBlue_grey_dark" />
+            android:layout_margin="5dp"
+            android:textAllCaps="false"
+            android:background="@drawable/z_round_shape_blue_grey"
+            android:text="@string/remove_shopping_lists"
+            android:textSize="14sp"
+            android:textColor="@color/colorWhite" />
 
         <Button
             android:id="@+id/cancel_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="105dp"
-            android:paddingRight="105dp"
-            android:background="@drawable/z_round_corner_shape_bone"
+            android:layout_margin="5dp"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp"
+            android:textAllCaps="false"
+            android:background="@drawable/z_round_shape_blue_grey"
             android:text="@string/cancel"
-            android:textSize="13dp"
-            android:textColor="@color/colorBlue_grey_dark" />
-
-
+            android:textSize="14sp"
+            android:textColor="@color/colorWhite" />
 
 </LinearLayout>

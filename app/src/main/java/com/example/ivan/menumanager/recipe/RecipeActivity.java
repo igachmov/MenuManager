@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.household.ChooseFragment;
+import com.example.ivan.menumanager.household.ChooseItemFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
 import com.r0adkll.slidr.Slidr;
@@ -128,7 +128,7 @@ public class RecipeActivity extends AppCompatActivity {
                 //TODO
                 return true;
             case R.id.menu_households:
-                ChooseFragment chooseHousehold = new ChooseFragment();
+                ChooseItemFragment chooseHousehold = new ChooseItemFragment();
                 chooseHousehold.show(getSupportFragmentManager(), "chooseItem");
                 return true;
             case R.id.menu_favourite_recipes:

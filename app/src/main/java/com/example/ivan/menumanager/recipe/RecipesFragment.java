@@ -66,6 +66,7 @@ public class RecipesFragment extends Fragment {
     private String  name;
     private Bitmap defaul ;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_recipes, container, false);
@@ -201,5 +202,6 @@ public class RecipesFragment extends Fragment {
             imm.hideSoftInputFromWindow(activity.getCurrentFocus()
                     .getApplicationWindowToken(), 0);
     }
+
 
 }

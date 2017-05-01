@@ -28,10 +28,8 @@
                 app:rv_type="doubleRipple"
                 rv_centered="true"
                 app:rv_zoom="true"
-                app:rv_rippleDuration="150"
-                app:rv_color="@color/colorBone"
-                app:rv_zoomScale="1.1">
-
+                app:rv_rippleDuration="70"
+                app:rv_zoomScale="-0.001">
 
                 <TextView
 
@@ -41,9 +39,9 @@
                     android:padding="3dp"
                     android:text="@string/recipe"
                     android:textColor="@color/colorWhite"
-                    android:textSize="29sp"
+                    android:textSize="28sp"
                     android:textStyle="italic"
-                    android:background="@drawable/z_round_corner_shape_blue"/>
+                    android:background="@drawable/z_round_shape_blue"/>
 
             </com.andexert.library.RippleView>
 
@@ -77,9 +75,8 @@
                     app:rv_type="doubleRipple"
                     rv_centered="true"
                     app:rv_zoom="true"
-                    app:rv_rippleDuration="150"
-                    app:rv_color="@color/colorBlueLight"
-                    app:rv_zoomScale="1.1">
+                    app:rv_rippleDuration="70"
+                    app:rv_zoomScale="-0.001">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,9 +84,9 @@
                 android:padding="3dp"
                 android:text="@string/households"
                 android:textColor="@color/colorBlueLightDarker"
-                android:textSize="29sp"
+                android:textSize="28sp"
                 android:textStyle="italic"
-                android:background="@drawable/z_round_corner_shape_white"/>
+                android:background="@drawable/z_round_shape_white"/>
                 </com.andexert.library.RippleView>
             </LinearLayout>
         </LinearLayout>

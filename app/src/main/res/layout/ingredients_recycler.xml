@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:padding="5dp">
 
 
     <TextView
@@ -13,7 +13,9 @@
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:text="Tomato"
-        android:gravity="left|center_vertical"/>
+        android:gravity="left|center_vertical"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/colorBlue_grey_dark"/>
 
 
     <TextView
@@ -22,7 +24,9 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="left|center_vertical"
-        android:text="bar" />
+        android:text="bar"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/colorBlue_grey_dark"/>
 
     <TextView
         android:id="@+id/ingredint_unit_tv"
@@ -31,6 +35,8 @@
         android:layout_weight="2"
         android:text="2/5"
         android:gravity="left|center_vertical"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/colorBlue_grey_dark"/>
         />
 
 

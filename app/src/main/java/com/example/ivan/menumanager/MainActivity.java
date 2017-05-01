@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.andexert.library.RippleView;
-import com.example.ivan.menumanager.household.ChooseFragment;
+import com.example.ivan.menumanager.household.ChooseItemFragment;
 import com.example.ivan.menumanager.model.DBManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onComplete(RippleView rippleView) {
-                        ChooseFragment chooseDialog = new ChooseFragment();
+                        ChooseItemFragment chooseDialog = new ChooseItemFragment();
                         FragmentManager fm = getSupportFragmentManager();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("callingObject","mainActivity");
+                        chooseDialog.setArguments(bundle);
                         chooseDialog.show(fm, "chooseFragment");
                     }
                 });
@@ -48,4 +51,28 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+//    listener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            RippleView view = (RippleView) v;
+//            view.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+//
+//                @Override
+//                public void onComplete(RippleView rippleView) {
+//                    ChooseItemFragment chooseDialog = new ChooseItemFragment();
+//                    FragmentManager fm = getSupportFragmentManager();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("callingObject","mainActivity");
+//                    chooseDialog.setArguments(bundle);
+//                    chooseDialog.show(fm, "chooseFragment");
+//                }
+//            });
+//        }
+//    };
+//        chooseHouseholdView.setOnClickListener(listener);
+//        magicView.setOnClickListener(listener);
 }

@@ -39,17 +39,7 @@ public class ViewPageActivity extends AppCompatActivity{
         adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
         viewPager.setAdapter(adapter);
 
-//        final Bundle bundle = getIntent().getExtras();
-//        if(bundle!=null){
-//            String name = bundle.getString("name");
-//            if(names==null) {
-//                names = new ArrayList<>();
-//            }
-//            names.add(name);
-//            viewPager.setCurrentItem(1);
-//            shoppingFragment = (ShoppingFragment) adapter.getItem(1);
-//            shoppingFragment.getArray(names);
-//        }
+
 
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         tabLayout.setupWithViewPager(viewPager);

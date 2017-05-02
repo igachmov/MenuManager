@@ -18,6 +18,8 @@ public class Recipe implements Serializable {
     private String id;
     private String picURL;
     private Bitmap picBitmap;
+    private String instructions;
+    private String sourceUrl;
     private int productCounter;
 
     //frequent product add and get
@@ -73,5 +75,21 @@ public class Recipe implements Serializable {
 
     public void setProductCounter(int productCounter) {
         this.productCounter = productCounter;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
+
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
     }
 }

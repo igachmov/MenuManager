@@ -1,12 +1,13 @@
 package com.example.ivan.menumanager.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by Ivan on 4/4/2017.
  */
 
-public class Product {
+public class Product implements Serializable {
 
     private int id;
     private String name;
@@ -16,6 +17,7 @@ public class Product {
     private String unit;
     private long purchaseDateInMilli;
     private double quantity;
+    private boolean hasItem;
 
 
 
@@ -32,6 +34,16 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
+
+
+    public void setHasItem(boolean hasItem) {
+        this.hasItem = hasItem;
+    }
+
+    public boolean getIsHasItem() {
+        return hasItem;
+    }
+
 
     public String getName() {
         return this.name;

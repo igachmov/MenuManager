@@ -24,14 +24,9 @@
         <activity android:name=".ViewPageActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            ></activity>
+            />
 
 
-        <activity android:name=".recipe.RecipeActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".ViewPageActivity"
-                android:screenOrientation="portrait"/>
-
-        </activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,13 +16,18 @@ import com.example.ivan.menumanager.household.ProductsAdapter;
 import com.example.ivan.menumanager.household.ChooseItemFragment;
 import com.example.ivan.menumanager.household.ProductsFragment;
 import com.example.ivan.menumanager.model.DBManager;
+import com.example.ivan.menumanager.shopping_list.ShoppingFragment;
 
-public class ViewPageActivity extends AppCompatActivity{
+import java.util.ArrayList;
+
+public class ViewPageActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
     private ViewPageAdapter adapter;
+    private ShoppingFragment shoppingFragment;
+    private static ArrayList<String> names;
 
 
     @Override
@@ -44,14 +50,13 @@ public class ViewPageActivity extends AppCompatActivity{
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
-
                 viewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition() == 0){
+                if (tab.getPosition() == 0) {
                     ProductsFragment productsFragment = (ProductsFragment) adapter.getItem(tabLayout.getSelectedTabPosition());
                     productsFragment.getCatagoryLayout().setVisibility(View.VISIBLE);
                     productsFragment.getFridgeLayout().setVisibility(View.GONE);
@@ -91,4 +96,6 @@ public class ViewPageActivity extends AppCompatActivity{
     public ViewPageAdapter getAdapter() {
         return adapter;
     }
+
+
 }

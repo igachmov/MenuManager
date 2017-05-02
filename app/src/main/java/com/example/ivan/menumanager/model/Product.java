@@ -1,12 +1,13 @@
 package com.example.ivan.menumanager.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by Ivan on 4/4/2017.
  */
 
-public class Product {
+public class Product implements Serializable {
 
     private int id;
     private String name;

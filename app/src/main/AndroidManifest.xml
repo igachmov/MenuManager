@@ -24,7 +24,7 @@
         <activity android:name=".ViewPageActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            ></activity>
+            />
 
 
         <activity android:name=".recipe.RecipeActivity">

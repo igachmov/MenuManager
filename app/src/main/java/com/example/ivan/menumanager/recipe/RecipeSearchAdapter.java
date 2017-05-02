@@ -1,10 +1,15 @@
 package com.example.ivan.menumanager.recipe;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,10 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 
+import com.example.ivan.menumanager.ViewPageActivity;
+import com.example.ivan.menumanager.household.EditProductFragment;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
@@ -38,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
+
 /**
  * Created by Ivan on 4/18/2017.
  */
@@ -45,22 +54,24 @@ import java.util.Scanner;
 public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapter.NewViewHolder>{
 
     public static ArrayList<Recipe> recipes;
-    private Context context;
+    private Activity activity;
     private Recipe recipe;
     private Bitmap bitmap;
     private boolean isFinished = true ;
     private int counter2 = 0;
     private int counter3 = 0;
+    private String instructions;
+    private String sourceUrl;
 
-    public RecipeSearchAdapter(Context context, ArrayList<Recipe> recipes,Bitmap bitmap) {
+    public RecipeSearchAdapter(Activity activity, ArrayList<Recipe> recipes,Bitmap bitmap) {
         this.recipes = recipes;
-        this.context = context;
+        this.activity = activity;
         this.bitmap = bitmap;
     }
 
     @Override
     public RecipeSearchAdapter.NewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater li = LayoutInflater.from(context);
+        LayoutInflater li = LayoutInflater.from(activity);
         View row = li.inflate(R.layout.recipe_search_recycler, parent,false);
         RecipeSearchAdapter.NewViewHolder vh = new RecipeSearchAdapter.NewViewHolder(row);
 
@@ -83,6 +94,11 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
             holder.recipeName.setText(recipe.getName());
             holder.recipeImage.setImageBitmap(recipe.getPicBitmap());
             holder.ingredients.setText(recipe.getProductCounter() + "" + "/" + recipe.getIngredients().size() + "");
+            holder.progressBar.setMax(recipe.getIngredients().size());
+            holder.progressBar.setProgress(recipe.getProductCounter());
+            holder.progressBar.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(holder.progressBar.getContext(),R.color.colorBlueLight), android.graphics.PorterDuff.Mode.SRC_IN);
+
 //            if(counter3<20) {
 //
 //            new AsyncTask<String, Void, Bitmap>() {
@@ -235,7 +251,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
     class NewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView recipeImage;
         TextView recipeName;
-        TextView progressBar;
+        ProgressBar progressBar;
         TextView ingredients;
 
         public NewViewHolder(View row) {
@@ -243,21 +259,20 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
                 row.setOnClickListener(this);
                 recipeImage = (ImageView) row.findViewById(R.id.recipe_image);
                 recipeName = (TextView) row.findViewById(R.id.recipe_name_tv);
-                progressBar = (TextView) row.findViewById(R.id.progress_bar);
+                progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
                 ingredients = (TextView) row.findViewById(R.id.ingredients_tv);
         }
 
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, RecipeActivity.class);
-            intent.putExtra("ID", recipes.get(getLayoutPosition()).getId());
-            intent.putExtra("name", recipes.get(getLayoutPosition()).getName());
-            intent.putExtra("position", getAdapterPosition());
-            context.startActivity(intent);
+            int position = getAdapterPosition();
+            RecipeViewFragment recipeViewFragment = new RecipeViewFragment(position);
+            ViewPageActivity myActivity = (ViewPageActivity) activity;
+            recipeViewFragment.show(myActivity.getSupportFragmentManager(), "recipeView");
         }
     }
-    public class DownloadRecipeInstruction extends AsyncTask<String, Void, ArrayList<Recipe>> {
+    public class DownloadRecipeInstruction extends AsyncTask<String, Integer, ArrayList<Recipe>> {
         JSONObject json = null;
         JSONArray jsonArr = null;
         Product product = null;
@@ -277,56 +292,35 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
                 }
                 json = new JSONObject(jsonResponse.toString());
                 jsonArr = json.getJSONArray("extendedIngredients");
+                instructions = json.getString("instructions");
+                sourceUrl = json.getString("sourceUrl");
+                recipes.get(counter3).setInstructions(instructions);
+                recipes.get(counter3).setSourceUrl(sourceUrl);
                 if (jsonArr != null) {
                     int productCounter = 0 ;
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObj = jsonArr.getJSONObject(i);
                         String name = jsonObj.getString("name");
                         String amount = jsonObj.getString("amount");
+                        String unit = jsonObj.getString("unit");
                         DecimalFormat df = new DecimalFormat("#.##");
                         String dx=df.format(Double.parseDouble(amount));
                         double qunatity = Double.parseDouble(dx);
                         product = new Product(name, 0, 0);
+                        product.setQuantity(Double.parseDouble(dx));
+                        product.setUnit(unit);
                         for(Map.Entry<String,Product> e : DBManager.households.get(DBManager.currentHousehold).getProducts().entrySet()){
                             String productInFridge = e.getKey();
                             String plularNameInFridge = productInFridge+"s";
-                            double quantityInFridge = e.getValue().getQuantity();
-                            String unit = jsonObj.getString("unit");
-                            String unitInFridge = e.getValue().getUnit();
                             if((productInFridge.toLowerCase().contains(name.toLowerCase()) || plularNameInFridge.toLowerCase().contains(name.toLowerCase()))){
-//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("g")){
-//                                    quantityInFridge = quantityInFridge*1000;
-//                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
-//                                    }
-//                                }
-//                                if(unitInFridge.equalsIgnoreCase("kg") && unit.equalsIgnoreCase("kg")){
-//                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
-//                                    }
-//                                }
-//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("ml")){
-//                                    quantityInFridge = quantityInFridge*1000;
-//                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
-//                                    }
-//                                }
-//                                if(unitInFridge.equalsIgnoreCase("liter") && unit.equalsIgnoreCase("liter")){
-//                                    if(quantityInFridge>=qunatity){
-//                                        productCounter++;
-//                                    }
-//                                }
                                 productCounter++;
+                                product.setHasItem(true);
                             }
                         }
-                        if(counter3<20) {
-                            recipes.get(counter3).getIngredients().add(product);
-                        }
+                        recipes.get(counter3).getIngredients().add(product);
+                    }
+                    recipes.get(counter3).setProductCounter(productCounter);
 
-                    }
-                    if(counter3<20) {
-                        recipes.get(counter3).setProductCounter(productCounter);
-                    }
                     Log.e("Counter","Product counter "+counter3+"");
 
                 }
@@ -345,7 +339,6 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         @Override
         protected void onPostExecute(ArrayList<Recipe> recipes) {
             counter3++;
-
         }
     }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -375,9 +368,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
                 return bitmap;
             }
             mIcon11 = BitmapFactory.decodeStream(in);
-            if(counter2<20) {
                 recipes.get(counter2).setPicBitmap(mIcon11);
-            }
             return mIcon11;
         }
 
@@ -385,6 +376,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         protected void onPostExecute(Bitmap bitmap) {
             notifyDataSetChanged();
             counter2++;
+
         }
     }
 

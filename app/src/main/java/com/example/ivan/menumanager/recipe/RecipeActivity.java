@@ -8,6 +8,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -100,12 +101,6 @@ public class RecipeActivity extends AppCompatActivity {
         int pos = i.getIntExtra("position",1);
         bitmap = RecipeSearchAdapter.recipes.get(pos).getPicBitmap();
 
-        FragmentManager fm = getSupportFragmentManager();
-        if(fm.getFragments() == null || fm.getFragments().isEmpty()) {
-            fm.beginTransaction()
-                    .add(R.id.activity_recipe, new RecipeViewFragment(id,name,bitmap), "Frag0")
-                    .commit();
-        }
 
     }
 
@@ -138,7 +133,5 @@ public class RecipeActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 }
 

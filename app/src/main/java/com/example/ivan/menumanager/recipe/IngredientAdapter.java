@@ -44,6 +44,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Ne
         if(product.getIsHasItem()){
             holder.ingredientLayout.setBackgroundResource(R.color.colorBlueLightDarker);
         }
+        else{
+            holder.ingredientLayout.setBackgroundResource(R.color.colorWhite);
+        }
     }
 
     @Override

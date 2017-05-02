@@ -58,9 +58,6 @@ public class RecipesFragment extends Fragment {
     private EditText searchName;
     private static ArrayList<Recipe> recipeData ;
     private LinearLayout fridgeLayout;
-    private int counter = 0;
-    private int counter2 = 0;
-    private int counter3 = 0;
     private ProgressBar progressBar;
     private RelativeLayout relativeLayout;
     private String  name;
@@ -101,9 +98,7 @@ public class RecipesFragment extends Fragment {
                 name = searchName.getText().toString();
               if(isNetworkAvailable()) {
                   if (name != null && !name.isEmpty()) {
-                      counter = 0;
-                      counter2 = 0;
-                      counter3 = 0;
+                      root.setBackgroundResource(R.drawable.z_recipe_image_blurry);
                       recipeData = new ArrayList<>();
                       RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
                       relativeLayout.setVisibility(View.GONE);
@@ -155,9 +150,6 @@ public class RecipesFragment extends Fragment {
                         String id = jsonObj.getString("id");
                         String image = jsonObj.getString("image");
                         String imageURL = ("https://spoonacular.com/recipeImages/" + image);
-                        Log.e("Bla",name);
-
-
                         recipe = new Recipe(name, id, imageURL);
                         recipeData.add(recipe);
                     }
@@ -188,6 +180,7 @@ public class RecipesFragment extends Fragment {
             RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         }
     }
     private boolean isNetworkAvailable() {
@@ -202,6 +195,4 @@ public class RecipesFragment extends Fragment {
             imm.hideSoftInputFromWindow(activity.getCurrentFocus()
                     .getApplicationWindowToken(), 0);
     }
-
-
 }

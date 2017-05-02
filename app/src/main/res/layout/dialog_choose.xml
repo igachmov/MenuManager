@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="7dp"
-    android:background="@color/colorWhite"
+    android:background="@drawable/z_choose_background"
     tools:context="com.example.ivan.menumanager.household.ChooseItemFragment"
     android:orientation="vertical">
 
@@ -15,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_gravity="center"
             android:background="@drawable/z_round_shape_blue_grey"
             android:textSize="14sp"
@@ -85,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
             ></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
@@ -96,8 +97,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
         android:layout_gravity="center"
         android:text="@string/cancel"
         android:background="@drawable/z_round_shape_blue_grey"

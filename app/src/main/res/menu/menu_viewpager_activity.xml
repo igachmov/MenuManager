@@ -3,17 +3,9 @@
 
 
     <item
-        android:id="@+id/menu_main_course"
-        android:title="@string/recipe"
-        />
-    <item
         android:id="@+id/menu_households"
         android:title="@string/households"
         />
 
-    <item
-        android:id="@+id/menu_favourite_recipes"
-        android:title="@string/favourite_recipes"
-        />
 
 </menu>

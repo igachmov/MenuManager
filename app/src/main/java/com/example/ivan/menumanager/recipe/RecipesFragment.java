@@ -110,11 +110,11 @@ public class RecipesFragment extends Fragment {
                       Log.e("Ivan", Integer.toString(recipeData.size()));
                       dismissKeyboard(getActivity());
                   } else {
-                      Toast.makeText(getActivity(), "Please enter a name for recipe", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(getActivity(), "Please enter search criteria", Toast.LENGTH_SHORT).show();
                   }
               }
               else {
-                  Toast.makeText(getActivity(), "There is no internet connection", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(getActivity(), "No internet connection", Toast.LENGTH_SHORT).show();
               }
             }
         });

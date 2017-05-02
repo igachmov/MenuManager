@@ -71,6 +71,9 @@ public class ChooseItemAdapter extends RecyclerView.Adapter<ChooseItemAdapter.My
                         bundle.putString("name", product.getName());
                         bundle.putInt("measureID", product.getMeasureID());
                         bundle.putInt("categoryID", product.getFoodCategoryID());
+                        if(DBManager.households.get(DBManager.currentHousehold).getProducts().containsKey(product.getName())){
+                            bundle.putDouble("quantity",DBManager.households.get(DBManager.currentHousehold).getProducts().get(product.getName()).getQuantity() );
+                        }
                         editDialog.setArguments(bundle);
                         ViewPageActivity myActivity = (ViewPageActivity) activity;
                         editDialog.show(myActivity.getSupportFragmentManager(), "editItem");
@@ -95,7 +98,7 @@ public class ChooseItemAdapter extends RecyclerView.Adapter<ChooseItemAdapter.My
         public MyViewHolder(View itemView) {
             super(itemView);
             this.row = itemView;
-            textView = (TextView) row.findViewById(R.id.choose_item);
+            this.textView = (TextView) row.findViewById(R.id.choose_item);
         }
     }
 

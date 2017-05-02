@@ -22,6 +22,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
@@ -136,12 +138,46 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.NewVie
         public NewViewHolder(View row) {
             super(row);
             this.row = row;
-            productImage = (ImageView) row.findViewById(R.id.product_image);
-            productName = (TextView) row.findViewById(R.id.product_name_tv);
-            productQuantity = (TextView) row.findViewById(R.id.qunatity_tv);
-            productMeasure = (TextView) row.findViewById(R.id.measure_tv);
-            expiryTerm = (TextView) row.findViewById(R.id.expiry_term_tv);
+            this.productImage = (ImageView) row.findViewById(R.id.product_image);
+            this.productName = (TextView) row.findViewById(R.id.product_name_tv);
+            this.productQuantity = (TextView) row.findViewById(R.id.qunatity_tv);
+            this.productMeasure = (TextView) row.findViewById(R.id.measure_tv);
+            this.expiryTerm = (TextView) row.findViewById(R.id.expiry_term_tv);
         }
     }
+
+    public void removeProduct(String name, double quantity){
+        for (int i = 0; i < this.products.size(); i++) {
+            if(this.products.get(i).getName().equals(name) && this.products.get(i).getQuantity() == quantity) {
+                this.products.remove(this.products.get(i));
+            }
+        }
+    }
+
+    public void addProduct(Product product){
+        boolean isNotAvailable = true;
+        for(int i = 0; i < this.products.size(); i++){
+            if(this.products.get(i).getName().equals(product.getName())){
+                this.products.get(i).setQuantity(product.getQuantity());
+                this.products.get(i).setExpiryTermID(product.getExpiryTermID());
+                this.products.get(i).setPurchaseDateInMilli(product.getPurchaseDateInMilli());
+                isNotAvailable = false;
+            }
+        }
+        if(isNotAvailable){
+            this.products.add(product);
+            Collections.sort(this.products, new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+                    return o1.getName().compareTo(o2.getName());
+                }
+            });
+        }
+    }
+
+    public void changeProducts(ArrayList<Product> products){
+        this.products = products;
+    }
+
 
 }

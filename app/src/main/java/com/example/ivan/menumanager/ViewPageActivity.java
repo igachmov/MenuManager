@@ -48,10 +48,14 @@ public class ViewPageActivity extends AppCompatActivity{
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
+
                 viewPager.setCurrentItem(tab.getPosition());
-                ProductsFragment productsFragment = (ProductsFragment) adapter.getItem(tabLayout.getSelectedTabPosition());
-                productsFragment.getCatagoryLayout().setVisibility(View.VISIBLE);
-                productsFragment.getFridgeLayout().setVisibility(View.GONE);
+                if(tab.getPosition() == 0){
+                    ProductsFragment productsFragment = (ProductsFragment) adapter.getItem(tabLayout.getSelectedTabPosition());
+                    productsFragment.getCatagoryLayout().setVisibility(View.VISIBLE);
+                    productsFragment.getFridgeLayout().setVisibility(View.GONE);
+                }
             }
         });
 
@@ -72,9 +76,6 @@ public class ViewPageActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_main_course:
-                //TODO
-                return true;
             case R.id.menu_households:
                 ChooseItemFragment chooseItem = new ChooseItemFragment();
                 Bundle bundle = new Bundle();
@@ -82,41 +83,12 @@ public class ViewPageActivity extends AppCompatActivity{
                 chooseItem.setArguments(bundle);
                 chooseItem.show(getSupportFragmentManager(), "chooseItem");
                 return true;
-            case R.id.menu_favourite_recipes:
-                //TODO
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-
-
-
-
-
-
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_main_course:
-//                //TODO
-//                return true;
-//            case R.id.menu_households:
-//                ChooseItemFragment chooseItem = new ChooseItemFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("callingObject", "menuHouseholds");
-//                chooseItem.setArguments(bundle);
-//                chooseItem.show(getSupportFragmentManager(), "chooseItem");
-//                return true;
-//            case R.id.menu_favourite_recipes:
-//                //TODO
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
-
+    public ViewPageAdapter getAdapter() {
+        return adapter;
+    }
 }

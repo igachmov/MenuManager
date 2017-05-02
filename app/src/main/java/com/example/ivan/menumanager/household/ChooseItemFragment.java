@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
 import com.example.ivan.menumanager.model.DBManager;
+import com.example.ivan.menumanager.model.Product;
 
 import java.util.ArrayList;
 
@@ -101,7 +102,7 @@ public class ChooseItemFragment extends DialogFragment {
                         if (!newProductName.isEmpty()) {
                             EditProductFragment editDialog = new EditProductFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putString("product", newProductName);
+                            bundle.putString("name", newProductName);
                             editDialog.setArguments(bundle);
                             editDialog.show(getActivity().getSupportFragmentManager(), "editItem");
                             dismiss();
@@ -141,6 +142,26 @@ public class ChooseItemFragment extends DialogFragment {
         cancelHouseholds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                switch (callingObject) {
+                    case "fridge":
+                    case "floatingButton":
+                    case "dairy":
+                    case "bread":
+                    case "dressing":
+                    case "bakery":
+                    case "veggies":
+                    case "sauce":
+                    case "fruits":
+                    case "meat":
+                        ArrayList<Product> products = new ArrayList<Product>();
+                        for (Product product : DBManager.households.get(DBManager.currentHousehold).getProducts().values()) {
+                            products.add(product);
+                        }
+                        ViewPageActivity activity = (ViewPageActivity) getActivity();
+                        ProductsFragment productsFragment = (ProductsFragment) activity.getAdapter().getItem(0);
+                        productsFragment.getAdapter().changeProducts(products);
+                        productsFragment.getAdapter().notifyDataSetChanged();
+                }
                 dismiss();
             }
         });

@@ -2,15 +2,11 @@ package com.example.ivan.menumanager.recipe;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
@@ -65,7 +61,7 @@ public class RecipeViewFragment extends DialogFragment {
     private Button checkUrlButton;
     private String sourceUrl;
     private FloatingActionButton fab;
-
+    private Recipe recipe;
     public RecipeViewFragment() {
 
     }
@@ -79,7 +75,7 @@ public class RecipeViewFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().requestWindowFeature(STYLE_NO_TITLE);
-        final Recipe recipe = RecipeSearchAdapter.recipes.get(position);
+        recipe = RecipeSearchAdapter.recipes.get(position);
         productData = recipe.getIngredients();
         instructions = recipe.getInstructions();
         sourceUrl = recipe.getSourceUrl();
@@ -90,7 +86,7 @@ public class RecipeViewFragment extends DialogFragment {
         recipeImage = (ImageView) dialog.findViewById(R.id.recipe_ingr_image);
         recipeImage.setImageBitmap(recipe.getPicBitmap());
         recipeText = (TextView) dialog.findViewById(R.id.recipe_ingr_text);
-        if(instructions.equals("null") || instructions == null){
+        if(instructions == null || instructions.equals("null")){
                 recipeText.setText("Sorry there is no instructions.\n Would you like to check the link.");
                 checkUrlButton.setVisibility(View.VISIBLE);
                 checkUrlButton.setOnClickListener(new View.OnClickListener() {
@@ -127,9 +123,12 @@ public class RecipeViewFragment extends DialogFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("Recipe",recipe+"");
+                Log.e("Recipe","name "+recipe.getName()+"");
                 ViewPageActivity activity = (ViewPageActivity) getActivity();
                 ShoppingFragment shoppingFragment = (ShoppingFragment) activity.getAdapter().getItem(1);
-                shoppingFragment.getShoppingAdapter().getInfo(recipe.getName());
+                shoppingFragment.getShoppingAdapter().getInfo(recipe.getName(),recipe);
+                Log.e("Recipe",recipe+"");
                 Toast.makeText(getActivity(), "Recipe added to shoppinglist", Toast.LENGTH_SHORT).show();
                 dismiss();
             }

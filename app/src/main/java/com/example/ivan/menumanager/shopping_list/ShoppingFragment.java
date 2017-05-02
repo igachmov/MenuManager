@@ -30,19 +30,11 @@ public class ShoppingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("Bundle1",names+"");
+
         if(names==null) {
             names = new ArrayList<>();
         }
-        Log.e("Bundle1","OnCreate");
-        Log.e("Bundle1",names.size()+"");
-        Bundle bundle = this.getArguments();
-        if(bundle!=null) {
-            String name = bundle.getString("name");
-            Log.e("Bundle1",bundle.getString("name")+"");
-            ArrayList<Product> productsToBuy = (ArrayList<Product>) bundle.getSerializable("ARRAYLIST");
-            names.add(name);
-        }
+
         View root = inflater.inflate(R.layout.fragment_shopping, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.shoppingList_recyclerview);
         shoppingAdapter  = new ShoppingAdapter(getActivity(),names);
@@ -50,15 +42,7 @@ public class ShoppingFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return root;
     }
-
     public ShoppingAdapter getShoppingAdapter() {
         return shoppingAdapter;
-    }
-
-    public ArrayList<String> getNames() {
-        return names;
-    }
-    public void getArray(ArrayList<String> arrayList){
-        this.names = arrayList;
     }
 }

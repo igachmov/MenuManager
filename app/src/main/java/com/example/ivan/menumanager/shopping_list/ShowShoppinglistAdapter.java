@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.model.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

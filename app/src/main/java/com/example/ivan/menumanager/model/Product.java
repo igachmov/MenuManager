@@ -1,6 +1,7 @@
 package com.example.ivan.menumanager.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 /**
@@ -102,7 +103,57 @@ public class Product implements Serializable {
         }
         return false;
     }
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
 
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+    public void fixMeasures(String unit, double quantity){
+        //teaspoons, teaspoon, tsp - 5ml , ounce,oz-0.03 ml, inch, tablespoons, tablespoon, tbsp-14.8 ml,
+        String units = unit.toLowerCase();
+        double quantities = quantity;
+        switch (units){
+            case "cup":
+            case "cups":
+                units ="kg";
+                quantities=quantities*0.2;
+                break;
+            case "pound":
+            case "lbs":
+            case "lb":
+                units ="kg";
+                quantities=quantities*0.45;
+                break;
+            case "teaspoon":
+            case "teaspoons":
+            case "tsp":
+                units ="ml";
+                quantities=quantities*5;
+                break;
+            case "ounce":
+            case "ounces":
+            case "oz":
+                units ="ml";
+                quantities=quantities*0.03 ;
+                break;
+            case "tablespoon":
+            case "tablespoons":
+            case "tbsp":
+                units ="ml";
+                quantities=quantities*14.8 ;
+                break;
+            default:
+                break;
+
+        }
+
+        this.unit = units;
+        this.quantity = round(quantities,2);;
+
+    }
 
     public long getExpiryTermInMilli(){
         long expiryInMilli = 0;
@@ -130,7 +181,7 @@ public class Product implements Serializable {
     }
 
 
-    //for visualize
+
     public void setUnit(String unit) {
         this.unit = unit;
     }

@@ -16,7 +16,6 @@ import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 import com.example.ivan.menumanager.recipe.RecipeViewFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

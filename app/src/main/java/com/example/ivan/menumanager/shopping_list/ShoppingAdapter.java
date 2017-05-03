@@ -1,9 +1,7 @@
 package com.example.ivan.menumanager.shopping_list;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +9,8 @@ import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
-import com.example.ivan.menumanager.model.Product;
-import com.example.ivan.menumanager.model.Recipe;
 import com.example.ivan.menumanager.model.ShoppingList;
-import com.example.ivan.menumanager.recipe.RecipeViewFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -45,6 +45,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Ne
         if(product.getIsHasItem()){
             holder.checkbox.setChecked(true);
         }
+        else{
+            holder.checkbox.setChecked(false);
+        }
     }
 
     @Override

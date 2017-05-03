@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,30 +26,15 @@ import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 import com.example.ivan.menumanager.model.ShoppingList;
 import com.example.ivan.menumanager.shopping_list.ShoppingFragment;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
-import com.r0adkll.slidr.model.SlidrListener;
-import com.r0adkll.slidr.model.SlidrPosition;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RecipeViewFragment extends DialogFragment {
 
+    private static final int SIZE_OF_WEIGHT = 50;
 
     private RecyclerView recyclerView;
     private static ArrayList<Product> productData ;
@@ -99,9 +83,9 @@ public class RecipeViewFragment extends DialogFragment {
         recipeText = (TextView) dialog.findViewById(R.id.recipe_ingr_text);
         if(instructions == null || instructions.equals("null")){
                 checkUrlButton.setVisibility(View.VISIBLE);
-            recipeText.setMaxHeight(50);
-            checkUrlButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorBlue_grey_dark));
-            checkUrlButton.setText("Check link for recipe description");
+                recipeText.setMaxHeight(SIZE_OF_WEIGHT);
+                checkUrlButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorBlue_grey_dark));
+                checkUrlButton.setText("Check link for recipe description");
                 checkUrlButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -130,9 +114,6 @@ public class RecipeViewFragment extends DialogFragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +123,6 @@ public class RecipeViewFragment extends DialogFragment {
                 ViewPageActivity activity = (ViewPageActivity) getActivity();
                 ShoppingFragment shoppingFragment = (ShoppingFragment) activity.getAdapter().getItem(1);
                 shoppingFragment.getShoppingAdapter().setInfo();
-
                 Toast.makeText(getActivity(), "Recipe added to shoppinglist", Toast.LENGTH_SHORT).show();
                 dismiss();
             }

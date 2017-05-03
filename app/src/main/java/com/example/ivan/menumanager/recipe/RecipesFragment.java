@@ -75,17 +75,14 @@ public class RecipesFragment extends Fragment {
         defaul =  BitmapFactory.decodeResource(getResources(), R.mipmap.img_default);
 
         if(recipeData != null && recipeData.size()!=0){
-            Log.e("Fragment",recipeData.size()+"");
+
             relativeLayout.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
             progressBar.setProgress(0);
             fridgeLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
-            Log.e("Fragment"," before new "+RecipeSearchAdapter.recipes.size()+"");
-            RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
-            Log.e("Fragment"," after new "+RecipeSearchAdapter.recipes.size()+"");
+            RecipeSearchAdapter.recipes = new ArrayList();
             RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
-            Log.e("Fragment"," visualiziation "+RecipeSearchAdapter.recipes.size()+"");
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -100,7 +97,7 @@ public class RecipesFragment extends Fragment {
                   if (name != null && !name.isEmpty()) {
                       root.setBackgroundResource(R.drawable.z_recipe_image_blurry);
                       recipeData = new ArrayList<>();
-                      RecipeSearchAdapter.recipes = new ArrayList<Recipe>();
+                      RecipeSearchAdapter.recipes = new ArrayList();
                       relativeLayout.setVisibility(View.GONE);
                       progressBar.setVisibility(View.GONE);
                       fridgeLayout.setVisibility(View.VISIBLE);

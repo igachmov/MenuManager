@@ -351,12 +351,8 @@ public class DBManager extends SQLiteOpenHelper {
                     product.setPurchaseDateInMilli(purchPr);
                     product.setExpiryTermID(idExp);
                     product.setQuantity(quantityPr);
-
-                    //slojeno tuk za da raboti
                     households.get(nameHh).addProduct(product);
                 }
-
-
             }
         }
         //get all measures

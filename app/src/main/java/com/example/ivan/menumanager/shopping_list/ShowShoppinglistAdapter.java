@@ -29,7 +29,7 @@ public class ShowShoppinglistAdapter extends RecyclerView.Adapter<ShowShoppingli
     @Override
     public ShowShoppinglistAdapter.NewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = LayoutInflater.from(context);
-        View row = li.inflate(R.layout.show_shoppinglist_fragment_recycler, parent,false);
+        View row = li.inflate(R.layout.ingredients_recycler, parent,false);
         ShowShoppinglistAdapter.NewViewHolder vh = new ShowShoppinglistAdapter.NewViewHolder(row);
         return vh;
     }
@@ -49,12 +49,13 @@ public class ShowShoppinglistAdapter extends RecyclerView.Adapter<ShowShoppingli
     public class NewViewHolder extends RecyclerView.ViewHolder {
         TextView productName;
         TextView productAmount;
+        TextView productMeasure;
 
         public NewViewHolder(View row) {
             super(row);
-            productName = (TextView) row.findViewById(R.id.ingredient_shoppinglist_name_tv);
-            productAmount = (TextView) row.findViewById(R.id.ingredint_shoppinglist_amount_tv);
-
+            productName = (TextView) row.findViewById(R.id.ingredient_name_tv);
+            productAmount = (TextView) row.findViewById(R.id.ingredint_amount_tv);
+            productMeasure = (TextView) row.findViewById(R.id.ingredint_unit_tv);
         }
 
 

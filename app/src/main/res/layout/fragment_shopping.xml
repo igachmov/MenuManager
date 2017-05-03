@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/categories_background"
+    android:padding="5dp"
     tools:context="com.example.ivan.menumanager.shopping_list.ShoppingFragment">
 
     <!-- TODO: Update blank fragment layout -->

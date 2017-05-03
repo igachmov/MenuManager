@@ -104,7 +104,6 @@
                 android:src="@android:drawable/ic_input_add"
                 app:backgroundTint="@color/colorBlue_grey"
                 android:tint="@color/colorWhite"
-                app:elevation="10dp"
                 />
         </FrameLayout>
 

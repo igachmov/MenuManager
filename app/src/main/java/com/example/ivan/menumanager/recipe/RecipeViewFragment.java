@@ -26,10 +26,6 @@ import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
 import com.example.ivan.menumanager.shopping_list.ShoppingFragment;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
-import com.r0adkll.slidr.model.SlidrListener;
-import com.r0adkll.slidr.model.SlidrPosition;
 
 import org.json.JSONArray;
 import org.json.JSONException;

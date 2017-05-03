@@ -10,10 +10,13 @@
 
     <string name="favourite_recipes">Favourite recipes</string>
     <string name="remove">REMOVE</string>
+    <string name="delete">DELETE LIST</string>
     <string name="remove_shopping_lists">CHECK OUT FROM SHOPPING LIST</string>
     <string name="product">Product</string>
     <string name="quantity">Quantity</string>
     <string name="use_before">Use before</string>
     <string name="category">Type</string>
     <string name="fill_in">fill in</string>
+    <string name="show_recipe">SHOW RECIPE</string>
+    <string name="products_to_buy">PRODUCTS TO BUY</string>
 </resources>

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class ShowShoppinglistFragment extends DialogFragment {
 
+    private static final CharSequence PRODUCTS_TO_BUY = "PRODUCTS TO BUY";
     private RecyclerView recyclerView;
     private Button remove;
     private Button showRecipe;

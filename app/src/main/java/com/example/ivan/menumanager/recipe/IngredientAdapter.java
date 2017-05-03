@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,10 +43,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Ne
         holder.ingredientAmount.setText(product.getQuantity()+"");
         holder.ingredientUnit.setText(product.getUnit());
         if(product.getIsHasItem()){
-            holder.ingredientLayout.setBackgroundResource(R.color.colorBlueLightDarker);
-        }
-        else{
-            holder.ingredientLayout.setBackgroundResource(R.color.colorWhite);
+            holder.checkbox.setChecked(true);
         }
     }
 
@@ -58,6 +56,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Ne
         TextView ingredientName;
         TextView ingredientAmount;
         TextView ingredientUnit;
+        CheckBox checkbox;
         LinearLayout ingredientLayout;
 
         public NewViewHolder(View row) {
@@ -65,6 +64,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Ne
             ingredientName = (TextView) row.findViewById(R.id.ingredient_name_tv);
             ingredientAmount = (TextView) row.findViewById(R.id.ingredint_amount_tv);
             ingredientUnit = (TextView) row.findViewById(R.id.ingredint_unit_tv);
+            checkbox = (CheckBox) row.findViewById(R.id.check_box);
             ingredientLayout = (LinearLayout) row.findViewById(R.id.recipe_view_layout);
         }
     }

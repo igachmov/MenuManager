@@ -96,8 +96,6 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
             holder.ingredients.setText(recipe.getProductCounter() + "" + "/" + recipe.getIngredients().size() + "");
             holder.progressBar.setMax(recipe.getIngredients().size());
             holder.progressBar.setProgress(recipe.getProductCounter());
-            holder.progressBar.getProgressDrawable().setColorFilter(
-                    ContextCompat.getColor(holder.progressBar.getContext(),R.color.colorBlueLight), android.graphics.PorterDuff.Mode.SRC_IN);
 
 //            if(counter3<20) {
 //

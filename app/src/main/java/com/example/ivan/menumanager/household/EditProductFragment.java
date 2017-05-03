@@ -38,7 +38,6 @@ public class EditProductFragment extends DialogFragment {
     private Spinner expirySpinner;
     private Button remove;
     private Button add;
-    private Button check;
     private Button cancel;
     private String name;
     private double quantityArgs;
@@ -79,7 +78,6 @@ public class EditProductFragment extends DialogFragment {
         quantityEditText = (EditText) dialog.findViewById(R.id.qunatity_edit);
         remove = (Button) dialog.findViewById(R.id.remove_product);
         add = (Button) dialog.findViewById(R.id.update_product);
-        check = (Button) dialog.findViewById(R.id.check_shopping_list);
         cancel = (Button) dialog.findViewById(R.id.cancel_product);
         activity = (ViewPageActivity) getActivity();
         productsFragment = (ProductsFragment) activity.getAdapter().getItem(0);
@@ -171,8 +169,10 @@ public class EditProductFragment extends DialogFragment {
                 }
                 long currentTimeInMilli = Calendar.getInstance().getTimeInMillis();
                 Product product = new Product(name, measureID, categoryID);
-                DBManager.getInstance(getActivity()).addProduct(product, (quantity + quantityArgs), expiryTermID, currentTimeInMilli);
+                product.setPurchaseDateInMilli(currentTimeInMilli);
+                product.setExpiryTermID(expiryTermID);
                 product.setQuantity(quantity + quantityArgs);
+                DBManager.getInstance(getActivity()).addProduct(product);
                 productsFragment.getAdapter().addProduct(product);
                 productsFragment.getAdapter().notifyDataSetChanged();
                 dismiss();
@@ -204,13 +204,6 @@ public class EditProductFragment extends DialogFragment {
             }
         });
 
-
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO
-            }
-        });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override

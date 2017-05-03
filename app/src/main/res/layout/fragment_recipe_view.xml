@@ -4,49 +4,62 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:gravity="center"
     android:padding="10dp"
     tools:context="com.example.ivan.menumanager.recipe.RecipeViewFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="70dp">
 
-        <ImageView
-            android:id="@+id/recipe_ingr_image"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/recipe_ingr_name"
+            <ImageView
+                android:id="@+id/recipe_ingr_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
+            android:layout_height="match_parent">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/recipe_ingr_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/text_size"
+                    android:textColor="@color/colorBlue_grey_dark"/>
 
-
-            android:layout_marginLeft="5dp"
-            android:textSize="19sp"
-            android:textColor="@color/colorBlue_grey_dark"/>
-        <ImageView
-            android:id="@+id/clear_image_button"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+                <ImageView
+                    android:id="@+id/clear_image_button"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right|bottom"
+                    android:background="@color/colorBlue_grey"/>
+            </FrameLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="180dp"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
 
         <TextView
@@ -55,7 +68,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:scrollbars="vertical"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/button_text"
             android:textColor="@color/colorBlue_grey_dark"/>
 
         <Button
@@ -68,27 +81,34 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/household_products_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:visibility="visible">
+        android:layout_height="190dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recipe_view_recyclerview"
+        <FrameLayout
+            android:id="@+id/household_products_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recipe_view_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_view_recipe_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end|right"
-            android:src="@android:drawable/ic_input_add"
-            app:backgroundTint="@color/colorBlue_grey_dark"
-            />
-    </FrameLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_view_recipe_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end|right"
+                android:src="@android:drawable/ic_input_add"
+                app:backgroundTint="@color/colorBlue_grey"
+                android:tint="@color/colorWhite"
+                app:elevation="10dp"
+                />
+        </FrameLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>

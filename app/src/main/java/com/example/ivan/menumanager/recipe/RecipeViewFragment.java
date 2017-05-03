@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
@@ -87,8 +88,10 @@ public class RecipeViewFragment extends DialogFragment {
         recipeImage.setImageBitmap(recipe.getPicBitmap());
         recipeText = (TextView) dialog.findViewById(R.id.recipe_ingr_text);
         if(instructions == null || instructions.equals("null")){
-                recipeText.setText("Sorry there is no instructions.\n Would you like to check the link.");
                 checkUrlButton.setVisibility(View.VISIBLE);
+            recipeText.setMaxHeight(50);
+            checkUrlButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorBlue_grey_dark));
+            checkUrlButton.setText("Check link for recipe description");
                 checkUrlButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

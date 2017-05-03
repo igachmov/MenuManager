@@ -111,7 +111,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            RecipeViewFragment recipeViewFragment = new RecipeViewFragment(position);
+            RecipeViewFragment recipeViewFragment = new RecipeViewFragment(position,bitmap);
             ViewPageActivity myActivity = (ViewPageActivity) activity;
             recipeViewFragment.show(myActivity.getSupportFragmentManager(), "recipeView");
         }

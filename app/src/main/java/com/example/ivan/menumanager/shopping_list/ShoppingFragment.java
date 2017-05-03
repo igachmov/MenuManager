@@ -30,7 +30,7 @@ public class ShoppingFragment extends Fragment {
         if(shoppingLists==null) {
             shoppingLists = new ArrayList<>();
         }
-        shoppingLists = (List<ShoppingList>) DBManager.households.get(DBManager.currentHousehold).getShoppingLists();
+        shoppingLists = DBManager.households.get(DBManager.currentHousehold).getShoppingLists();
         View root = inflater.inflate(R.layout.fragment_shopping, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.shoppingList_recyclerview);
         shoppingAdapter  = new ShoppingAdapter(getActivity(),shoppingLists);

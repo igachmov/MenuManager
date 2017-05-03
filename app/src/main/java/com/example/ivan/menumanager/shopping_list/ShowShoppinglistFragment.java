@@ -41,7 +41,6 @@ public class ShowShoppinglistFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         getDialog().requestWindowFeature(STYLE_NO_TITLE);
         recipes = DBManager.households.get(DBManager.currentHousehold).getRecipes();
-
         View dialog = inflater.inflate(R.layout.show_shoppinglist_fragment, container, false);
         recyclerView = (RecyclerView) dialog.findViewById(R.id.show_shoppinglist_recycler);
         remove = (Button) dialog.findViewById(R.id.remove_button);

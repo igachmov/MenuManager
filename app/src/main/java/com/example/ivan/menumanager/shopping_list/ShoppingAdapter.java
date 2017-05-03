@@ -22,6 +22,8 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewVie
     private List<ShoppingList> shoppingLists;
     private Activity activity;
     private ShoppingList shoppingList;
+    private int position;
+
 
 
     public ShoppingAdapter(Activity activity, List<ShoppingList> shoppingLists) {
@@ -61,12 +63,17 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewVie
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            position = getAdapterPosition();
             ShowShoppinglistFragment showShoppinglistFragment = new ShowShoppinglistFragment(shoppingLists.get(position).getProductsToBuy(),position);
             ViewPageActivity myActivity = (ViewPageActivity) activity;
             showShoppinglistFragment.show(myActivity.getSupportFragmentManager(), "shoppingView");
         }
     }
+
+    public int getPosition() {
+        return position;
+    }
+
     public void setInfo() {
         notifyDataSetChanged();
     }

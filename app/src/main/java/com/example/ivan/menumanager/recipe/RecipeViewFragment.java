@@ -2,6 +2,7 @@ package com.example.ivan.menumanager.recipe;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -48,12 +49,14 @@ public class RecipeViewFragment extends DialogFragment {
     private String sourceUrl;
     private FloatingActionButton fab;
     private Recipe recipe;
+    private Bitmap defaultBitmap;
     public RecipeViewFragment() {
 
     }
 
-    public RecipeViewFragment(int position) {
+    public RecipeViewFragment(int position,Bitmap defaultBitmap) {
         this.position = position;
+        this.defaultBitmap = defaultBitmap;
     }
 
 
@@ -79,7 +82,12 @@ public class RecipeViewFragment extends DialogFragment {
         checkUrlButton = (Button) dialog.findViewById(R.id.url_button);
         recyclerView = (RecyclerView) dialog.findViewById(R.id.recipe_view_recyclerview);
         recipeImage = (ImageView) dialog.findViewById(R.id.recipe_ingr_image);
-        recipeImage.setImageBitmap(recipe.getPicBitmap());
+        if(recipe.getPicBitmap()==null){
+            recipeImage.setImageBitmap(defaultBitmap);
+        }
+        else {
+            recipeImage.setImageBitmap(recipe.getPicBitmap());
+        }
         recipeText = (TextView) dialog.findViewById(R.id.recipe_ingr_text);
         if(instructions == null || instructions.equals("null")){
                 checkUrlButton.setVisibility(View.VISIBLE);

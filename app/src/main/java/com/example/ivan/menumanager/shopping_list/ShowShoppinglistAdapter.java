@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
@@ -39,6 +40,13 @@ public class ShowShoppinglistAdapter extends RecyclerView.Adapter<ShowShoppingli
         product = products.get(position);
         holder.productName.setText(product.getName());
         holder.productAmount.setText(product.getQuantity()+"");
+        holder.productMeasure.setText(product.getUnit());
+        if(product.getIsHasItem()){
+            holder.checkbox.setChecked(true);
+        }
+        else{
+            holder.checkbox.setChecked(false);
+        }
     }
 
     @Override
@@ -50,12 +58,14 @@ public class ShowShoppinglistAdapter extends RecyclerView.Adapter<ShowShoppingli
         TextView productName;
         TextView productAmount;
         TextView productMeasure;
+        CheckBox checkbox;
 
         public NewViewHolder(View row) {
             super(row);
             productName = (TextView) row.findViewById(R.id.ingredient_name_tv);
             productAmount = (TextView) row.findViewById(R.id.ingredint_amount_tv);
             productMeasure = (TextView) row.findViewById(R.id.ingredint_unit_tv);
+            checkbox = (CheckBox) row.findViewById(R.id.check_box);
         }
 
 

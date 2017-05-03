@@ -54,6 +54,7 @@ import java.util.Scanner;
 public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapter.NewViewHolder>{
 
     public static ArrayList<Recipe> recipes;
+
     private Activity activity;
     private Recipe recipe;
     private Bitmap bitmap;
@@ -74,7 +75,7 @@ public class RecipeSearchAdapter extends RecyclerView.Adapter<RecipeSearchAdapte
         LayoutInflater li = LayoutInflater.from(activity);
         View row = li.inflate(R.layout.recipe_search_recycler, parent,false);
         RecipeSearchAdapter.NewViewHolder vh = new RecipeSearchAdapter.NewViewHolder(row);
-
+      //  DBManager.households.get(DBManager.currentHousehold).addShoppingLists();
         if(isFinished && recipes.get(0).getIngredients().size()==0) {
             Log.e("Vleze","INSIDE");
             for (int i = 0; i <recipes.size() ; i++) {

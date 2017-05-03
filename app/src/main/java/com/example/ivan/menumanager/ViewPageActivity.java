@@ -39,6 +39,7 @@ public class ViewPageActivity extends AppCompatActivity {
         adapter = new ViewPageAdapter(getSupportFragmentManager(), getApplicationContext());
         viewPager.setAdapter(adapter);
 
+
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

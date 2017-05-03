@@ -352,6 +352,7 @@ public class DBManager extends SQLiteOpenHelper {
                     product.setExpiryTermID(idExp);
                     product.setQuantity(quantityPr);
                     households.get(nameHh).addProduct(product);
+
                 }
             }
         }

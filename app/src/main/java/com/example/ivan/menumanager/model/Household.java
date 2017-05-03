@@ -1,5 +1,7 @@
 package com.example.ivan.menumanager.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +51,8 @@ Household {
     }
 
     public void addProduct(Product product) {
+
+
         this.products.put(product.getName(), product);
 
     }

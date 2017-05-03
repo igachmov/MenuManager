@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 public class ShoppingFragment extends Fragment {
 
-
-    private TextView recipeName;
     private ArrayList<String> names ;
     private RecyclerView recyclerView;
     private ShoppingAdapter shoppingAdapter;
@@ -34,7 +32,6 @@ public class ShoppingFragment extends Fragment {
         if(names==null) {
             names = new ArrayList<>();
         }
-
         View root = inflater.inflate(R.layout.fragment_shopping, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.shoppingList_recyclerview);
         shoppingAdapter  = new ShoppingAdapter(getActivity(),names);

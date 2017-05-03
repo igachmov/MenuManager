@@ -53,7 +53,6 @@ import java.util.Scanner;
 public class RecipesFragment extends Fragment {
 
     private ImageView searchButton;
-    private TextView recipeName;
     private RecyclerView recyclerView;
     private EditText searchName;
     private static ArrayList<Recipe> recipeData ;
@@ -62,6 +61,7 @@ public class RecipesFragment extends Fragment {
     private RelativeLayout relativeLayout;
     private String  name;
     private Bitmap defaul ;
+
 
 
     @Override

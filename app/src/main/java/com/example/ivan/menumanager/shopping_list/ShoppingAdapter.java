@@ -63,9 +63,9 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewVie
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            ShowShoppinglistFragment showShoppinglistFragment = new ShowShoppinglistFragment(recipes.get(position).getIngredients());
+            RecipeViewFragment recipeViewFragment = new RecipeViewFragment(position);
             ViewPageActivity myActivity = (ViewPageActivity) activity;
-            showShoppinglistFragment.show(myActivity.getSupportFragmentManager(), "shoppingView");
+            recipeViewFragment.show(myActivity.getSupportFragmentManager(), "shoppingView");
         }
     }
 

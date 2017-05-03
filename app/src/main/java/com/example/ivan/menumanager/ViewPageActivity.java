@@ -1,18 +1,15 @@
 package com.example.ivan.menumanager;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.ivan.menumanager.household.ProductsAdapter;
 import com.example.ivan.menumanager.household.ChooseItemFragment;
 import com.example.ivan.menumanager.household.ProductsFragment;
 import com.example.ivan.menumanager.model.DBManager;
@@ -26,9 +23,6 @@ public class ViewPageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Toolbar toolbar;
     private ViewPageAdapter adapter;
-    private ShoppingFragment shoppingFragment;
-    private static ArrayList<String> names;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

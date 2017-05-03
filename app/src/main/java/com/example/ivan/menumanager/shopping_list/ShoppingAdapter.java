@@ -1,9 +1,7 @@
 package com.example.ivan.menumanager.shopping_list;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +9,9 @@ import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
-import com.example.ivan.menumanager.model.Product;
-import com.example.ivan.menumanager.model.Recipe;
-import com.example.ivan.menumanager.recipe.RecipeViewFragment;
+import com.example.ivan.menumanager.model.ShoppingList;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ivan on 5/2/2017.
@@ -23,12 +19,13 @@ import java.util.ArrayList;
 
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewViewHolder>{
 
-    private ArrayList<String> recipeNames;
-    private ArrayList<Recipe> recipes ;
+    private List<ShoppingList> shoppingLists;
     private Activity activity;
-    private String recipeName;
-    public ShoppingAdapter(Activity activity, ArrayList<String> recipeNames) {
-        this.recipeNames = recipeNames;
+    private ShoppingList shoppingList;
+
+
+    public ShoppingAdapter(Activity activity, List<ShoppingList> shoppingLists) {
+        this.shoppingLists = shoppingLists;
         this.activity = activity;
     }
     @Override
@@ -42,14 +39,16 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewVie
 
     @Override
     public void onBindViewHolder(ShoppingAdapter.NewViewHolder holder, int position) {
-        recipeName = recipeNames.get(position);
-        holder.recipeName.setText(recipeName);
+        shoppingList = shoppingLists.get(position);
+        holder.recipeName.setText(shoppingList.getName());
     }
 
     @Override
     public int getItemCount() {
-       return recipeNames.size();
+       return shoppingLists.size();
     }
+
+
 
     public class NewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView recipeName;
@@ -63,20 +62,14 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewVie
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            ShowShoppinglistFragment showShoppinglistFragment = new ShowShoppinglistFragment(recipes.get(position).getIngredients());
+            ShowShoppinglistFragment showShoppinglistFragment = new ShowShoppinglistFragment(shoppingLists.get(position).getProductsToBuy(),position);
             ViewPageActivity myActivity = (ViewPageActivity) activity;
             showShoppinglistFragment.show(myActivity.getSupportFragmentManager(), "shoppingView");
         }
     }
-
-   public void getInfo(String name,Recipe recipe){
-       recipeNames.add(name);
-       if(recipes==null){
-           recipes = new ArrayList<>();
-       }
-       recipes.add(recipe);
-       notifyDataSetChanged();
-   }
+    public void setInfo() {
+        notifyDataSetChanged();
+    }
 }
 
 

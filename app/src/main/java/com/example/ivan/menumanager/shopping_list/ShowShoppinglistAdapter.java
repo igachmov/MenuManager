@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.model.Product;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ivan on 5/2/2017.
@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class ShowShoppinglistAdapter extends RecyclerView.Adapter<ShowShoppinglistAdapter.NewViewHolder>{
 
 
-    private ArrayList<Product> products;
+    private List<Product> products;
     private Context context;
     private Product product;
-    public ShowShoppinglistAdapter(Context context, ArrayList<Product> products) {
+    public ShowShoppinglistAdapter(Context context, List<Product> products) {
         this.products = products;
         this.context = context;
     }

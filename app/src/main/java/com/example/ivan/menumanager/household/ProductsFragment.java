@@ -16,7 +16,6 @@ import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 
-
 import java.util.ArrayList;
 
 /**

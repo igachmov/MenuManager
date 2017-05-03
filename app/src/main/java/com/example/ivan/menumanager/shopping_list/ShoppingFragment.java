@@ -1,28 +1,24 @@
 package com.example.ivan.menumanager.shopping_list;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.ivan.menumanager.R;
-import com.example.ivan.menumanager.model.Product;
+import com.example.ivan.menumanager.model.DBManager;
+import com.example.ivan.menumanager.model.ShoppingList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingFragment extends Fragment {
 
-
-    private TextView recipeName;
-    private ArrayList<String> names ;
+    private List<ShoppingList> shoppingLists ;
     private RecyclerView recyclerView;
     private ShoppingAdapter shoppingAdapter;
 
@@ -31,13 +27,13 @@ public class ShoppingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(names==null) {
-            names = new ArrayList<>();
+        if(shoppingLists==null) {
+            shoppingLists = new ArrayList<>();
         }
-
+        shoppingLists = (List<ShoppingList>) DBManager.households.get(DBManager.currentHousehold).getShoppingLists();
         View root = inflater.inflate(R.layout.fragment_shopping, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.shoppingList_recyclerview);
-        shoppingAdapter  = new ShoppingAdapter(getActivity(),names);
+        shoppingAdapter  = new ShoppingAdapter(getActivity(),shoppingLists);
         recyclerView.setAdapter(shoppingAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return root;

@@ -13,9 +13,11 @@ import com.example.ivan.menumanager.R;
 import com.example.ivan.menumanager.ViewPageActivity;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
+import com.example.ivan.menumanager.model.ShoppingList;
 import com.example.ivan.menumanager.recipe.RecipeViewFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ivan on 5/2/2017.
@@ -23,12 +25,13 @@ import java.util.ArrayList;
 
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewViewHolder>{
 
-    private ArrayList<String> recipeNames;
-    private ArrayList<Recipe> recipes ;
+    private List<ShoppingList> shoppingLists;
     private Activity activity;
-    private String recipeName;
-    public ShoppingAdapter(Activity activity, ArrayList<String> recipeNames) {
-        this.recipeNames = recipeNames;
+    private ShoppingList shoppingList;
+
+
+    public ShoppingAdapter(Activity activity, List<ShoppingList> shoppingLists) {
+        this.shoppingLists = shoppingLists;
         this.activity = activity;
     }
     @Override
@@ -42,14 +45,16 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewVie
 
     @Override
     public void onBindViewHolder(ShoppingAdapter.NewViewHolder holder, int position) {
-        recipeName = recipeNames.get(position);
-        holder.recipeName.setText(recipeName);
+        shoppingList = shoppingLists.get(position);
+        holder.recipeName.setText(shoppingList.getName());
     }
 
     @Override
     public int getItemCount() {
-       return recipeNames.size();
+       return shoppingLists.size();
     }
+
+
 
     public class NewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView recipeName;
@@ -63,20 +68,14 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.NewVie
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            RecipeViewFragment recipeViewFragment = new RecipeViewFragment(position);
+            ShowShoppinglistFragment showShoppinglistFragment = new ShowShoppinglistFragment(shoppingLists.get(position).getProductsToBuy(),position);
             ViewPageActivity myActivity = (ViewPageActivity) activity;
-            recipeViewFragment.show(myActivity.getSupportFragmentManager(), "shoppingView");
+            showShoppinglistFragment.show(myActivity.getSupportFragmentManager(), "shoppingView");
         }
     }
-
-   public void getInfo(String name,Recipe recipe){
-       recipeNames.add(name);
-       if(recipes==null){
-           recipes = new ArrayList<>();
-       }
-       recipes.add(recipe);
-       notifyDataSetChanged();
-   }
+    public void setInfo() {
+        notifyDataSetChanged();
+    }
 }
 
 

@@ -24,6 +24,7 @@ import com.example.ivan.menumanager.ViewPageActivity;
 import com.example.ivan.menumanager.model.DBManager;
 import com.example.ivan.menumanager.model.Product;
 import com.example.ivan.menumanager.model.Recipe;
+import com.example.ivan.menumanager.model.ShoppingList;
 import com.example.ivan.menumanager.shopping_list.ShoppingFragment;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
@@ -75,12 +76,21 @@ public class RecipeViewFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().requestWindowFeature(STYLE_NO_TITLE);
-        recipe = RecipeSearchAdapter.recipes.get(position);
+        View dialog = inflater.inflate(R.layout.fragment_recipe_view, container, false);
+        fab = (FloatingActionButton) dialog.findViewById(R.id.fab_view_recipe_button);
+        if(getArguments()!=null){
+            int idInt = getArguments().getInt("position");
+            recipe = DBManager.households.get(DBManager.currentHousehold).getRecipes().get(idInt);
+            fab.setVisibility(View.GONE);
+        }
+        else {
+            recipe = RecipeSearchAdapter.recipes.get(position);
+        }
         productData = recipe.getIngredients();
         instructions = recipe.getInstructions();
         sourceUrl = recipe.getSourceUrl();
 
-        View dialog = inflater.inflate(R.layout.fragment_recipe_view, container, false);
+
         checkUrlButton = (Button) dialog.findViewById(R.id.url_button);
         recyclerView = (RecyclerView) dialog.findViewById(R.id.recipe_view_recyclerview);
         recipeImage = (ImageView) dialog.findViewById(R.id.recipe_ingr_image);
@@ -119,13 +129,17 @@ public class RecipeViewFragment extends DialogFragment {
 
 
 
-        fab = (FloatingActionButton) dialog.findViewById(R.id.fab_view_recipe_button);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShoppingList shoppingList = new ShoppingList(recipe.getName(),recipe.getIngredients());
+                DBManager.households.get(DBManager.currentHousehold).addShoppingLists(shoppingList);
+                DBManager.households.get(DBManager.currentHousehold).addRecipe(recipe);
                 ViewPageActivity activity = (ViewPageActivity) getActivity();
                 ShoppingFragment shoppingFragment = (ShoppingFragment) activity.getAdapter().getItem(1);
-                shoppingFragment.getShoppingAdapter().getInfo(recipe.getName(),recipe);
+                shoppingFragment.getShoppingAdapter().setInfo();
+
                 Toast.makeText(getActivity(), "Recipe added to shoppinglist", Toast.LENGTH_SHORT).show();
                 dismiss();
             }

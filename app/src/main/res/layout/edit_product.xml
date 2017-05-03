@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:theme="@style/MyDialog"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="300dp"
     android:padding="10dp"
     android:background="@drawable/categories_background"
     tools:context="com.example.ivan.menumanager.household.ChooseItemFragment"
@@ -12,9 +12,9 @@
     <TextView
         android:id="@+id/new_product_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="2.5"
-        android:padding="7dp"
+        android:padding="8dp"
         android:textSize="@dimen/names_size"
         android:gravity="center"
         android:background="@drawable/z_round_shape_blue_grey"
@@ -36,7 +36,8 @@
                 android:layout_weight="1"
             android:text="quantity"
                 android:padding="5dp"
-                android:layout_margin="7dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="7dp"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/colorBlue_grey_dark"/>
@@ -47,7 +48,8 @@
                 android:layout_weight="1"
                 android:text="measure"
                 android:padding="5dp"
-                android:layout_margin="7dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="7dp"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/colorBlue_grey_dark"/>
@@ -58,7 +60,8 @@
                 android:layout_weight="1"
                 android:text="food category"
                 android:padding="5dp"
-                android:layout_margin="7dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="7dp"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/colorBlue_grey_dark"/>
@@ -69,7 +72,8 @@
                 android:layout_weight="1"
                 android:text="expiry term"
                 android:padding="5dp"
-                android:layout_margin="7dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="7dp"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/colorBlue_grey_dark"/>
@@ -87,8 +91,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:padding="13dp"
-                android:layout_marginLeft="10dp"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
             android:inputType="numberDecimal"
             android:hint="@string/fill_in"
@@ -104,7 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:padding="13dp"
+                android:padding="3dp"
+                android:layout_marginTop="6dp"
             android:dropDownSelector="@color/colorWhite"
             android:backgroundTint="@color/colorBlue_grey_dark"
             android:textColor="@color/colorBlue_grey_dark"></Spinner>
@@ -114,7 +120,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:padding="13dp"
+                android:padding="3dp"
+                android:layout_marginTop="6dp"
             android:dropDownSelector="@color/colorWhite"
             android:backgroundTint="@color/colorBlue_grey_dark"
             android:textColor="@color/colorBlue_grey_dark"></Spinner>
@@ -125,7 +132,8 @@
             android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:padding="13dp"
+                android:padding="3dp"
+                android:layout_marginTop="6dp"
             android:dropDownSelector="@color/colorWhite"
             android:backgroundTint="@color/colorBlue_grey_dark"
             android:textColor="@color/colorBlue_grey_dark">
@@ -136,7 +144,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="5dp">
 
         <Button
@@ -164,21 +172,11 @@
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 
-        <Button
-            android:id="@+id/check_shopping_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textAllCaps="false"
-            android:background="@drawable/z_round_shape_blue_grey"
-            android:text="@string/remove_shopping_lists"
-            android:textSize="14sp"
-            android:textColor="@color/colorWhite" />
 
         <Button
             android:id="@+id/cancel_product"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
             android:paddingLeft="60dp"
             android:paddingRight="60dp"

@@ -175,7 +175,7 @@ public class RecipesFragment extends Fragment {
                 progressBar.setProgress(0);
                 fridgeLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.VISIBLE);
-                Toast.makeText(getActivity(), "Sorry there are no such recipes with that name try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No information found on search criteria\nPlease try again", Toast.LENGTH_SHORT).show();
             }
             RecipeSearchAdapter adapter = new RecipeSearchAdapter(getActivity(), recipeData,defaul);
             recyclerView.setAdapter(adapter);

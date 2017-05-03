@@ -81,14 +81,6 @@ public class DBManager extends SQLiteOpenHelper {
             ourInstance = new DBManager(context);
             DBManager.context = context;
             loadInfo();
-            String name;
-            for (String household : households.keySet()) {
-                Log.e("Vanya", household);
-                name = household;
-                for (Product product : households.get(name).getProducts().values()) {
-                    Log.e("Vanya", product.getName() + "," + product.getQuantity() + "");
-                }
-            }
         }
         return ourInstance;
     }
@@ -137,7 +129,6 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
 
-    //adding only in household table because we still have no recipes and other stuff
     public void addHousehold(String householdName) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, householdName);
@@ -151,20 +142,12 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     //TODO
-    public void addProduct(Product product, double quantity, int expiryTermID, long
-            currentTimeInMilli) {
+    public void addProduct(Product product) {
+
         ContentValues contentValues = new ContentValues();
         int productID = 0;
         int householdID = 0;
         Cursor cursor;
-        cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + HOUSEHOLD + " WHERE " + NAME + "=?", new String[]{currentHousehold});
-        while (cursor.moveToNext()) {
-            householdID = cursor.getInt(cursor.getColumnIndex(ID));
-        }
-        cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + PRODUCT + " WHERE " + NAME + "=?", new String[]{product.getName()});
-        while (cursor.moveToNext()) {
-            productID = cursor.getInt(cursor.getColumnIndex(ID));
-        }
         //insert in predefined products
         if (!predefinedProducts.containsKey(product.getName())) {
             contentValues.put(NAME, product.getName());
@@ -174,32 +157,43 @@ public class DBManager extends SQLiteOpenHelper {
             predefinedProducts.put(product.getName(), product);
             contentValues.clear();
         }
-
+        cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + HOUSEHOLD + " WHERE " + NAME + "=?", new String[]{currentHousehold});
+        while (cursor.moveToNext()) {
+            householdID = cursor.getInt(cursor.getColumnIndex(ID));
+        }
+        cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + ID + " FROM " + PRODUCT + " WHERE " + NAME + "=?", new String[]{product.getName()});
+        while (cursor.moveToNext()) {
+            productID = cursor.getInt(cursor.getColumnIndex(ID));
+            Log.e("Vanya", "product id - "+productID+"");
+        }
         if (!households.get(currentHousehold).getProducts().containsKey(product.getName())) {
             //insert in household_product
             contentValues.put(HOUSEHOLD_ID, householdID);
             contentValues.put(PRODUCT_ID, productID);
-            contentValues.put(QUANTITY, quantity);
-            contentValues.put(PURCHASE_DATE, currentTimeInMilli);
-            contentValues.put(EXPIRY_TERM_ID, expiryTermID);
+            contentValues.put(QUANTITY, product.getQuantity());
+            contentValues.put(PURCHASE_DATE, product.getPurchaseDateInMilli());
+            contentValues.put(EXPIRY_TERM_ID, product.getExpiryTermID());
             ourInstance.getWritableDatabase().insert(HOUSEHOLD_PRODUCT, null, contentValues);
             contentValues.clear();
             Toast.makeText(context, product.getName() + " has been added", Toast.LENGTH_SHORT).show();
+            cursor = ourInstance.getWritableDatabase().rawQuery("SELECT " + PRODUCT_ID + "," + QUANTITY + "," + PURCHASE_DATE + "," + EXPIRY_TERM_ID + " FROM " + HOUSEHOLD_PRODUCT + " WHERE " + HOUSEHOLD_ID + " = ?", new String[]{String.valueOf(householdID)});
+            while(cursor.moveToNext()){
+                Log.e("Vanya", cursor.getString(cursor.getColumnIndex(PRODUCT_ID)));
+                Log.e("Vanya", (cursor.getDouble(cursor.getColumnIndex(QUANTITY))+""));
+                Log.e("Vanya", (cursor.getInt(cursor.getColumnIndex(PURCHASE_DATE))+""));
+                Log.e("Vanya", (cursor.getInt(cursor.getColumnIndex(EXPIRY_TERM_ID))+""));
+            }
         } else {
             //update in household_product
-            contentValues.put(QUANTITY, quantity);
-            contentValues.put(PURCHASE_DATE, currentTimeInMilli);
-            contentValues.put(EXPIRY_TERM_ID, expiryTermID);
+            contentValues.put(QUANTITY, product.getQuantity());
+            contentValues.put(PURCHASE_DATE, product.getPurchaseDateInMilli());
+            contentValues.put(EXPIRY_TERM_ID, product.getExpiryTermID());
             ourInstance.getWritableDatabase().update(HOUSEHOLD_PRODUCT, contentValues,
                     (HOUSEHOLD_ID + " LIKE ? AND " + PRODUCT_ID + " LIKE ? "), new String[]{String.valueOf(householdID), String.valueOf(productID)});
             contentValues.clear();
             Toast.makeText(context, product.getName() + " has been updated", Toast.LENGTH_SHORT).show();
         }
         //gets overriden if existing
-        Product productToAdd = product;
-        product.setPurchaseDateInMilli(currentTimeInMilli);
-        product.setQuantity(quantity);
-        product.setExpiryTermID(expiryTermID);
         households.get(currentHousehold).addProduct(product);
     }
 
@@ -239,20 +233,11 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
 
-    //TODO
-    public void updateProduct() {
-
-    }
 
     //TODO
     public void addRecipe() {
         //TODO insert recipe table recipe
         //insert recipe id and household id in common table
-
-    }
-
-    //TODO
-    public void deleteRecipe() {
 
     }
 
@@ -366,11 +351,12 @@ public class DBManager extends SQLiteOpenHelper {
                     product.setPurchaseDateInMilli(purchPr);
                     product.setExpiryTermID(idExp);
                     product.setQuantity(quantityPr);
+
                     //slojeno tuk za da raboti
                     households.get(nameHh).addProduct(product);
                 }
 
-                // Log.e("Vanya", households.get(nameHh).getName() + "," + product.getName() + "," + counter);
+
             }
         }
         //get all measures

@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:text="@string/add"
-                    android:background="@drawable/z_round_shape_blue_grey"
+                    android:background="@drawable/z_round_shape_blue"
                     android:textSize="14sp"
                     android:textColor="@color/colorWhite" />
 
@@ -69,9 +69,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:text="@string/cancel"
-                    android:background="@drawable/z_round_shape_blue_grey"
+                    android:background="@drawable/z_round_shape_blue"
                     android:textSize="14sp"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorBlue_grey_dark" />
             </LinearLayout>
         </LinearLayout>
     <LinearLayout

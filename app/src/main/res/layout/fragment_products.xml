@@ -364,7 +364,8 @@
             android:layout_margin="16dp"
             android:src="@android:drawable/ic_input_add"
             app:backgroundTint="@color/colorBlue_grey_dark"
-            app:elevation="10dp" />
+            app:elevation="10dp"
+            android:tint="@color/colorWhite"/>
 
     </FrameLayout>
 

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Menu Manager</string>
-    <string name="recipe">Today...</string>
-    <string name="households">Households</string>
+    <string name="households">Household</string>
 
     <string name="add_household">ADD HOUSEHOLD</string>
     <string name="add_product">New product</string>
